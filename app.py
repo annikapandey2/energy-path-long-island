@@ -64,7 +64,7 @@ if main_concern == "Water use or water heating":
         "For eligible ENERGY STAR-certified heat-pump water heaters, "
         "PSEG Long Island says rebates may be available up to $1,200. "
         "PSEG Long Island states that heat-pump water heaters can "
-        "use up to 50% less energy than traditional water heaters. "
+        "use up to 50% less energy than traditional electric water heaters. "
         "Actual savings and eligibility vary."
     )
 
