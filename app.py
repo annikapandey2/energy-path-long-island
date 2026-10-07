@@ -89,3 +89,18 @@ else:
         "energy use, and any improvements completed. This app provides guidance, "
         "not a guaranteed savings estimate."
     )
+st.subheader("Your Home Situation")
+
+if home_status == "Rent":
+  st.info(
+    "You selected Rent. This guide will prioritze changes that do not"
+    "require replacing building equipment. Before making changes to"
+    "the property or installed equipment, check with your landlord"
+    "or property manager."
+  )
+else:
+  st.info(
+    "You selected Own. This guide can include both everday actions"
+    "and potential home upgrades. Upgrade suggestions are starting"'
+    "points to investigate."
+  )
