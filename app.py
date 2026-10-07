@@ -101,6 +101,6 @@ if home_status == "Rent":
 else:
   st.info(
     "You selected Own. This guide can include both everday actions"
-    "and potential home upgrades. Upgrade suggestions are starting"'
+    "and potential home upgrades. Upgrade suggestions are starting"
     "points to investigate."
   )
