@@ -1,4 +1,48 @@
+import json
+from pathlib import Path
+
 import streamlit as st
+
+
+def match_actions(actions, concern, change_level, equipment_control):
+    matches = []
+    excluded = []
+
+    for action in actions:
+        if concern not in action["concerns"]:
+            continue
+
+        if change_level not in action["change_levels"]:
+            continue
+
+        if (
+            action["requires_equipment_control"]
+            and equipment_control
+            != "Yes, I can authorize equipment changes"
+        ):
+            excluded.append({
+                "title": action["title"],
+                "reason": (
+                    "This action requires authority to change installed "
+                    "equipment. Your answer does not confirm that authority."
+                )
+            })
+            continue
+
+        matches.append({
+            "title": action["title"],
+            "description": action["description"],
+            "reason": (
+                f"It addresses '{concern}' and fits your preference "
+                f"for '{change_level}'."
+            ),
+            "requires_equipment_control": (
+                action["requires_equipment_control"]
+            )
+        })
+
+    return matches, excluded
+
 st.title("Energy Path Long Island")
 st.write("Answer a few questions to find energy-saving ideas for your home.")
 home_status = st.radio(
@@ -64,18 +108,63 @@ if equipment_control is None:
   st.stop()
 st.divider()
 st.header("Your Energy Path")
-st.subheader("Start Saving Now")
+st.subheader("Your Recommended Next Steps")
 
-if main_concern == "Lighting and electronics":
-  st.write("Use LED bulbs in the rooms you use most, turn off lights when leaving a room, and unplug chargers or electronics that are not being used.")
-elif main_concern == "Water use or water heating":
-  st.write("Take shorter showers, wash clothes in cold water when possible, and run full loads in the dishwasher or washing machine.")
-elif main_concern == "Drafts or rooms that feel too hot or cold":
-  st.write("Close curtains at night and check for noticeable gaps around doors and windows.")
-elif main_concern == "Heating or cooling":
-  st.write("Use thermostat settings consistently, keep vents clear, and avoid heating or cooling unused rooms when possible.")
-elif main_concern == "Appliances or high electricity use":
-  st.write("Run full appliance loads, use energy-saving settings, and replace older products with efficient models when they need to be replaced.")
+catalog_path = Path(__file__).resolve().parent / "actions.json"
+
+try:
+    with catalog_path.open("r", encoding="utf-8") as file:
+        actions = json.load(file)
+except (OSError, json.JSONDecodeError):
+    st.error(
+        "The action catalog could not be loaded. "
+        "Check that actions.json is beside app.py and contains valid JSON."
+    )
+    st.stop()
+
+matches, excluded = match_actions(
+    actions=actions,
+    concern=main_concern,
+    change_level=change_level,
+    equipment_control=equipment_control
+)
+
+if matches:
+    for number, action in enumerate(matches, start=1):
+        st.markdown(f"### {number}. {action['title']}")
+        st.write(action["description"])
+        st.caption(f"Why this appears: {action['reason']}")
+
+        if action["requires_equipment_control"]:
+            st.caption(
+                "Your equipment-control answer confirms that you "
+                "can authorize changes. This is an investigation "
+                "step, not a recommendation to purchase equipment."
+            )
+else:
+    st.info(
+        "No action in the current starter catalog matches this "
+        "combination. That does not mean no suitable option exists."
+    )
+
+if change_level == "Programs or incentives to explore":
+    st.caption(
+        "Local-program matching is not connected yet. "
+        "We will add verified resources separately."
+    )
+
+if excluded:
+    with st.expander("What was not included, and why?"):
+        for action in excluded:
+            st.write(action["title"])
+            st.caption(action["reason"])
+
+st.caption(
+    "Prototype: this first matching function uses your concern, "
+    "change preference, and equipment control. Goal-based "
+    "prioritization and heating-source matching are not connected yet."
+)
+
 
 
 st.subheader("Your Home Situation")
