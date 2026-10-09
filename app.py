@@ -82,7 +82,7 @@ st.subheader("Your Home Situation")
 
 if home_status == "Rent":
   st.info(
-    "You selected Rent. Your plan should distinguish actions you can take"
+    "You selected Rent. Your plan should distinguish actions you can take "
     "from equipment changes requiring approval."
   )
 else:
