@@ -1,1 +1,58 @@
 
+[
+  {
+     "id": "draft_check",
+    "title": "Identify where comfort problems occur",
+    "description": "Note which rooms feel too hot or cold and check for noticeable gaps around doors and windows. Record the issue before deciding on property changes.",
+    "concerns": ["Drafts or rooms that feel too hot or cold"],
+    "change_levels": ["Easy changes I can do now"],
+    "requires_equipment_control": false
+  },
+  {
+    "id": "heating_observation",
+    "title": "Record your heating or cooling concern",
+    "description": "Note which rooms are affected, when the problem happens, and which controls you can access. Use this information when discussing the issue with the equipment owner or a qualified professional.",
+    "concerns": ["Heating or cooling"],
+    "change_levels": ["Easy changes I can do now"],
+    "requires_equipment_control": false
+  },
+  {
+    "id": "lighting_habits",
+    "title": "Review lighting and electronics habits",
+    "description": "Start with the lights and electronics you use most. Identify what is left on unnecessarily and which equipment you are permitted to change.",
+    "concerns": ["Lighting and electronics"],
+    "change_levels": ["Easy changes I can do now"],
+    "requires_equipment_control": false
+  },
+  {
+    "id": "water_habits",
+    "title": "Review water-use habits",
+    "description": "Review shower length, laundry settings, and whether you run full dishwasher or washing-machine loads. Separate changes to your habits from changes to installed equipment.",
+    "concerns": ["Water use or water heating"],
+    "change_levels": ["Easy changes I can do now"],
+    "requires_equipment_control": false
+  },
+  {
+    "id": "appliance_review",
+    "title": "Identify the appliances behind your concern",
+    "description": "List the appliances you use most and their available energy-saving settings. Note which appliances belong to you and which belong to the property owner.",
+    "concerns": ["Appliances or high electricity use"],
+    "change_levels": ["Easy changes I can do now"],
+    "requires_equipment_control": false
+  },
+  {
+    "id": "equipment_investigation",
+    "title": "Investigate equipment options before replacing anything",
+    "description": "Record the existing equipment type and the problem you want to solve. Discuss suitable options with a qualified professional before selecting equipment or assuming a rebate applies.",
+    "concerns": [
+      "Heating or cooling",
+      "Water use or water heating",
+      "Appliances or high electricity use"
+    ],
+    "change_levels": ["Bigger long-term updates"],
+    "requires_equipment_control": true
+  }
+]
+
+
+
