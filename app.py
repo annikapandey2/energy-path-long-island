@@ -5,6 +5,17 @@ home_status = st.radio(
   "Do you rent or own your home?",
   ["Rent", "Own"]
 )
+equipment_control = st.radio(
+   "Can you make changes to installed heating, cooling, or water-heating equipment?",
+  [
+    "Yes, I can authorize equipment changes",
+    "Only with landlord or property-manager approval",
+    "No, I cannot authorize equipment changes",
+    "I am not sure"
+  ],
+  index=None
+)
+  
 main_goal = st.radio(
   "What is your main energy goal?",
   [
@@ -42,6 +53,15 @@ heating_source = st.radio(
     "I am not sure"
   ]
 )
+
+build_plan = st.button("Build my plan", type="primary")
+
+if not build_plan:
+  st.info("Complete the questions, then select Build my plan.")
+  st.stop()
+if equipment_control is None:
+  st.warning("Please answer the equipment-control question.")
+  st.stop()
 st.divider()
 st.header("Your Energy Path")
 st.subheader("Start Saving Now")
@@ -57,50 +77,17 @@ elif main_concern == "Heating or cooling":
 elif main_concern == "Appliances or high electricity use":
   st.write("Run full appliance loads, use energy-saving settings, and replace older products with efficient models when they need to be replaced.")
 
-st.subheader("Estimated Impact")
 
-if main_concern == "Water use or water heating":
-    st.info(
-        "For eligible ENERGY STAR-certified heat-pump water heaters, "
-        "PSEG Long Island says rebates may be available up to $1,200. "
-        "PSEG Long Island states that heat-pump water heaters can "
-        "use up to 50% less energy than traditional electric water heaters. "
-        "Actual savings and eligibility vary."
-    )
-
-elif main_concern == "Heating or cooling":
-    st.info(
-        "ENERGY STAR estimates that some homes with high heating and cooling "
-        "bills, or homes unoccupied for much of the day, may save approximately "
-        "$100 per year with an ENERGY STAR-certified smart thermostat. "
-        "Actual savings and eligibility vary."
-    )
-
-elif main_concern == "Lighting and electronics":
-    st.info(
-        "PSEG Long Island recommends turning off lights and electronics when "
-        "they are not in use and choosing efficient lighting and electronics. "
-        "Your exact savings depend on your current equipment and habits."
-    )
-
-else:
-    st.info(
-        "Your exact savings depend on your home, heating system, equipment, "
-        "energy use, and any improvements completed. This app provides guidance, "
-        "not a guaranteed savings estimate."
-    )
 st.subheader("Your Home Situation")
 
 if home_status == "Rent":
   st.info(
-    "You selected Rent. This guide will prioritze changes that do not "
-    "require replacing building equipment. Before making changes to "
-    "the property or installed equipment, check with your landlord "
-    "or property manager."
+    "You selected Rent. Your plan should distinguish actions you can take"
+    "from equipment changes requiring approval."
   )
 else:
   st.info(
-    "You selected Own. This guide can include both everday actions "
+    "You selected Own. This guide can include both everyday actions "
     "and potential home upgrades. Upgrade suggestions are starting "
     "points to investigate."
   )
