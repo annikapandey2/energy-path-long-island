@@ -54,10 +54,10 @@ heating_source = st.radio(
   ]
 )
 
-build_plan = st.button("Build my plan", type="primary")
+build_plan = st.button("Build My Plan", type="primary")
 
 if not build_plan:
-  st.info("Complete the questions, then select Build my plan.")
+  st.info("Complete the questions, then select: Build My Plan.")
   st.stop()
 if equipment_control is None:
   st.warning("Please answer the equipment-control question.")
