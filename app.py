@@ -90,70 +90,119 @@ def match_actions(actions, concern, change_level, equipment_control):
 
 
 
-
 st.title("Energy Path Long Island")
-st.write("Answer a few questions to find energy-saving ideas for your home.")
-home_status = st.radio(
-  "Do you rent or own your home?",
-  ["Rent", "Own"]
+st.write(
+    "Choose a home-energy concern and the kind of help you want."
 )
-equipment_control = st.radio(
-   "Can you make changes to installed heating, cooling, or water-heating equipment?",
-  [
-    "Yes, I can authorize equipment changes",
-    "Only with landlord or property-manager approval",
-    "No, I cannot authorize equipment changes",
-    "I am not sure"
-  ],
-  index=None
-)
-  
-main_goal = st.radio(
-  "What is your main energy goal?",
-  [
-    "Lower my energy bill",
-    "Make my home more comfortable",
-    "Use less energy",
-    "Learn about bigger home upgrades"
-  ]
-)
-main_concern = st.radio(
-  "What is your biggest energy concern right now?",
-  [
-    "Drafts or rooms that feel too hot or cold",
-    "Heating or cooling",
-    "Lighting and electronics",
-    "Water use or water heating",
-    "Appliances or high electricity use"
-  ]
-)
-change_level = st.radio(
-  "What kind of energy changes are you interested in?",
-  [
-    "Easy changes I can do now",
-    "Programs or incentives to explore",
-    "Bigger long-term updates"
-  ]
-)
-heating_source = st.radio(
-  "What is your primary heating source?",
-  [
-    "Electric heat",
-    "Oil",
-    "Natural Gas",
-    "Heat pump",
-    "I am not sure"
-  ]
+st.caption(
+    "This early version suggests a starting point. "
+    "It does not estimate savings or confirm rebate eligibility."
 )
 
-build_plan = st.button("Build My Plan", type="primary")
+with st.form("energy_plan_form"):
+    st.subheader("What would you like to tackle?")
+
+    main_concern = st.selectbox(
+        "Your main concern",
+        [
+            "Drafts or rooms that feel too hot or cold",
+            "Heating or cooling",
+            "Lighting and electronics",
+            "Water use or water heating",
+            "Appliances or high electricity use"
+        ],
+        index=None,
+        placeholder="Choose a concern"
+    )
+
+    change_level = st.radio(
+        "What kind of next step are you looking for?",
+        [
+            "Easy changes I can do now",
+            "Programs or incentives to explore",
+            "Bigger long-term updates"
+        ]
+    )
+
+    st.caption(
+        "Program and incentive matching is not available yet."
+    )
+
+    st.divider()
+    st.subheader("A little about your home")
+
+    home_status = st.radio(
+        "Do you rent or own?",
+        ["Rent", "Own"],
+        horizontal=True
+    )
+
+    equipment_control = st.selectbox(
+        "Can you approve changes to installed equipment?",
+        [
+            "Yes, I can authorize equipment changes",
+            "Only with landlord or property-manager approval",
+            "No, I cannot authorize equipment changes",
+            "I am not sure"
+        ],
+        index=None,
+        placeholder="Choose an answer"
+    )
+
+    st.caption(
+        "Think about heating, cooling, water-heating equipment, "
+        "and appliances involved in your concern."
+    )
+
+    with st.expander("Optional details—not used in matching yet"):
+        st.caption(
+            "These answers do not change your recommendations "
+            "in the current prototype."
+        )
+
+        main_goal = st.radio(
+            "Your main energy goal",
+            [
+                "Lower my energy bill",
+                "Make my home more comfortable",
+                "Use less energy",
+                "Learn about bigger home upgrades"
+            ],
+            index=None
+        )
+
+        heating_source = st.selectbox(
+            "Your primary heating source",
+            [
+                "Electric heat",
+                "Oil",
+                "Natural Gas",
+                "Heat pump",
+                "I am not sure"
+            ],
+            index=None,
+            placeholder="Choose a heating source"
+        )
+
+    build_plan = st.form_submit_button(
+        "Show my next step",
+        type="primary"
+    )
 
 if not build_plan:
-  st.info("Complete the questions, then select: Build My Plan.")
-  st.stop()
+    st.stop()
+
+if main_concern is None:
+    st.warning("Choose your main concern first.")
+    st.stop()
+
 if equipment_control is None:
-  st.warning("Please answer the equipment-control question.")
-  st.stop()
+    st.warning(
+        "Choose an equipment-control answer. "
+        "If you are unsure, select 'I am not sure'."
+    )
+    st.stop()
+
 
 st.divider()
 st.header("Your next step")
