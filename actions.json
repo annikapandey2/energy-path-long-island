@@ -50,9 +50,28 @@
       "Appliances or high electricity use"
     ],
     "change_levels": ["Bigger long-term updates"],
-    "requires_equipment_control": true
+       "requires_equipment_control": true
+  },
+  {
+    "id": "equipment_permission_next_step",
+    "title": "Clarify equipment authority and prepare your concern summary",
+    "description": "Record the equipment involved, the problem you want to solve, and when it occurs. If changes require approval, use this summary to start a discussion with the property owner or manager. If you are unsure who can authorize changes, clarify that before planning equipment work.",
+    "concerns": [
+      "Heating or cooling",
+      "Water use or water heating",
+      "Appliances or high electricity use"
+    ],
+    "change_levels": ["Bigger long-term updates"],
+    "requires_equipment_control": false,
+    "allowed_equipment_control": [
+      "Only with landlord or property-manager approval",
+      "No, I cannot authorize equipment changes",
+      "I am not sure"
+    ]
   }
 ]
+
+
 
 
 
