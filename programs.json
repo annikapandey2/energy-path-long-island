@@ -1,0 +1,38 @@
+[
+  {
+    "id": "pseg_li_home_comfort_heat_pumps",
+    "name": "PSEG Long Island Heat Pump Rebates",
+    "provider": "PSEG Long Island",
+    "summary": "Explore rebates for qualifying heat-pump projects through PSEG Long Island.",
+    "source_url": "https://www.psegliny.com/saveenergyandmoney/homeefficiency/HomeComfort/HeatPumps/Rebates",
+    "source_checked_on": "2026-10-10",
+    "concerns": [
+      "Heating or cooling"
+    ],
+    "change_levels": [
+      "Programs or incentives to explore",
+      "Bigger long-term updates"
+    ],
+    "screening_status": "resource_only",
+    "verified_requirements": [
+      {
+        "id": "participating_contractor",
+        "description": "A participating contractor is required for rebate eligibility."
+      },
+      {
+        "id": "qualifying_equipment",
+        "description": "The equipment must meet the requirements for the applicable heat-pump project."
+      },
+      {
+        "id": "project_requirements",
+        "description": "Project-specific requirements apply, including sizing and controls where required."
+      },
+      {
+        "id": "income_verification",
+        "description": "Income-based rebate tiers require the program's income-verification process."
+      }
+    ],
+    "eligibility_note": "This resource matches your topic. Your rebate eligibility has not been assessed.",
+    "next_step": "Review the official requirements and discuss your project with a participating contractor."
+  }
+]
