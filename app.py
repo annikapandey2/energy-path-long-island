@@ -121,7 +121,8 @@ with st.form("energy_plan_form"):
     )
 
     st.caption(
-        "Program and incentive matching is not available yet."
+        "Local-resource coverage is limited."
+        "Eligibilty screening is not available yet."
     )
 
     st.divider()
@@ -313,8 +314,8 @@ else:
 
 if change_level == "Programs or incentives to explore":
     st.info(
-        "Program and incentive matching is not available yet. "
-        "No eligibility or rebate has been confirmed."
+        "See local resources below when a matching program is available."
+        "Eligibility screening is not available yet."
     )
 
 if excluded:
@@ -335,6 +336,64 @@ else:
         "You selected Own. Equipment suggestions are options "
         "to investigate, not purchase recommendations."
     )
+    programs_path = Path(__file__).resolve().parent / "programs.json"
+
+try:
+    with programs_path.open("r", encoding="utf-8") as file:
+        programs = json.load(file)
+except (OSError, json.JSONDecodeError):
+    st.warning(
+        "Local resources could not be loaded. "
+        "Your action recommendations are still available."
+    )
+else:
+    matching_programs = [
+        program
+        for program in programs
+        if main_concern in program["concerns"]
+        and change_level in program["change_levels"]
+    ]
+
+    if matching_programs:
+        st.divider()
+        st.subheader("Local resources")
+        st.write(
+            "These resources relate to your concern. "
+            "A resource match does not establish rebate eligibility."
+        )
+
+        for program in matching_programs:
+            with st.container(border=True):
+                st.caption(program["provider"])
+                st.subheader(program["name"])
+                st.write(program["summary"])
+
+                st.markdown("#### Where to start")
+                st.write(program["next_step"])
+
+                st.info(program["eligibility_note"])
+
+                with st.expander("Requirements to review"):
+                    st.caption(
+                        "These are selected requirements, "
+                        "not a complete eligibility checklist."
+                    )
+
+                    for requirement in program["verified_requirements"]:
+                        st.write(
+                            f"- {requirement['description']}"
+                        )
+
+                st.link_button(
+                    "View Official Program Details",
+                    program["source_url"]
+                )
+
+                st.caption(
+                    "Source checked: "
+                    f"{program['source_checked_on']}"
+                )
+
 
 st.caption(
     "Early prototype: recommendations currently use your main concern, "
