@@ -8,11 +8,34 @@ def match_actions(actions, concern, change_level, equipment_control):
     matches = []
     excluded = []
 
+    control_reasons = {
+        "Only with landlord or property-manager approval": (
+            "You said equipment changes require approval, so your "
+            "next step is a discussion rather than an equipment purchase."
+        ),
+        "No, I cannot authorize equipment changes": (
+            "You said you cannot authorize equipment changes, so "
+            "this step focuses on documenting the issue for whoever can."
+        ),
+        "I am not sure": (
+            "You are unsure about equipment authority, so clarify "
+            "that before planning equipment changes."
+        )
+    }
+
     for action in actions:
         if concern not in action["concerns"]:
             continue
 
         if change_level not in action["change_levels"]:
+            continue
+
+        allowed_control = action.get("allowed_equipment_control")
+
+        if (
+            allowed_control is not None
+            and equipment_control not in allowed_control
+        ):
             continue
 
         if (
@@ -29,19 +52,26 @@ def match_actions(actions, concern, change_level, equipment_control):
             })
             continue
 
+        reason = (
+            f"It addresses '{concern}' and fits your preference "
+            f"for '{change_level}'."
+        )
+
+        if allowed_control is not None:
+            reason += " " + control_reasons[equipment_control]
+
         matches.append({
             "title": action["title"],
             "description": action["description"],
-            "reason": (
-                f"It addresses '{concern}' and fits your preference "
-                f"for '{change_level}'."
-            ),
+            "reason": reason,
             "requires_equipment_control": (
                 action["requires_equipment_control"]
             )
         })
 
     return matches, excluded
+
+
 
 st.title("Energy Path Long Island")
 st.write("Answer a few questions to find energy-saving ideas for your home.")
