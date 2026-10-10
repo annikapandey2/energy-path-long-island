@@ -336,7 +336,7 @@ else:
         "You selected Own. Equipment suggestions are options "
         "to investigate, not purchase recommendations."
     )
-    programs_path = Path(__file__).resolve().parent / "programs.json"
+programs_path = Path(__file__).resolve().parent / "programs.json"
 
 try:
     with programs_path.open("r", encoding="utf-8") as file:
