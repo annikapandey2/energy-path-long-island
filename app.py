@@ -94,10 +94,6 @@ st.title("Energy Path Long Island")
 st.write(
     "Choose a home-energy concern and the kind of help you want."
 )
-st.caption(
-    "This early version suggests a starting point. "
-    "It does not estimate savings or confirm rebate eligibility."
-)
 
 with st.form("energy_plan_form"):
     st.subheader("What would you like to tackle?")
