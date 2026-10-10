@@ -184,7 +184,7 @@ if matches:
             action["id"] == "equipment_permission_next_step"
         )
 
-        with st.container(border=True):
+    with st.container(border=True):
             if len(matches) > 1:
                 st.caption(f"STEP {number}")
 
