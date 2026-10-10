@@ -2,24 +2,35 @@ import json
 from pathlib import Path
 
 import streamlit as st
-
-
 def match_actions(actions, concern, change_level, equipment_control):
     matches = []
     excluded = []
 
     control_reasons = {
         "Only with landlord or property-manager approval": (
-            "You said equipment changes require approval, so your "
-            "next step is a discussion rather than an equipment purchase."
+            "Equipment changes need your landlord or property manager's "
+            "approval, so start with a conversation."
         ),
         "No, I cannot authorize equipment changes": (
-            "You said you cannot authorize equipment changes, so "
-            "this step focuses on documenting the issue for whoever can."
+            "You cannot approve equipment changes yourself. "
+            "These notes can help you explain the problem to someone who can."
         ),
         "I am not sure": (
-            "You are unsure about equipment authority, so clarify "
-            "that before planning equipment changes."
+            "You are not sure who can approve equipment changes. "
+            "Find that out before planning equipment work."
+        )
+    }
+
+    general_reasons = {
+        "Easy changes I can do now": (
+            "You chose steps you can take now. "
+            "This starts with understanding your concern, "
+            "rather than replacing equipment."
+        ),
+        "Bigger long-term updates": (
+            "You want to explore a larger update. "
+            "Start by understanding the existing equipment "
+            "and the problem you want to solve."
         )
     }
 
@@ -44,23 +55,29 @@ def match_actions(actions, concern, change_level, equipment_control):
             != "Yes, I can authorize equipment changes"
         ):
             excluded.append({
+                "id": action["id"],
                 "title": action["title"],
                 "reason": (
-                    "This action requires authority to change installed "
-                    "equipment. Your answer does not confirm that authority."
+                    "This equipment-planning step is not shown because "
+                    "you have not confirmed that you can approve changes. "
+                    "The next step above focuses on that first."
                 )
             })
             continue
 
-        reason = (
-            f"It addresses '{concern}' and fits your preference "
-            f"for '{change_level}'."
-        )
-
         if allowed_control is not None:
-            reason += " " + control_reasons[equipment_control]
+            reason = control_reasons.get(
+                equipment_control,
+                "Confirm who can approve changes before planning equipment work."
+            )
+        else:
+            reason = general_reasons.get(
+                change_level,
+                "This step matches your selected concern and type of change."
+            )
 
         matches.append({
+            "id": action["id"],
             "title": action["title"],
             "description": action["description"],
             "reason": reason,
@@ -70,6 +87,7 @@ def match_actions(actions, concern, change_level, equipment_control):
         })
 
     return matches, excluded
+
 
 
 
@@ -162,9 +180,8 @@ matches, excluded = match_actions(
 
 if matches:
     for number, action in enumerate(matches, start=1):
-        is_authority_summary = (
-            action["title"].strip().lower()
-            == "clarify equipment authority and prepare your concern summary"
+       is_authority_summary = (
+            action["id"] == "equipment_permission_next_step"
         )
 
         with st.container(border=True):
@@ -172,30 +189,59 @@ if matches:
                 st.caption(f"STEP {number}")
 
             if is_authority_summary:
-                st.subheader("Start with the person who can approve changes")
+                if equipment_control == (
+                    "Only with landlord or property-manager approval"
+                ):
+                    card_title = "Talk to your landlord or property manager"
+                elif equipment_control == (
+                    "No, I cannot authorize equipment changes"
+                ):
+                    card_title = "Bring the problem to someone who can approve changes"
+                else:
+                    card_title = "Find out who can approve changes"
+
+                st.subheader(card_title)
                 st.write(
-                    "Describe the heating or cooling problem before "
-                    "planning equipment work. If you do not know who "
-                    "can approve changes, find that out first."
+                    "A short description of the problem gives you "
+                    "a starting point for that conversation."
                 )
 
-                st.markdown("#### Put together a few details")
-                st.markdown(
-                    "- Which rooms are affected?\n"
-                    "- When does the problem happen?\n"
-                    "- What equipment is involved, if you know?"
-                )
+                st.markdown("#### Before the conversation")
+
+                if main_concern == "Heating or cooling":
+                    st.markdown(
+                        "- Note which rooms are affected.\n"
+                        "- Write down when the problem happens.\n"
+                        "- Identify the heating or cooling equipment, "
+                        "if you know it."
+                    )
+                elif main_concern == "Water use or water heating":
+                    st.markdown(
+                        "- Describe the water-use or hot-water issue.\n"
+                        "- Note where and when it happens.\n"
+                        "- Identify the fixture or equipment involved, "
+                        "if you know it."
+                    )
+                else:
+                    st.markdown(
+                        "- List the appliances you are concerned about.\n"
+                        "- Describe the problem or electricity-use concern.\n"
+                        "- Note which appliances belong to you "
+                        "and which belong to the property owner."
+                    )
 
                 if home_status == "Rent":
                     st.write(
-                        "Use these notes to start a conversation with "
-                        "your landlord or property manager."
+                        "Share these details with your landlord or "
+                        "property manager. If someone else handles "
+                        "equipment decisions, ask who to contact."
                     )
                 else:
                     st.write(
-                        "Share these notes with the person responsible "
+                        "Share these details with the person responsible "
                         "for approving equipment changes."
                     )
+
             else:
                 st.subheader(action["title"])
                 st.write(action["description"])
