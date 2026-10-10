@@ -181,7 +181,7 @@ with st.form("energy_plan_form"):
         )
 
     build_plan = st.form_submit_button(
-        "Show my next step",
+        "Show My Next Step",
         type="primary"
     )
 
