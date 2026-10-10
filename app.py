@@ -136,9 +136,10 @@ if not build_plan:
 if equipment_control is None:
   st.warning("Please answer the equipment-control question.")
   st.stop()
+
 st.divider()
-st.header("Your Energy Path")
-st.subheader("Your Recommended Next Steps")
+st.header("Your next step")
+st.write("A starting point based on your answers.")
 
 catalog_path = Path(__file__).resolve().parent / "actions.json"
 
@@ -161,52 +162,91 @@ matches, excluded = match_actions(
 
 if matches:
     for number, action in enumerate(matches, start=1):
-        st.markdown(f"### {number}. {action['title']}")
-        st.write(action["description"])
-        st.caption(f"Why this appears: {action['reason']}")
+        is_authority_summary = (
+            action["title"].strip().lower()
+            == "clarify equipment authority and prepare your concern summary"
+        )
 
-        if action["requires_equipment_control"]:
-            st.caption(
-                "Your equipment-control answer confirms that you "
-                "can authorize changes. This is an investigation "
-                "step, not a recommendation to purchase equipment."
-            )
+        with st.container(border=True):
+            if len(matches) > 1:
+                st.caption(f"STEP {number}")
+
+            if is_authority_summary:
+                st.subheader("Start with the person who can approve changes")
+                st.write(
+                    "Describe the heating or cooling problem before "
+                    "planning equipment work. If you do not know who "
+                    "can approve changes, find that out first."
+                )
+
+                st.markdown("#### Put together a few details")
+                st.markdown(
+                    "- Which rooms are affected?\n"
+                    "- When does the problem happen?\n"
+                    "- What equipment is involved, if you know?"
+                )
+
+                if home_status == "Rent":
+                    st.write(
+                        "Use these notes to start a conversation with "
+                        "your landlord or property manager."
+                    )
+                else:
+                    st.write(
+                        "Share these notes with the person responsible "
+                        "for approving equipment changes."
+                    )
+            else:
+                st.subheader(action["title"])
+                st.write(action["description"])
+
+            if action["requires_equipment_control"]:
+                st.caption(
+                    "Explore your options first. This is not a "
+                    "recommendation to buy or replace equipment."
+                )
+
+            with st.expander("Why this step?"):
+                st.write(action["reason"])
+
+                if action["requires_equipment_control"]:
+                    st.write(
+                        "You said you can authorize equipment changes."
+                    )
 else:
     st.info(
-        "No action in the current starter catalog matches this "
-        "combination. That does not mean no suitable option exists."
+        "We do not have a next step for this combination yet. "
+        "The current catalog is limited; this does not mean "
+        "you have no options."
     )
 
 if change_level == "Programs or incentives to explore":
-    st.caption(
-        "Local-program matching is not connected yet. "
-        "We will add verified resources separately."
+    st.info(
+        "Program and incentive matching is not available yet. "
+        "No eligibility or rebate has been confirmed."
     )
 
 if excluded:
-    with st.expander("What was not included, and why?"):
+    with st.expander("Other options—and why they are not shown"):
         for action in excluded:
-            st.write(action["title"])
-            st.caption(action["reason"])
-
-st.caption(
-    "Prototype: this first matching function uses your concern, "
-    "change preference, and equipment control. Goal-based "
-    "prioritization and heating-source matching are not connected yet."
-)
-
-
-
-st.subheader("Your Home Situation")
+            st.markdown(f"#### {action['title']}")
+            st.write(action["reason"])
+st.divider()
+st.caption("ABOUT THIS PLAN")
 
 if home_status == "Rent":
-  st.info(
-    "You selected Rent. Your plan should distinguish actions you can take "
-    "from equipment changes requiring approval."
-  )
+    st.caption(
+        "You selected Rent. Equipment changes may need approval; "
+        "the recommendations use your equipment-control answer."
+    )
 else:
-  st.info(
-    "You selected Own. This guide can include both everyday actions "
-    "and potential home upgrades. Upgrade suggestions are starting "
-    "points to investigate."
-  )
+    st.caption(
+        "You selected Own. Equipment suggestions are options "
+        "to investigate, not purchase recommendations."
+    )
+
+st.caption(
+    "Early prototype: recommendations currently use your main concern, "
+    "change preference, and equipment-control answer. Your goal and "
+    "heating source do not affect the results yet."
+)
