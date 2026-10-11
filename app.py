@@ -133,7 +133,7 @@ with st.form("energy_plan_form"):
         ["Rent", "Own"],
         horizontal=True
     )
-         dwelling_units = st.selectbox(
+    dwelling_units = st.selectbox(
         "How many homes or apartments are in your building? Count your own home too.",
         [
             "1–4",
