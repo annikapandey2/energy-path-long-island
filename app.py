@@ -426,6 +426,51 @@ else:
                     st.caption(
                         "Rebate eligibility has not been established."
                     )
+                    st.markdown("#### Permission to plan equipment changes")
+
+                    if equipment_control == (
+                        "Yes, I can authorize equipment changes"
+                    ):
+                        st.info(
+                            "You reported that you can approve equipment "
+                            "changes. This is a planning answer, not "
+                            "verification of rebate eligibility."
+                        )
+
+                    elif equipment_control == (
+                        "Only with landlord or property-manager approval"
+                    ):
+                        st.info(
+                            "You reported that equipment changes require "
+                            "landlord or property-manager approval. "
+                            "Your next planning step is to discuss the "
+                            "proposed changes with them."
+                        )
+
+                    elif equipment_control == (
+                        "No, I cannot authorize equipment changes"
+                    ):
+                        st.info(
+                            "You reported that you cannot approve "
+                            "equipment changes. Identify who can "
+                            "authorize them before moving forward "
+                            "with equipment planning."
+                        )
+
+                    else:
+                        st.info(
+                            "Permission to approve equipment changes "
+                            "is unknown. Confirm who can authorize "
+                            "changes before moving forward "
+                            "with equipment planning."
+                        )
+
+                    st.caption(
+                        "This note uses your permission answer only. "
+                        "It does not change the building-category result "
+                        "or establish rebate eligibility."
+                    )
+
 
                 else:
                     st.info(program["eligibility_note"])
