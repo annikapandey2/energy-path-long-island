@@ -133,15 +133,20 @@ with st.form("energy_plan_form"):
         ["Rent", "Own"],
         horizontal=True
     )
-    dwelling_units = st.selectbox(
-        "How many separate homes or apartments are in your building?",
+         dwelling_units = st.selectbox(
+        "How many homes or apartments are in your building? Count your own home too.",
         [
-            "1-4",
+            "1–4",
             "5 or more",
             "I am not sure"
         ],
         index=None,
-        placeholder="Choose a building size"
+        placeholder="Choose a building size",
+        help=(
+            "Count whole homes, not rooms or people. "
+            "A single-family house—even with 5 bedrooms—counts as 1. "
+            "A building with 6 separate apartments counts as 6."
+        )
     )
 
     equipment_control = st.selectbox(
