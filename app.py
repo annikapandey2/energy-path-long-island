@@ -381,7 +381,50 @@ else:
                 st.markdown("#### Where to start")
                 st.write(program["next_step"])
 
-                st.info(program["eligibility_note"])
+                if program["id"] == "pseg_li_home_comfort_heat_pumps":
+                    st.markdown("#### Building-category check")
+
+                    if dwelling_units == "1–4":
+                        st.success(
+                            "Your building size fits the 1–4-unit "
+                            "category we are checking."
+                        )
+                        st.caption(
+                            "This checks building size only. "
+                            "The project, equipment, contractor, "
+                            "and other requirements still need review."
+                        )
+
+                    elif dwelling_units == "5 or more":
+                        st.info(
+                            "Your building falls in the separate "
+                            "multifamily category. The 1–4-unit "
+                            "screening path does not apply."
+                        )
+                        st.caption(
+                            "This does not mean no rebate is available. "
+                            "Review the multifamily requirements "
+                            "on the official program page."
+                        )
+
+                    else:
+                        st.warning(
+                            "We need your building's unit count "
+                            "to determine which category to review."
+                        )
+                        st.caption(
+                            "Ask the property owner or manager if "
+                            "you are unsure. A unit means a separate "
+                            "home or apartment—not a bedroom."
+                        )
+
+                    st.caption(
+                        "Rebate eligibility has not been established."
+                    )
+
+                else:
+                    st.info(program["eligibility_note"])
+
 
                 with st.expander("Requirements to review"):
                     st.caption(
