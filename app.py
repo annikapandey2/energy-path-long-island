@@ -496,6 +496,18 @@ else:
                     "Source checked: "
                     f"{program['source_checked_on']}"
                 )
+        else:
+                    st.divider()
+                    st.subheader("Local resources")
+                    st.info(
+                        "No local resource in this prototype matches both "
+                        "your selected concern and type of change."
+                    )
+                    st.caption(
+                        "The resource list is limited. This does not mean "
+                        "that no relevant programs or incentives exist."
+                    )
+                    
 
 
 st.caption(
