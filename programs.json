@@ -36,3 +36,21 @@
     "next_step": "Review the official requirements and discuss your project with a participating contractor."
   }
 ]
+ {
+    "id": "pseg_li_lighting_electronics_guide",
+    "name": "Lighting and Electronics Energy Guide",
+    "provider": "PSEG Long Island",
+    "summary": "Explore information about lighting and electronics electricity use, including typical wattages and energy-management options.",
+    "source_url": "https://www.psegliny.com/saveenergyandmoney/tipsandtools/energyguide",
+    "source_checked_on": "2026-10-12",
+    "concerns": [
+      "Lighting and electronics"
+    ],
+    "change_levels": [
+      "Easy changes I can do now"
+    ],
+    "screening_status": "resource_only",
+    "verified_requirements": [],
+    "eligibility_note": "This is an educational resource, not a rebate offer or an eligibility assessment.",
+    "next_step": "Review the lighting and electronics sections for information relevant to the equipment you use."
+  }
