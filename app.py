@@ -245,7 +245,7 @@ if matches:
             action["id"] == "equipment_permission_next_step"
         )
 
-    with st.container(border=True):
+       with st.container(border=True):
             if len(matches) > 1:
                 st.caption(f"STEP {number}")
 
@@ -322,26 +322,15 @@ if matches:
                     )
 else:
     if change_level == "Programs or incentives to explore":
-        st.caption(
-            "Resource matches and limited checks do not establish "
-            "rebate eligibility."
+        st.info(
+            "Explore matching progrmas in the Local resources "
+            "section below"
         )
     else:
         st.info(
-            "We do not have a next step for this combination yet. "
-            "The current catalog is limited; this does not mean "
-            "you have no options."
+            "No action in the current catalog matches your answers. "
+            "This does not mean you have no options."
         )
-
-
-if change_level == "Programs or incentives to explore":
-    st.info(
-        "Check the Local resources section below for a matching "
-        "resource or a no-match message. Where a resource includes "
-        "building-category and equipment-permission checks, those "
-        "checks are limited and do not establish rebate eligibility."
-    )
-
 
 if excluded:
     with st.expander("Other options—and why they are not shown"):
