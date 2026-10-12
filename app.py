@@ -322,11 +322,9 @@ if matches:
                     )
 else:
     if change_level == "Programs or incentives to explore":
-        st.info(
-            "Your next step is to check the Local resources "
-            "section below. It will show any resources that match "
-            "your concern and type of change, or explain when "
-            "the current resource list has no match."
+        st.caption(
+            "Resource matches and limited checks do not establish "
+            "rebate eligibility."
         )
     else:
         st.info(
