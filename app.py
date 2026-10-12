@@ -475,16 +475,18 @@ else:
                     st.info(program["eligibility_note"])
 
 
-                with st.expander("Requirements to review"):
-                    st.caption(
-                        "These are selected requirements, "
-                        "not a complete eligibility checklist."
-                    )
-
-                    for requirement in program["verified_requirements"]:
-                        st.write(
-                            f"- {requirement['description']}"
+                if program["verified_requirements"]:
+                    with st.expander("Requirements to review"):
+                        st.caption(
+                            "These are selected requirements, "
+                            "not a complete eligibility checklist."
                         )
+
+                        for requirement in program["verified_requirements"]:
+                            st.write(
+                                f"- {requirement['description']}"
+                            )
+
 
                 st.link_button(
                     "View Official Program Details",
