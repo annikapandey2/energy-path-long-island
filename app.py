@@ -329,9 +329,12 @@ else:
 
 if change_level == "Programs or incentives to explore":
     st.info(
-        "See local resources below when a matching program is available."
-        "Eligibility screening is not available yet."
+        "Check the Local resources section below for a matching "
+        "resource or a no-match message. Where a resource includes "
+        "building-category and equipment-permission checks, those "
+        "checks are limited and do not establish rebate eligibility."
     )
+
 
 if excluded:
     with st.expander("Other options—and why they are not shown"):
