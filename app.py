@@ -321,11 +321,20 @@ if matches:
                         "You said you can authorize equipment changes."
                     )
 else:
-    st.info(
-        "We do not have a next step for this combination yet. "
-        "The current catalog is limited; this does not mean "
-        "you have no options."
-    )
+    if change_level == "Programs or incentives to explore":
+        st.info(
+            "Your next step is to check the Local resources "
+            "section below. It will show any resources that match "
+            "your concern and type of change, or explain when "
+            "the current resource list has no match."
+        )
+    else:
+        st.info(
+            "We do not have a next step for this combination yet. "
+            "The current catalog is limited; this does not mean "
+            "you have no options."
+        )
+
 
 if change_level == "Programs or incentives to explore":
     st.info(
