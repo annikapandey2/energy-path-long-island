@@ -489,7 +489,7 @@ else:
 
 
                 st.link_button(
-                    "View Official Program Details",
+                    "View Official Resource",
                     program["source_url"]
                 )
 
