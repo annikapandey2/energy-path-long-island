@@ -5,7 +5,7 @@ import streamlit as st
 st.set_page_config(
     page_title="Energy Path",
     page_icon="🍃",
-    layout="centered",
+    layout="wide",
     initial_sidebar_state="collapsed"
 )
 if "screen" not in st.session_state: 
