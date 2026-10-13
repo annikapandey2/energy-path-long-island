@@ -8,6 +8,8 @@ st.set_page_config(
     layout="centered",
     initial_sidebar_state="collapsed"
 )
+if "screen" not in st.session_state: 
+    st.session_state.screen = "home"
 def match_actions(actions, concern, change_level, equipment_control):
     matches = []
     excluded = []
