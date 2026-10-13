@@ -264,8 +264,21 @@ if equipment_control is None:
 
 
 st.divider()
-st.header("Your next step")
-st.write("A starting point based on your answers.")
+
+result_col1, result_col2 = st.columns([4, 1])
+
+with result_col1:
+    st.caption("YOUR PERSONALIZED PLAN")
+    st.header("Your next step")
+    st.write(
+        "Based on the concern and type of change you selected, "
+        "here is a practical place to begin."
+    )
+
+with result_col2:
+    if st.button("Start over", use_container_width=True):
+        st.session_state.screen = "home"
+        st.rerun()
 
 catalog_path = Path(__file__).resolve().parent / "actions.json"
 
