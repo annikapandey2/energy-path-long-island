@@ -96,9 +96,11 @@ def match_actions(actions, concern, change_level, equipment_control):
 
 
 
-st.title("Energy Path Long Island")
+st.title("Energy Path")
+st.subheader("A home-energy resource navigator for Long Island residents")
 st.write(
-    "Choose a home-energy concern and the kind of help you want."
+    "Answer a few questions to find practical next steps and "
+    "relevant local resources for your home."
 )
 
 with st.form("energy_plan_form"):
