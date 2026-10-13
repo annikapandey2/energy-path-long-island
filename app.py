@@ -554,7 +554,8 @@ else:
 
                 st.link_button(
                     "View Official Resource",
-                    program["source_url"]
+                    program["source_url"],
+                    type="primary"
                 )
 
                 st.caption(
