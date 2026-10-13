@@ -139,7 +139,9 @@ st.write(
     "Answer a few questions to find practical next steps and "
     "relevant local resources for your home."
 )
-
+if st.button("← Back to Home")
+    st.session_state.screen = "home"
+    st.rerun()
 with st.form("energy_plan_form"):
     st.subheader("What would you like to tackle?")
 
