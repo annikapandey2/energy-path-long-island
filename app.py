@@ -139,7 +139,7 @@ st.write(
     "Answer a few questions to find practical next steps and "
     "relevant local resources for your home."
 )
-if st.button("← Back to Home"):
+if st.button("← Back to Home", type="secondary"):
     st.session_state.screen = "home"
     st.rerun()
 with st.form("energy_plan_form"):
@@ -276,7 +276,11 @@ with result_col1:
     )
 
 with result_col2:
-    if st.button("Start over", use_container_width=True):
+    if st.button(
+        "Start over", 
+        type="secondary",
+        use_container_width=True
+    ):
         st.session_state.screen = "home"
         st.rerun()
 
