@@ -96,6 +96,41 @@ def match_actions(actions, concern, change_level, equipment_control):
 
     return matches, excluded
 
+if st.session_state.screen == "home":
+    st.title("Energy Path")
+    st.subheader("A home-energy resource navigator for Long Island residents")
+
+    st.write(
+        "Not sure where to start with a home-energy concern? "
+        "Answer a few questions to explore practical next steps and "
+        "relevant local resources."
+    )
+
+    st.divider()
+
+    st.subheader("How it works")
+
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        st.markdown("### 1")
+        st.write("Tell us what you want help with.")
+
+    with col2:
+        st.markdown("### 2")
+        st.write("Share a few details about your home.")
+
+    with col3:
+        st.markdown("### 3")
+        st.write("Explore a practical next step and official resources.")
+
+    st.divider()
+
+    if st.button("Find My Next Step", type="primary", use_container_width=True):
+        st.session_state.screen = "questionnaire"
+        st.rerun()
+
+    st.stop()
 
 
 st.title("Energy Path")
