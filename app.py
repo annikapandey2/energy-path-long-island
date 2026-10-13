@@ -168,8 +168,8 @@ with st.form("energy_plan_form"):
     )
 
     st.caption(
-        "Local-resource coverage is limited."
-        "Eligibilty screening is not available yet."
+        "Our resource list is still growing. "
+        "Matching a resource does not confirm that you qualify."
     )
 
     st.divider()
@@ -387,8 +387,8 @@ if matches:
 else:
     if change_level == "Programs or incentives to explore":
         st.info(
-            "Explore matching progrmas in the Local resources "
-            "section below"
+            "See Local resources section belowfor mathicng resources "
+            "or information about current coverage."
         )
     else:
         st.info(
