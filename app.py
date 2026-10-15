@@ -434,7 +434,7 @@ else:
 
     if matching_programs:
         st.divider()
-        st.subheader("Local resources")
+        st.subheader("Helpful Resources")
         st.write(
             "These resources match your concern and preffered next step. "
             "A match does not mea =n you qualify for a rebate."
