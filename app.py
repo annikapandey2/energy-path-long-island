@@ -387,7 +387,7 @@ if matches:
 else:
     if change_level == "Programs or incentives to explore":
         st.info(
-            "See Local resources section belowfor mathicng resources "
+            "See Local resources section below for matching resources "
             "or information about current coverage."
         )
     else:
