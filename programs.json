@@ -129,8 +129,27 @@
     "verified_requirements": [],
     "eligibility_note": "This is general water-saving guidance, not a rebate offer. Ask the property owner or manager before changing fixtures you do not control.",
     "next_step": "Start with one everyday habit, such as turning off the tap while brushing your teeth. Check for visible drips and report leaks you cannot safely address."
+  },
+  {
+    "id": "pseg_li_appliance_saving_tips",
+    "name": "Everyday Appliance Energy-Saving Tips",
+    "provider": "PSEG Long Island",
+    "summary": "Explore practical ways to use less energy when doing laundry, washing dishes, cooking, and using electronics.",
+    "source_url": "https://www.psegliny.com/timeofday/timeofdaytips/offpeakappliancesavings",
+    "source_checked_on": "2026-10-14",
+    "concerns": [
+      "Appliances or high electricity use"
+    ],
+    "change_levels": [
+      "Easy changes I can do now"
+    ],
+    "screening_status": "resource_only",
+    "verified_requirements": [],
+    "eligibility_note": "These are general appliance-use tips, not a rebate offer. Savings from shifting use to off-peak hours depend on your electricity rate plan.",
+    "next_step": "Choose one change that fits your home, such as washing clothes in cold water or using your dishwasher's air-dry setting. Check your rate plan before relying on off-peak pricing."
   }
-]
+
+
 
 
 
