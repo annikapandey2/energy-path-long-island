@@ -111,8 +111,28 @@
     "verified_requirements": [],
     "eligibility_note": "This resource covers electric water-heating upgrades, not general water conservation. Customer, equipment, and installation requirements must be checked with the program.",
     "next_step": "Review the official equipment and rebate requirements before buying anything. If you rent or cannot approve equipment changes, discuss the option with whoever can."
+  },
+  {
+    "id": "epa_watersense_start_saving",
+    "name": "Simple Ways to Save Water",
+    "provider": "U.S. EPA WaterSense — National guidance",
+    "summary": "Find practical tips for spotting leaks, using less water, and reducing hot-water waste at home.",
+    "source_url": "https://www.epa.gov/watersense/start-saving",
+    "source_checked_on": "2026-10-14",
+    "concerns": [
+      "Water use or water heating"
+    ],
+    "change_levels": [
+      "Easy changes I can do now"
+    ],
+    "screening_status": "resource_only",
+    "verified_requirements": [],
+    "eligibility_note": "This is general water-saving guidance, not a rebate offer. Ask the property owner or manager before changing fixtures you do not control.",
+    "next_step": "Start with one everyday habit, such as turning off the tap while brushing your teeth. Check for visible drips and report leaks you cannot safely address."
   }
 ]
+
+
 
 
 
