@@ -387,7 +387,7 @@ if matches:
 else:
     if change_level == "Programs or incentives to explore":
         st.info(
-            "See Local resources section below for matching resources "
+            "See Helpful resources section below for matching resources "
             "or information about current coverage."
         )
     else:
@@ -421,7 +421,7 @@ try:
         programs = json.load(file)
 except (OSError, json.JSONDecodeError):
     st.warning(
-        "Local resources could not be loaded. "
+        "Helpful resources could not be loaded. "
         "Your action recommendations are still available."
     )
 else:
@@ -564,7 +564,7 @@ else:
                 )
     else:
                     st.divider()
-                    st.subheader("Local resources")
+                    st.subheader("Helpful resources")
                     st.info(
                         "No local resource in this prototype matches both "
                         "your selected concern and type of change."
