@@ -71,8 +71,30 @@
     "verified_requirements": [],
     "eligibility_note": "Assessment availability and any upgrade incentives must be confirmed with the program. This app has not checked whether you qualify.",
     "next_step": "Review the assessment process and contractor options. If you rent, discuss arranging an assessment with your landlord or property manager."
+  },
+  {
+    "id": "li_clean_energy_hub_advisor",
+    "name": "Talk to a Local Energy Advisor",
+    "provider": "Long Island Regional Clean Energy Hub",
+    "summary": "Get free guidance on home energy improvements, heating and cooling options, and programs serving Nassau and Suffolk residents.",
+    "source_url": "https://www.lismartenergychoices.org/about-the-hub",
+    "source_checked_on": "2026-10-14",
+    "concerns": [
+      "Heating or cooling"
+    ],
+    "change_levels": [
+      "Programs or incentives to explore",
+      "Bigger long-term updates"
+    ],
+    "screening_status": "resource_only",
+    "verified_requirements": [],
+    "eligibility_note": "Advisors can explain available programs. Matching this resource does not mean you qualify for a particular incentive.",
+    "next_step": "Contact a Community Energy Advisor and describe your heating or cooling concern. Ask which assessment, improvement, or assistance program is worth exploring."
   }
 ]
+
+
+
 
 
 
