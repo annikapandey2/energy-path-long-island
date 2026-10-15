@@ -130,7 +130,7 @@
     "eligibility_note": "This is general water-saving guidance, not a rebate offer. Ask the property owner or manager before changing fixtures you do not control.",
     "next_step": "Start with one everyday habit, such as turning off the tap while brushing your teeth. Check for visible drips and report leaks you cannot safely address."
   },
-  {
+   {
     "id": "pseg_li_appliance_saving_tips",
     "name": "Everyday Appliance Energy-Saving Tips",
     "provider": "PSEG Long Island",
@@ -147,8 +147,27 @@
     "verified_requirements": [],
     "eligibility_note": "These are general appliance-use tips, not a rebate offer. Savings from shifting use to off-peak hours depend on your electricity rate plan.",
     "next_step": "Choose one change that fits your home, such as washing clothes in cold water or using your dishwasher's air-dry setting. Check your rate plan before relying on off-peak pricing."
+  },
+  {
+    "id": "energy_star_window_door_drafts",
+    "name": "Understand Drafts Around Windows and Doors",
+    "provider": "ENERGY STAR — National guidance",
+    "summary": "Learn how air leaks around windows and doors can affect comfort and home energy use.",
+    "source_url": "https://www.energystar.gov/products/res_windows_doors_skylights",
+    "source_checked_on": "2026-10-14",
+    "concerns": [
+      "Drafts or rooms that feel too hot or cold"
+    ],
+    "change_levels": [
+      "Easy changes I can do now"
+    ],
+    "screening_status": "resource_only",
+    "verified_requirements": [],
+    "eligibility_note": "This is educational guidance, not a rebate offer or a recommendation to replace windows. Ask the property owner or manager before modifying fixtures you do not control.",
+    "next_step": "On the linked page, find the Air Leaks section under Other Tips. Note where you notice drafts around accessible windows and doors, and share those observations with the person responsible for repairs."
   }
 ]
+
 
 
 
