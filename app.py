@@ -436,8 +436,8 @@ else:
         st.divider()
         st.subheader("Local resources")
         st.write(
-            "These resources relate to your concern. "
-            "A resource match does not establish rebate eligibility."
+            "These resources match your concern and preffered next step. "
+            "A match does not mea =n you qualify for a rebate."
         )
 
         for program in matching_programs:
