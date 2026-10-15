@@ -92,8 +92,29 @@
     "verified_requirements": [],
     "eligibility_note": "Advisors can explain available programs. Matching this resource does not mean you qualify for a particular incentive.",
     "next_step": "Contact a Community Energy Advisor and describe your comfort or heating and cooling concern. Ask which assessment, improvement, or assistance program is worth exploring."
+  },
+    {
+    "id": "pseg_li_heat_pump_water_heater",
+    "name": "Electric Heat-Pump Water Heaters",
+    "provider": "PSEG Long Island",
+    "summary": "Learn about electric heat-pump water heaters and explore rebates for eligible equipment.",
+    "source_url": "https://www.psegliny.com/saveenergyandmoney/homeefficiency/homecomfort/hpwh",
+    "source_checked_on": "2026-10-14",
+    "concerns": [
+      "Water use or water heating"
+    ],
+    "change_levels": [
+      "Programs or incentives to explore",
+      "Bigger long-term updates"
+    ],
+    "screening_status": "resource_only",
+    "verified_requirements": [],
+    "eligibility_note": "This resource covers electric water-heating upgrades, not general water conservation. Customer, equipment, and installation requirements must be checked with the program.",
+    "next_step": "Review the official equipment and rebate requirements before buying anything. If you rent or cannot approve equipment changes, discuss the option with whoever can."
   }
 ]
+
+
 
 
 
