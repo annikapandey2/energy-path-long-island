@@ -61,7 +61,8 @@
     "source_url": "https://www.psegliny.com/saveenergyandmoney/homeefficiency/homeenergyassessment",
     "source_checked_on": "2026-10-14",
     "concerns": [
-      "Heating or cooling"
+      "Heating or cooling",
+      "Drafts or rooms that feel too hot or cold"
     ],
     "change_levels": [
       "Programs or incentives to explore",
@@ -80,7 +81,8 @@
     "source_url": "https://www.lismartenergychoices.org/about-the-hub",
     "source_checked_on": "2026-10-14",
     "concerns": [
-      "Heating or cooling"
+      "Heating or cooling",
+      "Drafts or rooms that feel too hot or cold"
     ],
     "change_levels": [
       "Programs or incentives to explore",
@@ -89,7 +91,7 @@
     "screening_status": "resource_only",
     "verified_requirements": [],
     "eligibility_note": "Advisors can explain available programs. Matching this resource does not mean you qualify for a particular incentive.",
-    "next_step": "Contact a Community Energy Advisor and describe your heating or cooling concern. Ask which assessment, improvement, or assistance program is worth exploring."
+    "next_step": "Contact a Community Energy Advisor and describe your comfort or heating and cooling concern. Ask which assessment, improvement, or assistance program is worth exploring."
   }
 ]
 
