@@ -52,5 +52,27 @@
     "verified_requirements": [],
     "eligibility_note": "This is an educational resource, not a rebate offer or an eligibility assessment.",
     "next_step": "Review the lighting and electronics sections for information relevant to the equipment you use."
+  },
+  {
+     "id": "pseg_li_whole_house_energy_assessment",
+    "name": "Whole House Energy Assessment",
+    "provider": "PSEG Long Island",
+    "summary": "Explore a home energy assessment to identify drafts, insulation problems, and opportunities to improve comfort and efficiency.",
+    "source_url": "https://www.psegliny.com/saveenergyandmoney/homeefficiency/homeenergyassessment",
+    "source_checked_on": "2026-10-14",
+    "concerns": [
+      "Heating or cooling"
+    ],
+    "change_levels": [
+      "Programs or incentives to explore",
+      "Bigger long-term updates"
+    ],
+    "screening_status": "resource_only",
+    "verified_requirements": [],
+    "eligibility_note": "Assessment availability and any upgrade incentives must be confirmed with the program. This app has not checked whether you qualify.",
+    "next_step": "Review the assessment process and contractor options. If you rent, discuss arranging an assessment with your landlord or property manager."
   }
 ]
+
+
+
