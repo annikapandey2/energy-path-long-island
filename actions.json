@@ -42,16 +42,19 @@
   },
   {
     "id": "equipment_investigation",
-    "title": "Investigate equipment options before replacing anything",
-    "description": "Record the existing equipment type and the problem you want to solve. Discuss suitable options with a qualified professional before selecting equipment or assuming a rebate applies.",
+    "title": "Compare options before replacing equipment",
+    "description": "Start with the equipment you already have: record its type, model, and the problem you want to solve, if that information is accessible. Check the manufacturer's energy-saving settings and instructions. If replacement is worth exploring, compare energy use, installation needs, and total cost—not just the purchase price. For heating or water-heating systems, ask a qualified professional whether the option suits your home.",
     "concerns": [
       "Heating or cooling",
       "Water use or water heating",
       "Appliances or high electricity use"
     ],
-    "change_levels": ["Bigger long-term updates"],
-       "requires_equipment_control": true
+    "change_levels": [
+      "Bigger long-term updates"
+    ],
+    "requires_equipment_control": true
   },
+
   {
     "id": "equipment_permission_next_step",
     "title": "Clarify equipment authority and prepare your concern summary",
