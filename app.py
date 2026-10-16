@@ -322,7 +322,7 @@ permission_notes = {
     ),
 }
 
-)
+
 
 
 catalog_path = Path(__file__).resolve().parent / "actions.json"
