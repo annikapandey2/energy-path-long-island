@@ -556,7 +556,7 @@ with result_col1:
                 line-height: 1.6;
                 margin: 0;
             ">
-                A practical starting point based on your concern,
+                A starting point based on your concern,
                 preferred next step, and equipment-change permissions.
             </p>
         </section>
