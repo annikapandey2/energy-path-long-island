@@ -384,75 +384,91 @@ if st.button("← Back to Home", type="secondary"):
     st.session_state.screen = "home"
     st.rerun()
 with st.form("energy_plan_form"):
-    st.subheader("What would you like to tackle?")
-
-    main_concern = st.selectbox(
-        "Your main concern",
-        [
-            "Drafts or rooms that feel too hot or cold",
-            "Heating or cooling",
-            "Lighting and electronics",
-            "Water use or water heating",
-            "Appliances or high electricity use"
-        ],
-        index=None,
-        placeholder="Choose a concern"
-    )
-
-    change_level = st.radio(
-        "What kind of next step are you looking for?",
-        [
-            "Easy changes I can do now",
-            "Programs or incentives to explore",
-            "Bigger long-term updates"
-        ]
-    )
-
+    st.subheader("Build your energy action plan")
     st.caption(
-        "Our resource list is still growing. "
-        "Matching a resource does not confirm that you qualify."
+        "Choose your concern and tell us about your home. "
+        "We will use your answers to suggest a practical next step."
     )
 
-    st.divider()
-    st.subheader("A little about your home")
+    concern_col, home_col = st.columns(2)
 
-    home_status = st.radio(
-        "Do you rent or own?",
-        ["Rent", "Own"],
-        horizontal=True
-    )
-    dwelling_units = st.selectbox(
-        "How many homes or apartments are in your building? Count your own home too.",
-        [
-            "1–4",
-            "5 or more",
-            "I am not sure"
-        ],
-        index=None,
-        placeholder="Choose a building size",
-        help=(
-            "Count whole homes, not rooms or people. "
-            "A single-family house—even with 5 bedrooms—counts as 1. "
-            "A building with 6 separate apartments counts as 6."
-        )
-    )
+    with concern_col:
+        with st.container(border=True):
+            st.subheader("1. Your priorities")
+            st.caption("What would you like to tackle?")
 
-    equipment_control = st.selectbox(
-        "Can you approve changes to installed equipment?",
-        [
-            "Yes, I can authorize equipment changes",
-            "Only with landlord or property-manager approval",
-            "No, I cannot authorize equipment changes",
-            "I am not sure"
-        ],
-        index=None,
-        placeholder="Choose an answer"
-    )
+            main_concern = st.selectbox(
+                "Your main concern",
+                [
+                    "Drafts or rooms that feel too hot or cold",
+                    "Heating or cooling",
+                    "Lighting and electronics",
+                    "Water use or water heating",
+                    "Appliances or high electricity use"
+                ],
+                index=None,
+                placeholder="Choose a concern"
+            )
 
-    st.caption(
-        "Think about heating, cooling, water-heating equipment, "
-        "and appliances involved in your concern."
-    )
+            change_level = st.radio(
+                "What kind of next step are you looking for?",
+                [
+                    "Easy changes I can do now",
+                    "Programs or incentives to explore",
+                    "Bigger long-term updates"
+                ]
+            )
+
+            st.caption(
+                "Our resource list is still growing. "
+                "Matching a resource does not confirm that you qualify."
+            )
+
+    with home_col:
+        with st.container(border=True):
+            st.subheader("2. Your home")
+            st.caption("Help us suggest appropriate next steps.")
+
+            home_status = st.radio(
+                "Do you rent or own?",
+                ["Rent", "Own"],
+                horizontal=True
+            )
+
+            dwelling_units = st.selectbox(
+                "How many homes or apartments are in your building?",
+                [
+                    "1–4",
+                    "5 or more",
+                    "I am not sure"
+                ],
+                index=None,
+                placeholder="Choose a building size",
+                help=(
+                    "Count your own home too. Count whole homes, "
+                    "not rooms or people. "
+                    "A single-family house—even with 5 bedrooms—"
+                    "counts as 1. A building with 6 separate "
+                    "apartments counts as 6."
+                )
+            )
+
+            equipment_control = st.selectbox(
+                "Can you approve changes to installed equipment?",
+                [
+                    "Yes, I can authorize equipment changes",
+                    "Only with landlord or property-manager approval",
+                    "No, I cannot authorize equipment changes",
+                    "I am not sure"
+                ],
+                index=None,
+                placeholder="Choose an answer"
+            )
+
+            st.caption(
+                "Think about heating, cooling, water-heating "
+                "equipment, and appliances involved in your concern."
+            )
 
     with st.expander("Optional details—not used in matching yet"):
         st.caption(
@@ -485,8 +501,9 @@ with st.form("energy_plan_form"):
         )
 
     build_plan = st.form_submit_button(
-        "Show My Next Step",
-        type="primary"
+        "Build My Energy Action Plan",
+        type="primary",
+        use_container_width=True
     )
 
 if not build_plan:
