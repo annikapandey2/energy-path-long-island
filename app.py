@@ -526,9 +526,46 @@ st.divider()
 result_col1, result_col2 = st.columns([4, 1])
 
 with result_col1:
-    st.caption("YOUR PERSONALIZED PLAN")
-    st.header("Your next step")
+    st.markdown(
+        """
+        <section style="
+            background: linear-gradient(135deg, #DDECE2, #E7F2EC);
+            border: 1px solid #C7DDD2;
+            border-left: 6px solid #176B68;
+            border-radius: 18px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        ">
+            <p style="
+                color: #176B68;
+                font-size: 0.8rem;
+                font-weight: 750;
+                letter-spacing: 0.14em;
+                margin: 0 0 0.5rem;
+            ">ENERGY PATH · LONG ISLAND</p>
+            <h2 style="
+                color: #164B40;
+                font-size: clamp(1.6rem, 3vw, 2.2rem);
+                line-height: 1.2;
+                margin: 0 0 0.6rem;
+                padding: 0;
+            ">Your Energy Action Plan</h2>
+            <p style="
+                color: #38574F;
+                font-size: 1rem;
+                line-height: 1.6;
+                margin: 0;
+            ">
+                A practical starting point based on your concern,
+                preferred next step, and equipment-change permissions.
+            </p>
+        </section>
+        """,
+        unsafe_allow_html=True
+    )
+
     concern_intros = {
+
         "Drafts or rooms that feel too hot or cold": (
             "Start here for drafts or uneven room temperatures."
         ),
