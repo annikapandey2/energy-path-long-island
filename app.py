@@ -322,11 +322,6 @@ permission_notes = {
     ),
 }
 
-st.caption(
-    permission_notes.get(
-        equipment_control,
-        "Confirm who can approve equipment changes before planning an upgrade."
-    )
 )
 
 
