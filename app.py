@@ -36,9 +36,9 @@ def match_actions(actions, concern, change_level, equipment_control):
             "rather than replacing equipment."
         ),
         "Bigger long-term updates": (
-            "You want to explore a larger update. "
-            "Start by understanding the existing equipment "
-            "and the problem you want to solve."
+            "You chose to explore a larger update. "
+            "This step helps you compare options before "
+            "committing to purchases or property changes."
         )
     }
 
