@@ -71,8 +71,34 @@
       "No, I cannot authorize equipment changes",
       "I am not sure"
     ]
+  },
+    {
+    "id": "draft_upgrade_planning",
+    "title": "Plan an assessment before choosing comfort upgrades",
+    "description": "List the rooms with drafts or uneven temperatures and when you notice the problem. Use a home energy assessment to explore whether air sealing, insulation, or another improvement is appropriate. If you rent, ask your landlord or property manager about arranging an assessment before planning property changes.",
+    "concerns": [
+      "Drafts or rooms that feel too hot or cold"
+    ],
+    "change_levels": [
+      "Bigger long-term updates"
+    ],
+    "requires_equipment_control": false
+  },
+  {
+    "id": "lighting_upgrade_planning",
+    "title": "Make a lighting and electronics upgrade shortlist",
+    "description": "Start with lights and electronics you use most. Record existing bulb types and device models where accessible. For future bulb purchases, compare brightness in lumens and check fixture compatibility. Review device power-saving settings before buying replacements. Separate items you own from fixtures or equipment that need the property owner's approval.",
+    "concerns": [
+      "Lighting and electronics"
+    ],
+    "change_levels": [
+      "Bigger long-term updates"
+    ],
+    "requires_equipment_control": false
   }
 ]
+
+
 
 
 
