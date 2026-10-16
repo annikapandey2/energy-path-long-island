@@ -9,126 +9,246 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 if "screen" not in st.session_state: 
-    st.session_state.screen = "home"
-def match_actions(actions, concern, change_level, equipment_control):
-    matches = []
-    excluded = []
+ if st.session_state.screen == "home":
+    st.markdown(
+        """
+        <style>
+        .ep-hero {
+            text-align: center;
+            padding: 3rem 1.5rem 2.2rem;
+            margin: 0 0 1.2rem;
+            background: linear-gradient(
+                135deg,
+                #DDECE2 0%,
+                #E7F2EC 55%,
+                #E5EFF4 100%
+            );
+            border: 1px solid #C7DDD2;
+            border-radius: 24px;
+        }
 
-    control_reasons = {
-        "Only with landlord or property-manager approval": (
-            "Equipment changes need your landlord or property manager's "
-            "approval, so start with a conversation."
-        ),
-        "No, I cannot authorize equipment changes": (
-            "You cannot approve equipment changes yourself. "
-            "These notes can help you explain the problem to someone who can."
-        ),
-        "I am not sure": (
-            "You are not sure who can approve equipment changes. "
-            "Find that out before planning equipment work."
-        )
-    }
+        .ep-title {
+            color: #164B40;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont,
+                         "Segoe UI", sans-serif;
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            font-weight: 850;
+            letter-spacing: -0.055em;
+            line-height: 1.08;
+            margin: 0;
+        }
 
-    general_reasons = {
-        "Easy changes I can do now": (
-            "You chose steps you can take now. "
-            "This starts with understanding your concern, "
-            "rather than replacing equipment."
-        ),
-        "Bigger long-term updates": (
-            "You chose to explore a larger update. "
-            "This step helps you compare options before "
-            "committing to purchases or property changes."
-        )
-    }
+        .ep-location {
+            color: #176B68;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.28em;
+            margin: 0.9rem 0 1.5rem;
+        }
 
-    for action in actions:
-        if concern not in action["concerns"]:
-            continue
+        .ep-tagline {
+            color: #183247;
+            font-size: clamp(1.2rem, 2.5vw, 1.65rem);
+            font-weight: 650;
+            line-height: 1.4;
+            max-width: 650px;
+            margin: 0 auto 0.9rem;
+        }
 
-        if change_level not in action["change_levels"]:
-            continue
+        .ep-intro {
+            color: #38574F;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            max-width: 640px;
+            margin: 0 auto;
+        }
 
-        allowed_control = action.get("allowed_equipment_control")
+        .ep-section-label {
+            text-align: center;
+            color: #176B68;
+            font-size: 0.8rem;
+            font-weight: 750;
+            letter-spacing: 0.16em;
+            margin: 2.5rem 0 1rem;
+        }
 
-        if (
-            allowed_control is not None
-            and equipment_control not in allowed_control
-        ):
-            continue
+        .ep-feature {
+            background: #FFFFFF;
+            border: 1px solid #CDDCD6;
+            border-top: 5px solid #176B68;
+            border-radius: 16px;
+            padding: 1.5rem;
+            min-height: 215px;
+            box-sizing: border-box;
+            margin-bottom: 1rem;
+        }
 
-        if (
-            action["requires_equipment_control"]
-            and equipment_control
-            != "Yes, I can authorize equipment changes"
-        ):
-            excluded.append({
-                "id": action["id"],
-                "title": action["title"],
-                "reason": (
-                    "This equipment-planning step is not shown because "
-                    "you have not confirmed that you can approve changes. "
-                    "The next step above focuses on that first."
-                )
-            })
-            continue
+        .ep-feature-number {
+            color: #176B68;
+            font-size: 0.85rem;
+            font-weight: 750;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.8rem;
+        }
 
-        if allowed_control is not None:
-            reason = control_reasons.get(
-                equipment_control,
-                "Confirm who can approve changes before planning equipment work."
-            )
-        else:
-            reason = general_reasons.get(
-                change_level,
-                "This step matches your selected concern and type of change."
-            )
+        .ep-feature h3 {
+            color: #164B40;
+            font-size: 1.2rem;
+            font-weight: 750;
+            line-height: 1.35;
+            margin: 0 0 0.7rem;
+            padding: 0;
+        }
 
-        matches.append({
-            "id": action["id"],
-            "title": action["title"],
-            "description": action["description"],
-            "reason": reason,
-            "requires_equipment_control": (
-                action["requires_equipment_control"]
-            )
-        })
+        .ep-feature p {
+            color: #38524B;
+            font-size: 1rem;
+            line-height: 1.65;
+            margin: 0;
+        }
 
-    return matches, excluded
+        .ep-about {
+            background: #E1EDE5;
+            border: 1px solid #C7DDD2;
+            border-radius: 18px;
+            padding: 1.8rem;
+            margin: 1rem 0 1.5rem;
+            text-align: center;
+        }
 
-if st.session_state.screen == "home":
-    st.title("Energy Path")
-    st.subheader("A home-energy resource navigator for Long Island residents")
+        .ep-about h2 {
+            color: #164B40;
+            font-size: 1.5rem;
+            margin: 0 0 0.8rem;
+            padding: 0;
+        }
 
-    st.write(
-        "Not sure where to start with a home-energy concern? "
-        "Answer a few questions to explore practical next steps and "
-        "relevant local resources."
+        .ep-about p {
+            color: #38524B;
+            font-size: 1rem;
+            line-height: 1.75;
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 640px) {
+            .ep-hero {
+                padding: 2rem 1rem;
+            }
+
+            .ep-feature {
+                min-height: auto;
+            }
+        }
+        </style>
+
+        <section class="ep-hero">
+            <h1 class="ep-title">Energy Path</h1>
+            <div class="ep-location">LONG ISLAND</div>
+            <p class="ep-tagline">
+                Your home-energy concern.<br>
+                A clearer next step.
+            </p>
+            <p class="ep-intro">
+                Explore practical guidance and official resources
+                for your home, whether you rent or own.
+            </p>
+        </section>
+        """,
+        unsafe_allow_html=True
     )
 
-    st.divider()
+    button_left, button_center, button_right = st.columns([1, 2, 1])
 
-    st.subheader("How it works")
+    with button_center:
+        if st.button(
+            "Find My Next Step",
+            type="primary",
+            use_container_width=True
+        ):
+            st.session_state.screen = "questionnaire"
+            st.rerun()
+
+    st.markdown(
+        '<div class="ep-section-label">A PRACTICAL PLACE TO BEGIN</div>',
+        unsafe_allow_html=True
+    )
 
     col1, col2, col3 = st.columns(3)
 
     with col1:
-        st.markdown("### 1")
-        st.write("Tell us what you want help with.")
+        st.markdown(
+            """
+            <section class="ep-feature">
+                <div class="ep-feature-number">01 / YOUR CONCERN</div>
+                <h3>Understand your options</h3>
+                <p>
+                    Start with what matters to you—from drafts
+                    and hot water to lighting and electricity use.
+                </p>
+            </section>
+            """,
+            unsafe_allow_html=True
+        )
 
     with col2:
-        st.markdown("### 2")
-        st.write("Share a few details about your home.")
+        st.markdown(
+            """
+            <section class="ep-feature">
+                <div class="ep-feature-number">02 / YOUR SITUATION</div>
+                <h3>Plan around permissions</h3>
+                <p>
+                    Explore next steps that account for whether
+                    you can approve equipment changes or need
+                    someone else's approval.
+                </p>
+            </section>
+            """,
+            unsafe_allow_html=True
+        )
 
     with col3:
-        st.markdown("### 3")
-        st.write("Explore a practical next step and official resources.")
+        st.markdown(
+            """
+            <section class="ep-feature">
+                <div class="ep-feature-number">03 / YOUR NEXT STEP</div>
+                <h3>Find helpful resources</h3>
+                <p>
+                    Get a practical starting action and explore
+                    available official guidance and program pages.
+                </p>
+            </section>
+            """,
+            unsafe_allow_html=True
+        )
 
-    st.divider()
+    st.markdown(
+        """
+        <section class="ep-about">
+            <h2>Why Energy Path?</h2>
+            <p>
+                Knowing where to begin can be the hardest part.
+                Energy Path brings a starting action and relevant
+                resources into one place, with guidance for renters
+                and homeowners in Nassau and Suffolk counties.
+            </p>
+        </section>
+        """,
+        unsafe_allow_html=True
+    )
 
-    if st.button("Find My Next Step", type="primary", use_container_width=True):
-        st.session_state.screen = "questionnaire"
-        st.rerun()
+    with st.expander("About this app"):
+        st.write(
+            "Energy Path is a student-built prototype for exploring "
+            "home-energy next steps on Long Island. Recommendations "
+            "use your main concern, preferred type of change, and "
+            "equipment-change permission."
+        )
+        st.write(
+            "Resource coverage is limited. The app does not establish "
+            "rebate eligibility, provide a home-energy assessment, "
+            "or guarantee energy or cost savings."
+        )
 
     st.stop()
 
