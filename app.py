@@ -616,6 +616,50 @@ permission_notes = {
         "Confirm who can approve changes before planning an upgrade."
     ),
 }
+step_labels = {
+    "Easy changes I can do now": "Easy changes",
+    "Programs or incentives to explore": "Programs & incentives",
+    "Bigger long-term updates": "Long-term updates"
+}
+
+permission_labels = {
+    "Yes, I can authorize equipment changes": (
+        "You can approve changes"
+    ),
+    "Only with landlord or property-manager approval": (
+        "Landlord or manager approval needed"
+    ),
+    "No, I cannot authorize equipment changes": (
+        "Someone else must approve changes"
+    ),
+    "I am not sure": (
+        "Approval authority uncertain"
+    )
+}
+
+summary_col1, summary_col2, summary_col3 = st.columns(3)
+
+with summary_col1:
+    with st.container(border=True):
+        st.caption("YOUR CONCERN")
+        st.write(main_concern)
+
+with summary_col2:
+    with st.container(border=True):
+        st.caption("YOUR NEXT-STEP PREFERENCE")
+        st.write(step_labels.get(change_level, change_level))
+
+with summary_col3:
+    with st.container(border=True):
+        st.caption("EQUIPMENT PERMISSIONS")
+        st.write(
+            permission_labels.get(
+                equipment_control,
+                equipment_control
+            )
+        )
+
+st.subheader("Recommended next steps")
 
 
 
