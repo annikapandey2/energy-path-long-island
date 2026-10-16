@@ -8,8 +8,11 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="collapsed"
 )
-if "screen" not in st.session_state: 
- if st.session_state.screen == "home":
+if "screen" not in st.session_state:
+    st.session_state.screen = "home"
+
+if st.session_state.screen == "home":
+
     st.markdown(
         """
         <style>
