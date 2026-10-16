@@ -229,6 +229,32 @@ if st.session_state.screen == "home":
                 min-height: auto;
             }
         }
+           .ep-hero .ep-title {
+            margin: 0 !important;
+            padding: 0 !important;
+            text-align: center !important;
+        }
+
+        .ep-hero .ep-location {
+            margin: 0.35rem 0 0.55rem !important;
+            padding: 0 !important;
+            letter-spacing: 0.18em;
+            text-align: center !important;
+        }
+
+        .ep-hero .ep-tagline {
+            display: block;
+            width: 100%;
+            max-width: 650px;
+            margin: 0 auto 0.8rem !important;
+            padding: 0 !important;
+            text-align: center !important;
+        }
+
+        .ep-hero .ep-intro {
+            text-align: center !important;
+        }
+
         </style>
 
         <section class="ep-hero">
