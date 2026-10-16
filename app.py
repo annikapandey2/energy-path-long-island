@@ -252,8 +252,14 @@ if st.session_state.screen == "home":
         }
 
         .ep-hero .ep-intro {
+            display: block;
+            width: 100%;
+            max-width: 640px;
+            margin: 0 auto !important;
+            padding: 0 !important;
             text-align: center !important;
         }
+
 
         </style>
 
