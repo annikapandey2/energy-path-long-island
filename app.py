@@ -838,12 +838,11 @@ else:
         and change_level in program["change_levels"]
     ]
 
-    if matching_programs:
-        st.divider()
+      if matching_programs:
         st.subheader("Helpful Resources")
-        st.write(
-            "Explore resources for your concern and preferred next step. "
-            "A resource match does not establish rebate eligibility."
+        st.caption(
+            "Matched to your concern and preferred next step. "
+            "Matching does not confirm program eligibility."
         )
 
         for program in matching_programs:
@@ -852,125 +851,129 @@ else:
                 st.subheader(program["name"])
                 st.write(program["summary"])
 
-                st.markdown("**Where to start**")
-                st.write(program["next_step"])
+                details_col, resource_col = st.columns([2, 1])
 
-                if program["id"] == "pseg_li_home_comfort_heat_pumps":
-                    st.markdown("**Building-category check**")
+                with details_col:
+                    st.markdown("#### Where to start")
+                    st.write(program["next_step"])
 
-                    if dwelling_units == "1–4":
-                        st.success(
-                            "Your building size fits the 1–4-unit "
-                            "category we are checking."
-                        )
-                        st.caption(
-                            "This checks building size only. "
-                            "The project, equipment, contractor, "
-                            "and other requirements still need review."
-                        )
+                    if program["id"] == "pseg_li_home_comfort_heat_pumps":
+                        st.markdown("#### Building-category check")
 
-                    elif dwelling_units == "5 or more":
-                        st.info(
-                            "Your building falls in the separate "
-                            "multifamily category. The 1–4-unit "
-                            "screening path does not apply."
-                        )
-                        st.caption(
-                            "This does not mean no rebate is available. "
-                            "Review the multifamily requirements "
-                            "on the official program page."
-                        )
-
-                    else:
-                        st.warning(
-                            "We need your building's unit count "
-                            "to determine which category to review."
-                        )
-                        st.caption(
-                            "Ask the property owner or manager if "
-                            "you are unsure. A unit means a separate "
-                            "home or apartment—not a bedroom."
-                        )
-
-                    st.caption(
-                        "Rebate eligibility has not been established."
-                    )
-                    st.markdown("**Equipment-change permission**")
-
-                    if equipment_control == (
-                        "Yes, I can authorize equipment changes"
-                    ):
-                        st.info(
-                            "You reported that you can approve equipment "
-                            "changes. This is a planning answer, not "
-                            "verification of rebate eligibility."
-                        )
-
-                    elif equipment_control == (
-                        "Only with landlord or property-manager approval"
-                    ):
-                        st.info(
-                            "You reported that equipment changes require "
-                            "landlord or property-manager approval. "
-                            "Your next planning step is to discuss the "
-                            "proposed changes with them."
-                        )
-
-                    elif equipment_control == (
-                        "No, I cannot authorize equipment changes"
-                    ):
-                        st.info(
-                            "You reported that you cannot approve "
-                            "equipment changes. Identify who can "
-                            "authorize them before moving forward "
-                            "with equipment planning."
-                        )
-
-                    else:
-                        st.info(
-                            "Permission to approve equipment changes "
-                            "is unknown. Confirm who can authorize "
-                            "changes before moving forward "
-                            "with equipment planning."
-                        )
-
-                    st.caption(
-                        "This note uses your permission answer only. "
-                        "It does not change the building-category result "
-                        "or establish rebate eligibility."
-                    )
-
-
-                else:
-                    st.info(program["eligibility_note"])
-
-
-                if program["verified_requirements"]:
-                    with st.expander("Requirements to review"):
-                        st.caption(
-                            "These are selected requirements, "
-                            "not a complete eligibility checklist."
-                        )
-
-                        for requirement in program["verified_requirements"]:
-                            st.write(
-                                f"- {requirement['description']}"
+                        if dwelling_units == "1–4":
+                            st.success(
+                                "Your answer places your building "
+                                "in the 1–4-unit category."
+                            )
+                            st.caption(
+                                "This checks building size only. "
+                                "Project, equipment, contractor, and "
+                                "other requirements still need review."
                             )
 
+                        elif dwelling_units == "5 or more":
+                            st.info(
+                                "Your answer places your building "
+                                "in the separate multifamily category."
+                            )
+                            st.caption(
+                                "The 1–4-unit screening path does not "
+                                "apply. This does not mean no rebate "
+                                "is available. Review the multifamily "
+                                "requirements on the official page."
+                            )
 
-                st.link_button(
-                    "View Official Resource",
-                    program["source_url"],
-                    type="primary"
-                )
+                        else:
+                            st.warning(
+                                "Confirm your building's unit count "
+                                "to identify the category to review."
+                            )
+                            st.caption(
+                                "Ask the property owner or manager "
+                                "if needed. A unit is a separate home "
+                                "or apartment—not a bedroom."
+                            )
 
-                st.caption(
-                    "Source checked: "
-                    f"{program['source_checked_on']}"
-                )
+                        st.caption(
+                            "Rebate eligibility has not been established."
+                        )
+
+                    if program["verified_requirements"]:
+                        with st.expander("Requirements to review"):
+                            st.caption(
+                                "Selected requirements—not a complete "
+                                "eligibility checklist."
+                            )
+
+                            for requirement in program["verified_requirements"]:
+                                st.write(
+                                    f"- {requirement['description']}"
+                                )
+
+                with resource_col:
+                    st.markdown("#### Official resource")
+
+                    st.link_button(
+                        "View Official Resource",
+                        program["source_url"],
+                        type="primary",
+                        use_container_width=True
+                    )
+
+                    st.caption(
+                        "Source checked: "
+                        f"{program['source_checked_on']}"
+                    )
+
+                    st.markdown("#### Before you proceed")
+
+                    if program["id"] == "pseg_li_home_comfort_heat_pumps":
+                        if equipment_control == (
+                            "Yes, I can authorize equipment changes"
+                        ):
+                            st.write(
+                                "You reported that you can approve "
+                                "equipment changes. This is a planning "
+                                "answer, not verification of rebate "
+                                "eligibility."
+                            )
+
+                        elif equipment_control == (
+                            "Only with landlord or property-manager approval"
+                        ):
+                            st.write(
+                                "Equipment changes require landlord "
+                                "or property-manager approval. Discuss "
+                                "the proposed changes with them before "
+                                "moving forward."
+                            )
+
+                        elif equipment_control == (
+                            "No, I cannot authorize equipment changes"
+                        ):
+                            st.write(
+                                "You reported that you cannot approve "
+                                "equipment changes. Identify who can "
+                                "authorize them before planning an upgrade."
+                            )
+
+                        else:
+                            st.write(
+                                "Equipment-change authority is uncertain. "
+                                "Confirm who can approve changes before "
+                                "planning an upgrade."
+                            )
+
+                        st.caption(
+                            "Permission and building category are "
+                            "separate checks. Neither establishes "
+                            "rebate eligibility."
+                        )
+
+                    else:
+                        st.write(program["eligibility_note"])
 
     else:
-        st.divider()
         st.subheader("Helpful Resources")
         st.info(
             "No resource in the current catalog matches both "
@@ -980,6 +983,7 @@ else:
             "Coverage is limited. Other relevant guidance, programs, "
             "or incentives may still be available."
         )
+
 
 st.caption(
     "Early prototype: recommendations currently use your main concern, "
