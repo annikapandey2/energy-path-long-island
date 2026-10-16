@@ -969,20 +969,19 @@ if matching_programs:
                             "separate checks. Neither establishes "
                             "rebate eligibility."
                         )
-
-                    else:
+                   else:
                         st.write(program["eligibility_note"])
 
-                else:
-                        st.subheader("Helpful Resources")
-                        st.info(
-                   "No resource in the current catalog matches both "
-                    "your concern and preferred next step."
-                 )
-                      st.caption(
-                    "Coverage is limited. Other relevant guidance, programs, "
-                    "or incentives may still be available."
-                 )
+    else:
+        st.subheader("Helpful Resources")
+        st.info(
+            "No resource in the current catalog matches both "
+            "your concern and preferred next step."
+        )
+        st.caption(
+            "Coverage is limited. Other relevant guidance, programs, "
+            "or incentives may still be available."
+        )
 
 
 st.caption(
