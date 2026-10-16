@@ -640,11 +640,12 @@ else:
                     type="primary"
                 )
 
-                st.caption(
+                               st.caption(
                     "Source checked: "
                     f"{program['source_checked_on']}"
                 )
-                else:
+
+    else:
         st.divider()
         st.subheader("Helpful Resources")
         st.info(
@@ -655,6 +656,7 @@ else:
             "Coverage is limited. Other relevant guidance, programs, "
             "or incentives may still be available."
         )
+
 
 
                     
