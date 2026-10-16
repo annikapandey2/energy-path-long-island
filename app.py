@@ -838,7 +838,7 @@ else:
         and change_level in program["change_levels"]
     ]
 
-      if matching_programs:
+if matching_programs:
         st.subheader("Helpful Resources")
         st.caption(
             "Matched to your concern and preferred next step. "
