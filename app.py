@@ -464,7 +464,12 @@ if excluded:
             elif equipment_control == "I am not sure":
                 st.write(
                     "You have not confirmed who can approve equipment changes. "
-                    "Clarify that before plpermission_notes = {
+                    "Clarify that before planning an upgrade."
+                )
+            else:
+                st.write(action["reason"])
+
+permission_notes = {
     "Yes, I can authorize equipment changes": (
         "You selected that you can approve equipment changes. "
         "Upgrade suggestions are options to investigate, not purchase advice."
@@ -489,10 +494,6 @@ st.caption(
         "Confirm who can approve equipment changes before planning an upgrade."
     )
 )
-anning an upgrade."
-                )
-            else:
-                st.write(action["reason"])
 
 
 programs_path = Path(__file__).resolve().parent / "programs.json"
