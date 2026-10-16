@@ -270,9 +270,29 @@ result_col1, result_col2 = st.columns([4, 1])
 with result_col1:
     st.caption("YOUR PERSONALIZED PLAN")
     st.header("Your next step")
+        concern_intros = {
+        "Drafts or rooms that feel too hot or cold": (
+            "Start here for drafts or uneven room temperatures."
+        ),
+        "Heating or cooling": (
+            "Start here for your heating or cooling concern."
+        ),
+        "Lighting and electronics": (
+            "Start here for lighting and electronics."
+        ),
+        "Water use or water heating": (
+            "Start here for your water-use or hot-water concern."
+        ),
+        "Appliances or high electricity use": (
+            "Start here for appliances or high electricity use."
+        ),
+    }
+
     st.write(
-        "Based on the concern and type of change you selected, "
-        "here is a practical place to begin."
+        concern_intros.get(
+            main_concern,
+            "Here is a practical place to begin."
+        )
     )
 
 with result_col2:
@@ -283,6 +303,32 @@ with result_col2:
     ):
         st.session_state.screen = "home"
         st.rerun()
+permission_notes = {
+    "Yes, I can authorize equipment changes": (
+        "You selected that you can approve equipment changes. "
+        "Upgrade suggestions are options to investigate, not purchase advice."
+    ),
+    "Only with landlord or property-manager approval": (
+        "This plan reflects your selection that equipment changes "
+        "need landlord or property-manager approval."
+    ),
+    "No, I cannot authorize equipment changes": (
+        "This plan reflects your selection that you cannot "
+        "approve equipment changes."
+    ),
+    "I am not sure": (
+        "You selected that equipment-change authority is uncertain. "
+        "Confirm who can approve changes before planning an upgrade."
+    ),
+}
+
+st.caption(
+    permission_notes.get(
+        equipment_control,
+        "Confirm who can approve equipment changes before planning an upgrade."
+    )
+)
+
 
 catalog_path = Path(__file__).resolve().parent / "actions.json"
 
@@ -397,23 +443,58 @@ else:
         )
 
 if excluded:
-    with st.expander("Other options—and why they are not shown"):
+    with st.expander("Why some equipment options are not recommended"):
         for action in excluded:
-            st.markdown(f"#### {action['title']}")
-            st.write(action["reason"])
-st.divider()
-st.caption("ABOUT THIS PLAN")
+            st.markdown(f"**{action['title']}**")
 
-if home_status == "Rent":
-    st.caption(
-        "You selected Rent. Equipment changes may need approval; "
-        "the recommendations use your equipment-control answer."
+            if equipment_control == (
+                "Only with landlord or property-manager approval"
+            ):
+                st.write(
+                    "This option requires approval from your landlord "
+                    "or property manager. Start with the conversation above."
+                )
+            elif equipment_control == (
+                "No, I cannot authorize equipment changes"
+            ):
+                st.write(
+                    "You selected that you cannot approve equipment changes. "
+                    "Identify who can approve them before planning an upgrade."
+                )
+            elif equipment_control == "I am not sure":
+                st.write(
+                    "You have not confirmed who can approve equipment changes. "
+                    "Clarify that before plpermission_notes = {
+    "Yes, I can authorize equipment changes": (
+        "You selected that you can approve equipment changes. "
+        "Upgrade suggestions are options to investigate, not purchase advice."
+    ),
+    "Only with landlord or property-manager approval": (
+        "This plan reflects your selection that equipment changes "
+        "need landlord or property-manager approval."
+    ),
+    "No, I cannot authorize equipment changes": (
+        "This plan reflects your selection that you cannot "
+        "approve equipment changes."
+    ),
+    "I am not sure": (
+        "You selected that equipment-change authority is uncertain. "
+        "Confirm who can approve changes before planning an upgrade."
+    ),
+}
+
+st.caption(
+    permission_notes.get(
+        equipment_control,
+        "Confirm who can approve equipment changes before planning an upgrade."
     )
-else:
-    st.caption(
-        "You selected Own. Equipment suggestions are options "
-        "to investigate, not purchase recommendations."
-    )
+)
+anning an upgrade."
+                )
+            else:
+                st.write(action["reason"])
+
+
 programs_path = Path(__file__).resolve().parent / "programs.json"
 
 try:
@@ -436,8 +517,8 @@ else:
         st.divider()
         st.subheader("Helpful Resources")
         st.write(
-            "These resources match your concern and preffered next step. "
-            "A match does not mea =n you qualify for a rebate."
+            "Explore resources for your concern and preferred next step. "
+            "A resource match does not establish rebate eligibility."
         )
 
         for program in matching_programs:
@@ -446,11 +527,11 @@ else:
                 st.subheader(program["name"])
                 st.write(program["summary"])
 
-                st.markdown("#### Where to start")
+                st.markdown("**Where to start**")
                 st.write(program["next_step"])
 
                 if program["id"] == "pseg_li_home_comfort_heat_pumps":
-                    st.markdown("#### Building-category check")
+                    st.markdown("**Building-category check**")
 
                     if dwelling_units == "1–4":
                         st.success(
@@ -489,7 +570,7 @@ else:
                     st.caption(
                         "Rebate eligibility has not been established."
                     )
-                    st.markdown("#### Permission to plan equipment changes")
+                    st.markdown("**Equipment-change permission**")
 
                     if equipment_control == (
                         "Yes, I can authorize equipment changes"
@@ -562,17 +643,19 @@ else:
                     "Source checked: "
                     f"{program['source_checked_on']}"
                 )
-    else:
-                    st.divider()
-                    st.subheader("Helpful resources")
-                    st.info(
-                        "No local resource in this prototype matches both "
-                        "your selected concern and type of change."
-                    )
-                    st.caption(
-                        "The resource list is limited. This does not mean "
-                        "that no relevant programs or incentives exist."
-                    )
+   else:
+        st.divider()
+        st.subheader("Helpful Resources")
+        st.info(
+            "No resource in the current catalog matches both "
+            "your concern and preferred next step."
+        )
+        st.caption(
+            "Coverage is limited. Other relevant guidance, programs, "
+            "or incentives may still be available."
+        )
+
+
                     
 
 
