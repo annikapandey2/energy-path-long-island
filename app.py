@@ -640,7 +640,7 @@ else:
                     type="primary"
                 )
 
-                            st.caption(
+                st.caption(
                     "Source checked: "
                     f"{program['source_checked_on']}"
                 )
@@ -656,11 +656,6 @@ else:
             "Coverage is limited. Other relevant guidance, programs, "
             "or incentives may still be available."
         )
-
-
-
-                    
-
 
 st.caption(
     "Early prototype: recommendations currently use your main concern, "
