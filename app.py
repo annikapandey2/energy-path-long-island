@@ -640,7 +640,7 @@ else:
                     type="primary"
                 )
 
-                    st.caption(
+                            st.caption(
                     "Source checked: "
                     f"{program['source_checked_on']}"
                 )
