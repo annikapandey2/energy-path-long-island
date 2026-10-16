@@ -825,11 +825,13 @@ programs_path = Path(__file__).resolve().parent / "programs.json"
 try:
     with programs_path.open("r", encoding="utf-8") as file:
         programs = json.load(file)
+
 except (OSError, json.JSONDecodeError):
     st.warning(
         "Helpful resources could not be loaded. "
         "Your action recommendations are still available."
     )
+
 else:
     matching_programs = [
         program
@@ -838,7 +840,7 @@ else:
         and change_level in program["change_levels"]
     ]
 
-if matching_programs:
+    if matching_programs:
         st.subheader("Helpful Resources")
         st.caption(
             "Matched to your concern and preferred next step. "
@@ -969,7 +971,8 @@ if matching_programs:
                             "separate checks. Neither establishes "
                             "rebate eligibility."
                         )
-                   else:
+
+                    else:
                         st.write(program["eligibility_note"])
 
     else:
@@ -982,7 +985,6 @@ if matching_programs:
             "Coverage is limited. Other relevant guidance, programs, "
             "or incentives may still be available."
         )
-
 
 st.caption(
     "Early prototype: recommendations currently use your main concern, "
