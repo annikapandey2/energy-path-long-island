@@ -270,7 +270,7 @@ result_col1, result_col2 = st.columns([4, 1])
 with result_col1:
     st.caption("YOUR PERSONALIZED PLAN")
     st.header("Your next step")
-        concern_intros = {
+    concern_intros = {
         "Drafts or rooms that feel too hot or cold": (
             "Start here for drafts or uneven room temperatures."
         ),
