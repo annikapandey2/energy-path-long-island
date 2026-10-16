@@ -637,29 +637,19 @@ permission_labels = {
     )
 }
 
-summary_col1, summary_col2, summary_col3 = st.columns(3)
-
-with summary_col1:
-    with st.container(border=True):
-        st.caption("YOUR CONCERN")
-        st.write(main_concern)
-
-with summary_col2:
-    with st.container(border=True):
-        st.caption("YOUR NEXT-STEP PREFERENCE")
-        st.write(step_labels.get(change_level, change_level))
-
-with summary_col3:
-    with st.container(border=True):
-        st.caption("EQUIPMENT PERMISSIONS")
-        st.write(
-            permission_labels.get(
-                equipment_control,
-                equipment_control
-            )
-        )
+with st.expander("Review your answers"):
+    st.write(f"Concern: {main_concern}")
+    st.write(
+        f"Next-step preference: "
+        f"{step_labels.get(change_level, change_level)}"
+    )
+    st.write(
+        f"Equipment permissions: "
+        f"{permission_labels.get(equipment_control, equipment_control)}"
+    )
 
 st.subheader("Recommended next steps")
+
 
 
 
