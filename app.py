@@ -10,6 +10,92 @@ st.set_page_config(
 )
 if "screen" not in st.session_state:
     st.session_state.screen = "home"
+def match_actions(actions, concern, change_level, equipment_control):
+    matches = []
+    excluded = []
+
+    control_reasons = {
+        "Only with landlord or property-manager approval": (
+            "Equipment changes need your landlord or property manager's "
+            "approval, so start with a conversation."
+        ),
+        "No, I cannot authorize equipment changes": (
+            "You cannot approve equipment changes yourself. "
+            "These notes can help you explain the problem to someone who can."
+        ),
+        "I am not sure": (
+            "You are not sure who can approve equipment changes. "
+            "Find that out before planning equipment work."
+        )
+    }
+
+    general_reasons = {
+        "Easy changes I can do now": (
+            "You chose steps you can take now. "
+            "This starts with understanding your concern, "
+            "rather than replacing equipment."
+        ),
+        "Bigger long-term updates": (
+            "You chose to explore a larger update. "
+            "This step helps you compare options before "
+            "committing to purchases or property changes."
+        )
+    }
+
+    for action in actions:
+        if concern not in action["concerns"]:
+            continue
+
+        if change_level not in action["change_levels"]:
+            continue
+
+        allowed_control = action.get("allowed_equipment_control")
+
+        if (
+            allowed_control is not None
+            and equipment_control not in allowed_control
+        ):
+            continue
+
+        if (
+            action["requires_equipment_control"]
+            and equipment_control
+            != "Yes, I can authorize equipment changes"
+        ):
+            excluded.append({
+                "id": action["id"],
+                "title": action["title"],
+                "reason": (
+                    "This equipment-planning step is not shown because "
+                    "you have not confirmed that you can approve changes. "
+                    "The next step above focuses on that first."
+                )
+            })
+            continue
+
+        if allowed_control is not None:
+            reason = control_reasons.get(
+                equipment_control,
+                "Confirm who can approve changes before planning equipment work."
+            )
+        else:
+            reason = general_reasons.get(
+                change_level,
+                "This step matches your selected concern and type of change."
+            )
+
+        matches.append({
+            "id": action["id"],
+            "title": action["title"],
+            "description": action["description"],
+            "reason": reason,
+            "requires_equipment_control": (
+                action["requires_equipment_control"]
+            )
+        })
+
+    return matches, excluded
+
 
 if st.session_state.screen == "home":
 
