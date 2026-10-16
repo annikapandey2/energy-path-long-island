@@ -644,7 +644,7 @@ else:
                     "Source checked: "
                     f"{program['source_checked_on']}"
                 )
-   else:
+              else:
         st.divider()
         st.subheader("Helpful Resources")
         st.info(
