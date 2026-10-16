@@ -973,7 +973,7 @@ if matching_programs:
                     else:
                         st.write(program["eligibility_note"])
 
-                    else:
+                else:
                         st.subheader("Helpful Resources")
                         st.info(
                    "No resource in the current catalog matches both "
