@@ -852,7 +852,7 @@ if matches:
         else:
             st.info("No action matches your current selections yet. Try adjusting your concern or next-step preference.")
 
-    matching_programs = []
+matching_programs = []
     try:
         programs = load_json(PROGRAMS_PATH)
         matching_programs = [p for p in programs if main_concern in p.get("concerns", []) and change_level in p.get("change_levels", [])]
