@@ -928,7 +928,7 @@ if build_plan:
         "home_status": home_status,
         "dwelling_units": dwelling_units,
         "equipment_control": equipment_control
-    }
+    },
 
 submitted_plan = st.session_state.get("submitted_plan")
 
