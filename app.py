@@ -1628,5 +1628,21 @@ with st.expander("How your plan is matched"):
         "Your optional goal and heating source do not affect "
         "recommendations yet."
     )
+st.divider()
+
+st.subheader("Explore a potential upgrade")
+st.write(
+    "Have a project cost and savings estimate? "
+    "See how they compare over time."
+)
+
+if st.button(
+    "Explore Upgrade Payback",
+    key="results_open_payback",
+    type="primary"
+):
+    st.session_state.screen = "simulator"
+    st.rerun()
+
 
 
