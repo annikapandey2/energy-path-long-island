@@ -1,7 +1,280 @@
 import json
 from pathlib import Path
 
+import plotly.graph_objects as go
 import streamlit as st
+if st.session_state.screen == "simulator":
+
+    if st.button("← Back to Home", key="payback_back_home"):
+        st.session_state.screen = "home"
+        st.rerun()
+
+    st.title("Explore Upgrade Payback")
+    st.write(
+        "Already have a project cost and savings estimate? "
+        "Explore how those assumptions affect the time it "
+        "takes to recover the upfront cost."
+    )
+
+    st.info(
+        "This is a what-if calculator, not a prediction of "
+        "your home's energy savings. The starting numbers "
+        "are examples—not typical costs or savings."
+    )
+
+    with st.form("payback_scenario_form"):
+
+        cost_column, savings_column = st.columns(2)
+
+        with cost_column:
+            upfront_cost = st.number_input(
+                "Upfront cost you would pay ($)",
+                min_value=0.0,
+                max_value=1000000.0,
+                value=600.0,
+                step=50.0,
+                format="%.2f",
+                help=(
+                    "Enter your assumed out-of-pocket cost. "
+                    "Do not subtract an unconfirmed rebate "
+                    "or tax credit."
+                )
+            )
+
+        with savings_column:
+            monthly_savings = st.number_input(
+                "Assumed monthly savings ($)",
+                min_value=0.0,
+                max_value=100000.0,
+                value=20.0,
+                step=5.0,
+                format="%.2f",
+                help=(
+                    "Use your own estimate, such as one from "
+                    "an assessment or contractor. Energy Path "
+                    "does not calculate this from your home."
+                )
+            )
+
+        years = st.slider(
+            "Years to explore",
+            min_value=1,
+            max_value=30,
+            value=5
+        )
+
+        submitted = st.form_submit_button(
+            "Run my scenario",
+            type="primary"
+        )
+
+    if submitted:
+        st.session_state.payback_scenario = {
+            "upfront_cost": float(upfront_cost),
+            "monthly_savings": float(monthly_savings),
+            "years": int(years)
+        }
+
+    scenario = st.session_state.get("payback_scenario")
+
+    if scenario is None:
+        st.caption(
+            "Enter your assumptions, then select "
+            "'Run my scenario' to see the results."
+        )
+
+    else:
+        cost = scenario["upfront_cost"]
+        savings = scenario["monthly_savings"]
+        horizon_years = scenario["years"]
+
+        total_months = horizon_years * 12
+        annual_savings = savings * 12
+        net_savings = savings * total_months - cost
+
+        st.subheader("Your scenario results")
+        st.caption(
+            "Results reflect your last submitted scenario: "
+            f"${cost:,.2f} upfront, "
+            f"${savings:,.2f} saved per month, "
+            f"over {horizon_years} years. "
+            "If you change the inputs, select "
+            "'Run my scenario' again."
+        )
+
+        if cost == 0:
+            payback_months = 0.0
+            payback_label = "No upfront cost"
+        elif savings == 0:
+            payback_months = None
+            payback_label = "No payback"
+        else:
+            payback_months = cost / savings
+            payback_label = f"{payback_months:,.1f} months"
+
+        metric1, metric2, metric3 = st.columns(3)
+
+        metric1.metric(
+            "Simple payback",
+            payback_label
+        )
+
+        metric2.metric(
+            "Assumed annual savings",
+            f"${annual_savings:,.2f}"
+        )
+
+        metric3.metric(
+            f"Net savings after {horizon_years} years",
+            f"${net_savings:,.2f}"
+        )
+
+        if cost == 0:
+            st.info(
+                "You entered no upfront cost, so there is "
+                "no initial investment to recover."
+            )
+        elif savings == 0:
+            st.warning(
+                "With no monthly savings, this scenario "
+                "does not recover its upfront cost."
+            )
+        elif payback_months > total_months:
+            st.warning(
+                "This scenario does not recover its upfront "
+                f"cost within the selected {horizon_years} years. "
+                "At the same monthly savings, simple payback "
+                f"would take {payback_months:,.1f} months "
+                f"({payback_months / 12:,.1f} years)."
+            )
+        else:
+            st.success(
+                "Under these assumptions, savings recover "
+                f"the upfront cost after {payback_months:,.1f} "
+                f"months ({payback_months / 12:,.1f} years)."
+            )
+
+        months = list(range(total_months + 1))
+
+        if (
+            payback_months is not None
+            and 0 < payback_months <= total_months
+            and payback_months not in months
+        ):
+            months = sorted(months + [payback_months])
+
+        balances = [
+            savings * month - cost
+            for month in months
+        ]
+
+        fig = go.Figure()
+
+        fig.add_trace(
+            go.Scatter(
+                x=months,
+                y=balances,
+                mode="lines",
+                name="Savings minus upfront cost",
+                line={
+                    "color": "#176B68",
+                    "width": 4
+                },
+                hovertemplate=(
+                    "Month %{x:.1f}<br>"
+                    "Net savings: $%{y:,.2f}"
+                    "<extra></extra>"
+                )
+            )
+        )
+
+        fig.add_hline(
+            y=0,
+            line_dash="dash",
+            line_color="#64748B",
+            annotation_text="Break-even",
+            annotation_position="top left"
+        )
+
+        if (
+            payback_months is not None
+            and 0 < payback_months <= total_months
+        ):
+            fig.add_trace(
+                go.Scatter(
+                    x=[payback_months],
+                    y=[0],
+                    mode="markers",
+                    name="Payback point",
+                    marker={
+                        "color": "#164B40",
+                        "size": 12
+                    },
+                    hovertemplate=(
+                        "Payback: %{x:.1f} months"
+                        "<extra></extra>"
+                    )
+                )
+            )
+
+        fig.update_layout(
+            title="How assumed savings compare with upfront cost",
+            xaxis_title="Months after upgrade",
+            yaxis_title="Cumulative savings minus upfront cost ($)",
+            template="plotly_white",
+            hovermode="x unified",
+            showlegend=False,
+            margin={
+                "l": 20,
+                "r": 20,
+                "t": 70,
+                "b": 30
+            }
+        )
+
+        fig.update_xaxes(
+            range=[0, total_months]
+        )
+
+        fig.update_yaxes(
+            tickprefix="$",
+            tickformat=",.0f"
+        )
+
+        st.plotly_chart(
+            fig,
+            use_container_width=True,
+            config={"displaylogo": False}
+        )
+
+        with st.expander("How this calculation works"):
+            st.write(
+                "Simple payback in months = upfront cost "
+                "÷ assumed monthly savings."
+            )
+            st.write(
+                "Net savings = assumed monthly savings "
+                "× number of months − upfront cost."
+            )
+            st.write(
+                "The graph begins below zero when there is "
+                "an upfront cost. It reaches break-even "
+                "when cumulative savings equal that cost."
+            )
+            st.write(
+                "This simplified scenario assumes constant "
+                "monthly savings. It excludes financing, "
+                "maintenance, replacements, changing energy "
+                "prices, inflation, and the time value of money. "
+                "It does not check equipment life, rebate "
+                "eligibility, or whether an upgrade is "
+                "appropriate for your home."
+            )
+
+    st.stop()
+
+
+
 st.set_page_config(
     page_title="Energy Path",
     page_icon="🍃",
@@ -281,7 +554,7 @@ if st.session_state.screen == "home":
 
     button_left, button_center, button_right = st.columns([1, 2, 1])
 
-    with button_center:
+     with button_center:
         if st.button(
             "Find My Next Step",
             type="primary",
@@ -289,6 +562,21 @@ if st.session_state.screen == "home":
         ):
             st.session_state.screen = "questionnaire"
             st.rerun()
+
+        if st.button(
+            "Explore Upgrade Payback",
+            key="home_open_payback",
+            use_container_width=True
+        ):
+            st.session_state.screen = "simulator"
+            st.rerun()
+
+        st.caption(
+            "Already have a cost and savings estimate? "
+            "Explore a what-if scenario."
+        )
+
+
 
     st.markdown(
         '<div class="ep-section-label">A PRACTICAL PLACE TO BEGIN</div>',
