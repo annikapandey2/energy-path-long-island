@@ -32,9 +32,8 @@ def reset_energy_plan():
 
     st.session_state.screen = "home"
 
-
 if st.session_state.screen == "simulator":
-    left_space, calcualtor_col1, right_space = st.columns([1, 6, 1])
+    left_space, calculator_col, right_space = st.columns([1, 6, 1])
 
     with calculator_col:
         if st.button("← Back to Home", key="payback_back_home"):
@@ -42,19 +41,19 @@ if st.session_state.screen == "simulator":
             st.rerun()
 
         st.title("Explore Upgrade Payback")
-    st.write(
-        "Explore how an upgrade's upfront cost compares "
-        "with its assumed energy savings over time."
-    )
-    st.caption(
-        "Try a sourced air-sealing and insulation example, "
-        "or use an estimate from a quote or assessment. "
-        "This calculator explores assumptions—it does not "
-        "predict savings for your home."
-    )
+        st.write(
+            "Explore how an upgrade's upfront cost compares "
+            "with its assumed energy savings over time."
+        )
+        st.caption(
+            "Try a sourced air-sealing and insulation example, "
+            "or use an estimate from a quote or assessment. "
+            "This calculator explores assumptions—it does not "
+            "predict savings for your home."
+        )
 
 
-    mode = st.radio(
+        mode = st.radio(
         "Choose your starting point",
         [
             "Explore an air-sealing + insulation example",
