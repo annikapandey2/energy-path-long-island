@@ -850,7 +850,7 @@ if matches:
                     with st.expander("Why this step?"):
                         st.write(action["reason"])
         else:
-        st.info("No action matches your current selections yet. Try adjusting your concern or next-step preference.")
+            st.info("No action matches your current selections yet. Try adjusting your concern or next-step preference.")
 
     matching_programs = []
     try:
