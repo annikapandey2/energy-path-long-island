@@ -648,7 +648,7 @@ with st.expander("Review your answers"):
         f"{permission_labels.get(equipment_control, equipment_control)}"
     )
 
-st.subheader("Recommended next steps")
+st.subheader("Start Here")
 
 
 
@@ -673,13 +673,70 @@ matches, excluded = match_actions(
     equipment_control=equipment_control
 )
 
+from html import escape
+
+st.markdown(
+    """
+    <style>
+    .ep-action-title {
+        color: #164B40;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont,
+                     "Segoe UI", sans-serif;
+        font-size: clamp(1.35rem, 2.5vw, 1.8rem);
+        font-weight: 750;
+        line-height: 1.25;
+        margin: 0.35rem 0 0.8rem;
+        padding: 0;
+    }
+
+    .ep-action-panel {
+        background: #F2F8F5;
+        border-left: 4px solid #176B68;
+        border-radius: 0 12px 12px 0;
+        padding: 1rem 1.15rem;
+        margin: 0 0 0.8rem;
+    }
+
+    .ep-action-panel p,
+    .ep-action-panel li {
+        color: #183247;
+        font-size: 1rem;
+        line-height: 1.65;
+    }
+
+    .ep-action-panel p {
+        max-width: 760px;
+        margin: 0;
+    }
+
+    .ep-action-panel ul {
+        margin: 0;
+        padding-left: 1.25rem;
+        max-width: 760px;
+    }
+
+    .ep-action-label {
+        display: inline-block;
+        background: #F4C95D;
+        color: #183247;
+        font-size: 0.8rem;
+        font-weight: 750;
+        padding: 0.2rem 0.55rem;
+        border-radius: 6px;
+        margin-bottom: 0.65rem;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 if matches:
     for number, action in enumerate(matches, start=1):
-       is_authority_summary = (
+        is_authority_summary = (
             action["id"] == "equipment_permission_next_step"
         )
 
-       with st.container(border=True):
+        with st.container(border=True):
             if len(matches) > 1:
                 st.caption(f"STEP {number}")
 
@@ -688,58 +745,108 @@ if matches:
                     "Only with landlord or property-manager approval"
                 ):
                     card_title = "Talk to your landlord or property manager"
+
                 elif equipment_control == (
                     "No, I cannot authorize equipment changes"
                 ):
-                    card_title = "Bring the problem to someone who can approve changes"
-                else:
-                    card_title = "Find out who can approve changes"
+                    card_title = "Find the person who can approve changes"
 
-                st.subheader(card_title)
-                st.write(
-                    "A short description of the problem gives you "
-                    "a starting point for that conversation."
+                else:
+                    card_title = "Check who can approve changes"
+
+                st.markdown(
+                    f'<h3 class="ep-action-title">'
+                    f'{escape(card_title)}</h3>',
+                    unsafe_allow_html=True
                 )
 
-                st.markdown("#### Before the conversation")
-
                 if main_concern == "Heating or cooling":
-                    st.markdown(
-                        "- Note which rooms are affected.\n"
-                        "- Write down when the problem happens.\n"
-                        "- Identify the heating or cooling equipment, "
+                    conversation_items = [
+                        "Note which rooms are affected.",
+                        "Write down when the problem happens.",
+                        "Identify the heating or cooling equipment, "
                         "if you know it."
-                    )
+                    ]
+
                 elif main_concern == "Water use or water heating":
-                    st.markdown(
-                        "- Describe the water-use or hot-water issue.\n"
-                        "- Note where and when it happens.\n"
-                        "- Identify the fixture or equipment involved, "
+                    conversation_items = [
+                        "Describe the water-use or hot-water issue.",
+                        "Note where and when it happens.",
+                        "Identify the fixture or equipment involved, "
                         "if you know it."
-                    )
+                    ]
+
                 else:
-                    st.markdown(
-                        "- List the appliances you are concerned about.\n"
-                        "- Describe the problem or electricity-use concern.\n"
-                        "- Note which appliances belong to you "
+                    conversation_items = [
+                        "List the appliances you are concerned about.",
+                        "Describe the problem or electricity-use concern.",
+                        "Note which appliances belong to you "
                         "and which belong to the property owner."
-                    )
+                    ]
+
+                items_html = "".join(
+                    f"<li>{escape(item)}</li>"
+                    for item in conversation_items
+                )
+
+                st.markdown(
+                    f"""
+                    <div class="ep-action-panel">
+                        <span class="ep-action-label">
+                            BEFORE YOU TALK
+                        </span>
+                        <ul>{items_html}</ul>
+                    </div>
+                    """,
+                    unsafe_allow_html=True
+                )
 
                 if home_status == "Rent":
                     st.write(
-                        "Share these details with your landlord or "
-                        "property manager. If someone else handles "
-                        "equipment decisions, ask who to contact."
+                        "Share your notes with your landlord or property "
+                        "manager. Ask who handles equipment decisions "
+                        "if you are unsure."
                     )
+
                 else:
                     st.write(
-                        "Share these details with the person responsible "
+                        "Share your notes with the person responsible "
                         "for approving equipment changes."
                     )
 
             else:
-                st.subheader(action["title"])
-                st.write(action["description"])
+                card_title = action["title"]
+                card_description = action["description"]
+
+                if (
+                    main_concern
+                    == "Drafts or rooms that feel too hot or cold"
+                    and change_level == "Easy changes I can do now"
+                    and card_title
+                    == "Identify where comfort problems occur"
+                ):
+                    card_title = "Find your comfort trouble spots"
+                    card_description = (
+                        "Note which rooms feel too hot or cold, "
+                        "when it happens, and any noticeable drafts "
+                        "around windows or doors. Record what you "
+                        "find before deciding on property changes."
+                    )
+
+                st.markdown(
+                    f"""
+                    <h3 class="ep-action-title">
+                        {escape(card_title)}
+                    </h3>
+                    <div class="ep-action-panel">
+                        <span class="ep-action-label">
+                            YOUR FIRST MOVE
+                        </span>
+                        <p>{escape(card_description)}</p>
+                    </div>
+                    """,
+                    unsafe_allow_html=True
+                )
 
             if action["requires_equipment_control"]:
                 st.caption(
@@ -754,17 +861,20 @@ if matches:
                     st.write(
                         "You said you can authorize equipment changes."
                     )
+
 else:
     if change_level == "Programs or incentives to explore":
         st.info(
-            "See Helpful resources section below for matching resources "
-            "or information about current coverage."
+            "Explore Resources for your next step below "
+            "for matching resources or current coverage."
         )
+
     else:
         st.info(
             "No action in the current catalog matches your answers. "
             "This does not mean you have no options."
         )
+
 
 if excluded:
     with st.expander("Why some equipment options are not recommended"):
