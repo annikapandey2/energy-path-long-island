@@ -207,7 +207,7 @@ if st.session_state.screen == "simulator":
 
     if scenario is None:
         st.caption(
-            "Enter your assumptions, then select "
+            "Enter your estimates, then select "
             "'Run my scenario' to see the results."
         )
 
