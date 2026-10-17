@@ -150,7 +150,6 @@ def top_bar():
 # --- Renderers -------------------------------------------------------------
 
 def render_home():
-    top_bar()
     st.markdown(
         """
         <style>
@@ -165,12 +164,18 @@ def render_home():
         @media (max-width:640px){ .ep-hero{padding:2rem 1rem} .ep-feature{min-height:auto} }
         </style>
 
-        <section class="ep-hero">
-            <div class="ep-location">LONG ISLAND</div>
-            <h1 class="ep-title">Energy Path</h1>
-            <p class="ep-tagline">Your home-energy concern. A clearer next step.</p>
-            <p class="ep-intro">Explore practical guidance and official resources for your home, whether you rent or own.</p>
-        </section>
+<section class="ep-hero">
+    <h1 class="ep-title">Energy Path</h1>
+    <div class="ep-location">LONG ISLAND</div>
+    <p class="ep-tagline">
+        Your home-energy concern. A clearer next step.
+    </p>
+    <p class="ep-intro">
+        Explore practical guidance and official resources
+        for your home, whether you rent or own.
+    </p>
+</section>
+
         """,
         unsafe_allow_html=True,
     )
