@@ -421,7 +421,7 @@ if st.session_state.screen == "simulator":
             config={"displaylogo": False}
         )
 
-         with st.expander("Sources, assumptions & calculation"):
+        with st.expander("Sources, assumptions & calculation"):
             st.markdown(
                 "#### Where the numbers come from"
             )
