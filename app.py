@@ -19,13 +19,15 @@ if st.session_state.screen == "simulator":
     mode = st.radio(
         "Choose your starting point",
         [
-            "Explore official benchmarks",
+            "Explore an air-sealing + insulation example",
             "My own estimate"
         ],
         key="payback_mode"
     )
 
-    benchmark_mode = mode == "Explore official benchmarks"
+    benchmark_mode = (
+        mode == "an air-sealing + insulation example"
+    )
 
     if benchmark_mode:
         st.subheader("Air sealing + insulation")
@@ -193,7 +195,7 @@ if st.session_state.screen == "simulator":
 
         st.write(f"Scenario basis: {result_mode}")
 
-        if result_mode == "Explore official benchmarks":
+        if result_mode == "Explore an air-sealing + insulation example":
             annual_spending = scenario[
                 "annual_energy_spending"
             ]
