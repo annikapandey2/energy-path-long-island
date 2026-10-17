@@ -825,7 +825,7 @@ if st.button("← Back to Home", type="secondary"):
     st.rerun()
 
 main_concern = st.selectbox(
-    "Your main concern",
+    "What would you like to tackle?",
     [
         "Drafts or rooms that feel too hot or cold",
         "Heating or cooling",
@@ -852,7 +852,7 @@ with st.form("energy_plan_form"):
     with concern_col:
         with st.container(border=True):
             st.subheader("1. Your priorities")
-            st.caption("What would you like to tackle?")
+        
             water_focus = None
 
             if main_concern == "Water use or water heating":
