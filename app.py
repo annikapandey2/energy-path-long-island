@@ -1039,14 +1039,6 @@ with result_col2:
         use_container_width=True,
         on_click=reset_energy_plan
     )
-if action["requires_equipment_control"]:
-                st.caption(
-                    "Explore your options first. This is not a "
-                    "recommendation to buy or replace equipment."
-                )
-if action["id"] == "equipment_permission_next_step":
-                with st.expander("Why this step?"):
-                    st.write(action["reason"])
 
 permission_notes = {
     "Yes, I can authorize equipment changes": (
@@ -1298,7 +1290,14 @@ if matches:
                     unsafe_allow_html=True
                 )
 
-
+            if action["requires_equipment_control"]:
+                st.caption(
+                    "Explore your options first. This is not a "
+                    "recommendation to buy or replace equipment."
+                )
+            if action["id"] == "equipment_permission_next_step":
+                with st.expander("Why this step?"):
+                    st.write(action["reason"])
 permission_notes = {
     "Yes, I can authorize equipment changes": (
         "You selected that you can approve equipment changes. "
@@ -1318,12 +1317,6 @@ permission_notes = {
     ),
 }
 
-st.caption(
-    permission_notes.get(
-        equipment_control,
-        "Confirm who can approve equipment changes before planning an upgrade."
-    )
-)
 
 
 programs_path = Path(__file__).resolve().parent / "programs.json"
