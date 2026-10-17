@@ -42,7 +42,7 @@ if st.session_state.screen == "simulator":
         st.rerun()
 
     st.title("Explore Upgrade Payback")
-   st.write(
+    st.write(
         "Explore how an upgrade's upfront cost compares "
         "with its assumed energy savings over time."
     )
