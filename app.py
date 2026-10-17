@@ -1417,8 +1417,7 @@ else:
 
     st.subheader("Resources for your next step")
     st.caption(
-        "Explore the guidance below. "
-        "A match does not confirm program eligibility."
+        "Resources match your current topic - not confirmed eligiblity."
     )
 
     if matching_programs:
@@ -1446,7 +1445,7 @@ else:
                     </p>
                     <div class="ep-resource-step">
                         <span class="ep-resource-step-label">
-                            YOUR FIRST MOVE
+                            NEXT STEP
                         </span>
                         <p>{next_step_text}</p>
                     </div>
@@ -1534,19 +1533,8 @@ else:
                     )
 
                 else:
-                    eligibility_text = escape(
-                        str(program["eligibility_note"])
-                    )
-
-                    st.markdown(
-                        f"""
-                        <p class="ep-resource-note">
-                            {eligibility_text}
-                        </p>
-                        """,
-                        unsafe_allow_html=True
-                    )
-
+                    with st.expander("Resourcescope and limitations")
+                        st.write(program["eligibility_note"])
                 button_label = (
                     "Explore the program ↗"
                     if is_heat_pump
