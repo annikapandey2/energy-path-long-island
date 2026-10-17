@@ -40,7 +40,7 @@ if st.session_state.screen == "simulator":
     )
 
     benchmark_mode = (
-        mode == "an air-sealing + insulation example"
+        mode == "Explore an air-sealing + insulation example"
     )
 
     if benchmark_mode:
