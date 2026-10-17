@@ -822,6 +822,82 @@ st.caption(
 
 programs_path = Path(__file__).resolve().parent / "programs.json"
 
+st.markdown(
+    """
+    <style>
+    .ep-resource-provider {
+        display: inline-block;
+        background: #EAF4FC;
+        color: #183247;
+        padding: 0.35rem 0.75rem;
+        border-radius: 999px;
+        font-size: 0.8rem;
+        font-weight: 650;
+        margin: 0.25rem 0 0.8rem;
+    }
+
+    .ep-resource-heading {
+        color: #164B40;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont,
+                     "Segoe UI", sans-serif;
+        font-size: clamp(1.35rem, 2.5vw, 1.8rem);
+        font-weight: 750;
+        line-height: 1.25;
+        margin: 0 0 0.6rem;
+        padding: 0;
+    }
+
+    .ep-resource-summary {
+        color: #38524B;
+        font-size: 1.02rem;
+        line-height: 1.65;
+        max-width: 760px;
+        margin: 0 0 1rem;
+    }
+
+    .ep-resource-step {
+        background: #F2F8F5;
+        border-left: 4px solid #176B68;
+        border-radius: 0 12px 12px 0;
+        padding: 1rem 1.15rem;
+        margin: 0.5rem 0 1rem;
+    }
+
+    .ep-resource-step-label {
+        display: inline-block;
+        background: #F4C95D;
+        color: #183247;
+        font-size: 0.8rem;
+        font-weight: 750;
+        padding: 0.2rem 0.55rem;
+        border-radius: 6px;
+        margin-bottom: 0.6rem;
+    }
+
+    .ep-resource-step p {
+        color: #183247;
+        font-size: 1rem;
+        line-height: 1.65;
+        max-width: 760px;
+        margin: 0;
+    }
+
+    .ep-resource-note {
+        color: #38524B;
+        font-size: 0.92rem;
+        line-height: 1.6;
+        max-width: 760px;
+        margin: 0.3rem 0 0.8rem;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+from html import escape
+
+programs_path = Path(__file__).resolve().parent / "programs.json"
+
 try:
     with programs_path.open("r", encoding="utf-8") as file:
         programs = json.load(file)
@@ -840,154 +916,185 @@ else:
         and change_level in program["change_levels"]
     ]
 
+    st.subheader("Resources for your next step")
+    st.caption(
+        "Explore the guidance below. "
+        "A match does not confirm program eligibility."
+    )
+
     if matching_programs:
-        st.subheader("Helpful Resources")
-        st.caption(
-            "Matched to your concern and preferred next step. "
-            "Matching does not confirm program eligibility."
-        )
-
         for program in matching_programs:
+            is_heat_pump = (
+                program["id"] == "pseg_li_home_comfort_heat_pumps"
+            )
+
+            provider_text = escape(str(program["provider"]))
+            title_text = escape(str(program["name"]))
+            summary_text = escape(str(program["summary"]))
+            next_step_text = escape(str(program["next_step"]))
+
             with st.container(border=True):
-                st.caption(program["provider"])
-                st.subheader(program["name"])
-                st.write(program["summary"])
+                st.markdown(
+                    f"""
+                    <span class="ep-resource-provider">
+                        {provider_text}
+                    </span>
+                    <h3 class="ep-resource-heading">
+                        {title_text}
+                    </h3>
+                    <p class="ep-resource-summary">
+                        {summary_text}
+                    </p>
+                    <div class="ep-resource-step">
+                        <span class="ep-resource-step-label">
+                            YOUR FIRST MOVE
+                        </span>
+                        <p>{next_step_text}</p>
+                    </div>
+                    """,
+                    unsafe_allow_html=True
+                )
 
-                details_col, resource_col = st.columns([2, 1])
+                if is_heat_pump:
+                    st.markdown("#### Check your building category")
 
-                with details_col:
-                    st.markdown("#### Where to start")
-                    st.write(program["next_step"])
-
-                    if program["id"] == "pseg_li_home_comfort_heat_pumps":
-                        st.markdown("#### Building-category check")
-
-                        if dwelling_units == "1–4":
-                            st.success(
-                                "Your answer places your building "
-                                "in the 1–4-unit category."
-                            )
-                            st.caption(
-                                "This checks building size only. "
-                                "Project, equipment, contractor, and "
-                                "other requirements still need review."
-                            )
-
-                        elif dwelling_units == "5 or more":
-                            st.info(
-                                "Your answer places your building "
-                                "in the separate multifamily category."
-                            )
-                            st.caption(
-                                "The 1–4-unit screening path does not "
-                                "apply. This does not mean no rebate "
-                                "is available. Review the multifamily "
-                                "requirements on the official page."
-                            )
-
-                        else:
-                            st.warning(
-                                "Confirm your building's unit count "
-                                "to identify the category to review."
-                            )
-                            st.caption(
-                                "Ask the property owner or manager "
-                                "if needed. A unit is a separate home "
-                                "or apartment—not a bedroom."
-                            )
-
+                    if dwelling_units == "1–4":
+                        st.success(
+                            "Your answer places your building "
+                            "in the 1–4-unit category."
+                        )
                         st.caption(
-                            "Rebate eligibility has not been established."
+                            "Building size only—not an eligibility "
+                            "decision. Project, equipment, contractor, "
+                            "and other requirements still need review."
                         )
 
-                    if program["verified_requirements"]:
-                        with st.expander("Requirements to review"):
-                            st.caption(
-                                "Selected requirements—not a complete "
-                                "eligibility checklist."
-                            )
+                    elif dwelling_units == "5 or more":
+                        st.info(
+                            "Your answer places your building "
+                            "in the separate multifamily category."
+                        )
+                        st.caption(
+                            "The 1–4-unit screening path does not apply. "
+                            "Other rebates may be available; review "
+                            "the multifamily requirements on the "
+                            "official page."
+                        )
 
-                            for requirement in program["verified_requirements"]:
-                                st.write(
-                                    f"- {requirement['description']}"
-                                )
+                    else:
+                        st.warning(
+                            "Confirm the number of homes or apartments "
+                            "in your building to identify the category "
+                            "to review."
+                        )
+                        st.caption(
+                            "Ask the owner or manager if needed. "
+                            "Count separate homes or apartments, "
+                            "not bedrooms."
+                        )
 
-                with resource_col:
-                    st.markdown("#### Official resource")
+                    heat_pump_permission_notes = {
+                        "Yes, I can authorize equipment changes": (
+                            "You reported that you can approve equipment "
+                            "changes. Review the program requirements "
+                            "before planning a purchase."
+                        ),
+                        "Only with landlord or property-manager approval": (
+                            "Discuss proposed equipment changes with "
+                            "your landlord or property manager before "
+                            "moving forward."
+                        ),
+                        "No, I cannot authorize equipment changes": (
+                            "Identify who can approve equipment changes "
+                            "before planning an upgrade."
+                        ),
+                        "I am not sure": (
+                            "Confirm who can approve equipment changes "
+                            "before planning an upgrade."
+                        )
+                    }
 
-                    st.link_button(
-                        "View Official Resource",
-                        program["source_url"],
-                        type="primary",
-                        use_container_width=True
+                    permission_note = (
+                        heat_pump_permission_notes.get(
+                            equipment_control,
+                            "Confirm who can approve equipment changes "
+                            "before planning an upgrade."
+                        )
                     )
 
+                    st.markdown(
+                        f"""
+                        <p class="ep-resource-note">
+                            {escape(permission_note)}
+                            Building category and equipment permission
+                            are separate checks. Neither establishes
+                            rebate eligibility.
+                        </p>
+                        """,
+                        unsafe_allow_html=True
+                    )
+
+                else:
+                    eligibility_text = escape(
+                        str(program["eligibility_note"])
+                    )
+
+                    st.markdown(
+                        f"""
+                        <p class="ep-resource-note">
+                            {eligibility_text}
+                        </p>
+                        """,
+                        unsafe_allow_html=True
+                    )
+
+                button_label = (
+                    "Explore the program ↗"
+                    if is_heat_pump
+                    else "Open official resource ↗"
+                )
+
+                st.link_button(
+                    button_label,
+                    program["source_url"],
+                    type="primary",
+                    use_container_width=False
+                )
+
+                with st.expander("Source details & requirements"):
+                    st.write(f"Provider: {program['provider']}")
                     st.caption(
                         "Source checked: "
                         f"{program['source_checked_on']}"
                     )
 
-                    st.markdown("#### Before you proceed")
-
-                    if program["id"] == "pseg_li_home_comfort_heat_pumps":
-                        if equipment_control == (
-                            "Yes, I can authorize equipment changes"
-                        ):
-                            st.write(
-                                "You reported that you can approve "
-                                "equipment changes. This is a planning "
-                                "answer, not verification of rebate "
-                                "eligibility."
-                            )
-
-                        elif equipment_control == (
-                            "Only with landlord or property-manager approval"
-                        ):
-                            st.write(
-                                "Equipment changes require landlord "
-                                "or property-manager approval. Discuss "
-                                "the proposed changes with them before "
-                                "moving forward."
-                            )
-
-                        elif equipment_control == (
-                            "No, I cannot authorize equipment changes"
-                        ):
-                            st.write(
-                                "You reported that you cannot approve "
-                                "equipment changes. Identify who can "
-                                "authorize them before planning an upgrade."
-                            )
-
-                        else:
-                            st.write(
-                                "Equipment-change authority is uncertain. "
-                                "Confirm who can approve changes before "
-                                "planning an upgrade."
-                            )
-
+                    if program["verified_requirements"]:
+                        st.write("Requirements to review")
                         st.caption(
-                            "Permission and building category are "
-                            "separate checks. Neither establishes "
-                            "rebate eligibility."
+                            "Selected requirements—not a complete "
+                            "eligibility checklist."
                         )
 
-                    else:
-                        st.write(program["eligibility_note"])
+                        for requirement in program["verified_requirements"]:
+                            st.write(
+                                f"- {requirement['description']}"
+                            )
 
     else:
-        st.subheader("Helpful Resources")
         st.info(
-            "No resource in the current catalog matches both "
-            "your concern and preferred next step."
+            "We do not have a resource matching both your concern "
+            "and preferred next step yet."
         )
         st.caption(
-            "Coverage is limited. Other relevant guidance, programs, "
-            "or incentives may still be available."
+            "Other guidance, programs, or incentives may still "
+            "be available."
         )
 
 st.caption(
-    "Early prototype: recommendations currently use your main concern, "
-    "change preference, and equipment-control answer. Your goal and "
-    "heating source do not affect the results yet."
+    "About your results: recommendations use your concern, "
+    "next-step preference, and equipment-control answer. "
+    "Some resources also display a building-size check. "
+    "Your optional goal and heating source do not affect results yet."
 )
+
+
