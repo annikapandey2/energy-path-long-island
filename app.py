@@ -897,7 +897,7 @@ with home_col:
                 "equipment, and appliances involved in your concern."
             )
 
-    with st.expander("Optional details—not used in matching yet"):
+with st.expander("Optional details—not used in matching yet"):
         st.caption(
             "These answers do not change your recommendations "
             "in the current prototype."
