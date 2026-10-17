@@ -823,6 +823,23 @@ st.write(
 if st.button("← Back to Home", type="secondary"):
     st.session_state.screen = "home"
     st.rerun()
+
+main_concern = st.selectbox(
+    "Your main concern",
+    [
+        "Drafts or rooms that feel too hot or cold",
+        "Heating or cooling",
+        "Lighting and electronics",
+        "Water use or water heating",
+        "Appliances or high electricity use"
+    ],
+    index=None,
+    placeholder="Choose a concern",
+    key="plan_main_concern"
+)
+
+
+
 with st.form("energy_plan_form"):
     st.subheader("Build your energy action plan")
     st.caption(
@@ -836,21 +853,22 @@ with st.form("energy_plan_form"):
         with st.container(border=True):
             st.subheader("1. Your priorities")
             st.caption("What would you like to tackle?")
+            water_focus = None
 
-            main_concern = st.selectbox(
-                "Your main concern",
-                [
-                    "Drafts or rooms that feel too hot or cold",
-                    "Heating or cooling",
-                    "Lighting and electronics",
-                    "Water use or water heating",
-                    "Appliances or high electricity use"
-                ],
-                index=None,
-                placeholder="Choose a concern",
-                key="plan_main_concern"
-            )
+            if main_concern == "Water use or water heating":
+                water_focus = st.radio(
+                    "What would you like help with?",
+                    [
+                        "Using less water",
+                        "Hot-water energy use or equipment",
+                        "Not sure"
+                    ],
+                    index=None,
+                    key="plan_water_focus"
+                )
 
+
+        
             change_level = st.radio(
                 "What kind of next step are you looking for?",
                 [
