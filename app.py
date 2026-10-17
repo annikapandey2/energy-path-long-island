@@ -1290,19 +1290,16 @@ if matches:
                     unsafe_allow_html=True
                 )
 
-            if action["requires_equipment_control"]:
+           if action["requires_equipment_control"]:
                 st.caption(
                     "Explore your options first. This is not a "
                     "recommendation to buy or replace equipment."
                 )
 
-            with st.expander("Why this step?"):
-                st.write(action["reason"])
+            if action["id"] == "equipment_permission_next_step":
+                with st.expander("Why this step?"):
+                    st.write(action["reason"])
 
-                if action["requires_equipment_control"]:
-                    st.write(
-                        "You said you can authorize equipment changes."
-                    )
 
 else:
     if change_level == "Programs or incentives to explore":
