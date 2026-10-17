@@ -1571,6 +1571,7 @@ else:
         st.info(
             "No matching resource is listed in our currnt catalog. "
             "Other guidance, programs, or incentives may be available."
+        )
        
 with st.expander("How your plan is matched"):
     st.write(
