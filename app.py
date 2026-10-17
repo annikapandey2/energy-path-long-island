@@ -126,116 +126,85 @@ def match_actions(actions, concern, change_level, equipment_control):
     return matches, excluded
 
 
-# --- Renderers -------------------------------------------------------------
+# --- Small UI helpers -----------------------------------------------------
 
-def render_home():
+def top_bar():
     st.markdown(
         """
         <style>
-        .ep-hero { text-align: center; padding: 3rem 1.5rem 2.2rem; margin: 0 0 1.2rem; background: linear-gradient(135deg,#DDECE2 0%,#E7F2EC 55%,#E5EFF4 100%); border: 1px solid #C7DDD2; border-radius: 24px; }
-        .ep-title { color: #164B40; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: clamp(3rem, 7vw, 5.5rem); font-weight: 850; letter-spacing: -0.055em; line-height: 1.08; margin: 0; }
-        .ep-location { color: #176B68; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.28em; margin: 0.9rem 0 1.5rem; }
-        .ep-tagline { color: #183247; font-size: clamp(1.2rem, 2.5vw, 1.65rem); font-weight: 650; line-height: 1.4; max-width: 650px; margin: 0 auto 0.9rem; }
-        .ep-intro { color: #38574F; font-size: 1.05rem; line-height: 1.7; max-width: 640px; margin: 0 auto; }
-        .ep-section-label { text-align: center; color: #176B68; font-size: 0.8rem; font-weight: 750; letter-spacing: 0.16em; margin: 2.5rem 0 1rem; }
-        .ep-feature { background: #FFFFFF; border: 1px solid #CDDCD6; border-top: 5px solid #176B68; border-radius: 16px; padding: 1.5rem; min-height: 215px; box-sizing: border-box; margin-bottom: 1rem; }
-        .ep-feature-number { color: #176B68; font-size: 0.85rem; font-weight: 750; letter-spacing: 0.1em; margin-bottom: 0.8rem; }
-        .ep-feature h3 { color: #164B40; font-size: 1.2rem; font-weight: 750; line-height: 1.35; margin: 0 0 0.7rem; padding: 0; }
-        .ep-feature p { color: #38524B; font-size: 1rem; line-height: 1.65; margin: 0; }
-        .ep-about { background: #E1EDE5; border: 1px solid #C7DDD2; border-radius: 18px; padding: 1.8rem; margin: 1rem 0 1.5rem; text-align: center; }
-        .ep-about h2 { color: #164B40; font-size: 1.5rem; margin: 0 0 0.8rem; padding: 0; }
-        .ep-about p { color: #38524B; font-size: 1rem; line-height: 1.75; max-width: 760px; margin: 0 auto; }
-        @media (max-width: 640px) { .ep-hero { padding: 2rem 1rem; } .ep-feature { min-height: auto; } }
-        .ep-hero .ep-title { margin: 0 !important; padding: 0 !important; text-align: center !important; }
-        .ep-hero .ep-location { margin: 0.35rem 0 0.55rem !important; padding: 0 !important; letter-spacing: 0.18em; text-align: center !important; }
-        .ep-hero .ep-tagline { display: block; width: 100%; max-width: 650px; margin: 0 auto 0.8rem !important; padding: 0 !important; text-align: center !important; }
-        .ep-hero .ep-intro { display: block; width: 100%; max-width: 640px; margin: 0 auto !important; padding: 0 !important; text-align: center !important; }
+        .ep-topbar {
+            display:flex;align-items:center;justify-content:space-between;padding:10px 18px;border-bottom:1px solid #e6eef0;margin-bottom:14px;background:linear-gradient(90deg,#ffffff,#f7fffb);}
+        .ep-logo {font-weight:800;color:#164B40;font-size:1.1rem;display:flex;align-items:center;gap:10px}
+        .ep-logo .leaf{font-size:1.2rem}
+        .ep-top-actions a{color:#164B40;text-decoration:none;font-weight:600}
+        </style>
+        <div class="ep-topbar">
+            <div class="ep-logo"><span class="leaf">🍃</span>Energy Path</div>
+            <div class="ep-top-actions"><a href="https://github.com/annikapandey2/energy-path-long-island" target="_blank">Source ↗</a></div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+# --- Renderers -------------------------------------------------------------
+
+def render_home():
+    top_bar()
+    st.markdown(
+        """
+        <style>
+        .ep-hero { text-align: center; padding: 3.2rem 1.5rem 2.6rem; margin: 0 0 1.6rem; background: linear-gradient(135deg,#EAF6F1 0%,#F7FBFF 60%); border: 1px solid #D7EDE3; border-radius: 20px; box-shadow: 0 8px 24px rgba(20,75,64,0.06);}
+        .ep-title { color: #083F36; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: clamp(2.4rem, 6vw, 4.2rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.06; margin: 0; }
+        .ep-location { color: #176B68; font-size: 0.85rem; font-weight:700; letter-spacing:0.26em; margin:0.6rem 0; }
+        .ep-tagline { color:#0f3b32; font-size:clamp(1.05rem,2.4vw,1.5rem); margin:0.2rem 0 0.6rem }
+        .ep-intro { color:#264d47; font-size:1rem; line-height:1.6; max-width:700px; margin:0 auto }
+        .ep-feature { background:#fff;border:1px solid #e6f0ec;border-radius:14px;padding:1.4rem;min-height:170px; box-shadow:0 6px 18px rgba(16,64,55,0.04)}
+        .ep-feature h3{margin:0 0 0.4rem}
+        .ep-about{background:#fffefc;border:1px solid #eef7ef;border-radius:12px;padding:1.4rem;margin:1rem 0}
+        @media (max-width:640px){ .ep-hero{padding:2rem 1rem} .ep-feature{min-height:auto} }
         </style>
 
         <section class="ep-hero">
-            <h1 class="ep-title">Energy Path</h1>
             <div class="ep-location">LONG ISLAND</div>
-            <p class="ep-tagline">Your home-energy concern.<br/>A clearer next step.</p>
+            <h1 class="ep-title">Energy Path</h1>
+            <p class="ep-tagline">Your home-energy concern. A clearer next step.</p>
             <p class="ep-intro">Explore practical guidance and official resources for your home, whether you rent or own.</p>
         </section>
         """,
         unsafe_allow_html=True,
     )
 
-    button_left, button_center, button_right = st.columns([1, 2, 1])
-
-    with button_center:
+    c1, c2, c3 = st.columns([1, 2, 1])
+    with c2:
         if st.button("Find My Next Step", type="primary", use_container_width=True):
             st.session_state.screen = "questionnaire"
             st.rerun()
-
+        st.write("")
         if st.button("Explore Upgrade Payback", key="home_open_payback", use_container_width=True):
             st.session_state.screen = "simulator"
             st.rerun()
-
         st.caption("Already have a cost and savings estimate? Explore a what-if scenario.")
 
-    st.markdown('<div class="ep-section-label">A PRACTICAL PLACE TO BEGIN</div>', unsafe_allow_html=True)
+    st.markdown('<div style="text-align:center;color:#176B68;font-weight:700;letter-spacing:0.14em;margin:2rem 0 1rem">A PRACTICAL PLACE TO BEGIN</div>', unsafe_allow_html=True)
 
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.markdown(
-            """
-            <section class="ep-feature">
-                <div class="ep-feature-number">01 / YOUR CONCERN</div>
-                <h3>Understand your options</h3>
-                <p>Start with what matters to you—from drafts and hot water to lighting and electricity use.</p>
-            </section>
-            """,
-            unsafe_allow_html=True,
-        )
+        st.markdown('<div class="ep-feature"><div style="color:#176B68;font-weight:750;margin-bottom:8px">01 / YOUR CONCERN</div><h3>Understand your options</h3><p>Start with what matters to you—from drafts and hot water to lighting and electricity use.</p></div>', unsafe_allow_html=True)
     with col2:
-        st.markdown(
-            """
-            <section class="ep-feature">
-                <div class="ep-feature-number">02 / YOUR SITUATION</div>
-                <h3>Plan around permissions</h3>
-                <p>Explore next steps that account for whether you can approve equipment changes or need someone else's approval.</p>
-            </section>
-            """,
-            unsafe_allow_html=True,
-        )
+        st.markdown('<div class="ep-feature"><div style="color:#176B68;font-weight:750;margin-bottom:8px">02 / YOUR SITUATION</div><h3>Plan around permissions</h3><p>Explore next steps that account for whether you can approve equipment changes or need someone else\'s approval.</p></div>', unsafe_allow_html=True)
     with col3:
-        st.markdown(
-            """
-            <section class="ep-feature">
-                <div class="ep-feature-number">03 / YOUR NEXT STEP</div>
-                <h3>Find helpful resources</h3>
-                <p>Get a practical starting action and explore available official guidance and program pages.</p>
-            </section>
-            """,
-            unsafe_allow_html=True,
-        )
+        st.markdown('<div class="ep-feature"><div style="color:#176B68;font-weight:750;margin-bottom:8px">03 / YOUR NEXT STEP</div><h3>Find helpful resources</h3><p>Get a practical starting action and explore available official guidance and program pages.</p></div>', unsafe_allow_html=True)
 
-    st.markdown(
-        """
-        <section class="ep-about">
-            <h2>Why Energy Path?</h2>
-            <p>Knowing where to begin can be the hardest part. Energy Path brings a starting action and relevant resources into one place, with guidance for renters and homeowners in Nassau and Suffolk counties.</p>
-        </section>
-        """,
-        unsafe_allow_html=True,
-    )
+    st.markdown('<div class="ep-about"><h3 style="margin:0 0 8px;color:#164B40">Why Energy Path?</h3><p style="margin:0;color:#38524B">Knowing where to begin can be the hardest part. Energy Path brings a starting action and relevant resources into one place, with guidance for renters and homeowners in Nassau and Suffolk counties.</p></div>', unsafe_allow_html=True)
 
     with st.expander("About this app"):
-        st.write(
-            "Energy Path is a student-built prototype for exploring home-energy next steps on Long Island. Recommendations use your main concern, preferred type of change, and equipment-change permission."
-        )
-        st.write(
-            "Resource coverage is limited. The app does not establish rebate eligibility, provide a home-energy assessment, or guarantee energy or cost savings."
-        )
+        st.write("Energy Path is a student-built prototype for exploring home-energy next steps on Long Island. Recommendations use your main concern, preferred type of change, and equipment-change permission.")
+        st.write("Resource coverage is limited. The app does not establish rebate eligibility, provide a home-energy assessment, or guarantee energy or cost savings.")
 
 
 def render_simulator():
-    if st.button("← Back to Home", key="payback_back_home"):
-        st.session_state.screen = "home"
-        st.rerun()
-
+    top_bar()
     st.title("Explore Upgrade Payback")
     st.write("Explore how an upgrade's upfront cost compares with its assumed energy savings over time.")
     st.caption("Start with a guided example, or enter savings from your own project estimate.")
@@ -250,79 +219,27 @@ def render_simulator():
 
     if benchmark_mode:
         st.subheader("Air sealing + insulation")
-        st.info(
-            "This example uses ENERGY STAR's estimated national average savings of 11% on total home-energy costs from combined air sealing and insulation. Actual savings vary by home."
-        )
+        st.info("This example uses ENERGY STAR's estimated national average savings of 11% on total home-energy costs from combined air sealing and insulation. Actual savings vary by home.")
         st.markdown("[View the official ENERGY STAR methodology](https://www.energystar.gov/saveathome/seal_insulate/methodology)")
 
-        with st.expander("What this benchmark covers"):
-            st.write(
-                "The estimate covers combined improvements: sealing air leaks throughout the home and adding insulation in areas such as attics, floors over crawl spaces, and accessible basement rim joists."
-            )
-            st.write(
-                "It does not describe weatherstripping alone or attic sealing alone. Existing insulation, air leakage, climate, and the work performed can change actual savings."
-            )
-            st.write(
-                "Energy Path applies the published 11% national average to the annual home-energy spending you enter. It does not model your individual home."
-            )
     else:
-        st.info(
-            "Use a savings estimate from an assessment, contractor, or your own hypothetical scenario. Energy Path calculates payback from your inputs; it does not independently predict the savings."
-        )
+        st.info("Use a savings estimate from an assessment, contractor, or your own hypothetical scenario. Energy Path calculates payback from your inputs; it does not independently predict the savings.")
 
     with st.form("payback_scenario_form"):
-        upfront_cost = st.number_input(
-            "Upfront project cost you would pay ($)",
-            min_value=0.0,
-            max_value=1000000.0,
-            value=1500.0,
-            step=50.0,
-            format="%.2f",
-            key="payback_project_cost",
-            help=(
-                "Replace the example with your project estimate or quote. Do not subtract unconfirmed rebates or tax credits. In benchmark mode, the cost should cover the combined air-sealing and insulation work being explored."
-            ),
-        )
+        upfront_cost = st.number_input("Upfront project cost you would pay ($)", min_value=0.0, max_value=1000000.0, value=1500.0, step=50.0, format="%.2f", key="payback_project_cost", help=("Replace the example with your project estimate or quote. Do not subtract unconfirmed rebates or tax credits. In benchmark mode, the cost should cover the combined air-sealing and insulation work being explored."))
 
         if benchmark_mode:
-            annual_energy_spending = st.number_input(
-                "Total annual home-energy spending ($/year)",
-                min_value=0.0,
-                max_value=1000000.0,
-                value=3000.0,
-                step=100.0,
-                format="%.2f",
-                key="payback_annual_energy_spending",
-                help=(
-                    "Add a full year of electricity and any natural gas, heating oil, propane, or other home-energy costs. Include each fuel once. Do not include water, internet, or vehicle fuel."
-                ),
-            )
-
+            annual_energy_spending = st.number_input("Total annual home-energy spending ($/year)", min_value=0.0, max_value=1000000.0, value=3000.0, step=100.0, format="%.2f", key="payback_annual_energy_spending", help=("Add a full year of electricity and any natural gas, heating oil, propane, or other home-energy costs. Include each fuel once. Do not include water, internet, or vehicle fuel."))
             st.caption("Calculation: annual home-energy spending × 11% ÷ 12 = assumed average monthly savings.")
             monthly_savings = annual_energy_spending * 0.11 / 12
         else:
-            monthly_savings = st.number_input(
-                "Assumed monthly savings ($)",
-                min_value=0.0,
-                max_value=100000.0,
-                value=20.0,
-                step=5.0,
-                format="%.2f",
-                key="payback_own_monthly_savings",
-                help=("Enter your own estimate. This value is not supplied or verified by Energy Path."),
-            )
+            monthly_savings = st.number_input("Assumed monthly savings ($)", min_value=0.0, max_value=100000.0, value=20.0, step=5.0, format="%.2f", key="payback_own_monthly_savings", help=("Enter your own estimate. This value is not supplied or verified by Energy Path."))
 
         years = st.slider("Years to explore", min_value=1, max_value=30, value=5, key="payback_horizon")
         submitted = st.form_submit_button("Run my scenario", type="primary")
 
     if submitted:
-        st.session_state.payback_scenario = {
-            "upfront_cost": float(upfront_cost),
-            "monthly_savings": float(monthly_savings),
-            "years": int(years),
-            "mode": mode,
-            "annual_energy_spending": float(annual_energy_spending) if benchmark_mode else None,
-        }
+        st.session_state.payback_scenario = {"upfront_cost": float(upfront_cost), "monthly_savings": float(monthly_savings), "years": int(years), "mode": mode, "annual_energy_spending": float(annual_energy_spending) if benchmark_mode else None}
 
     scenario = st.session_state.get("payback_scenario")
     if scenario is None:
@@ -343,18 +260,12 @@ def render_simulator():
 
     if result_mode == "Explore an air-sealing + insulation example":
         annual_spending = scenario["annual_energy_spending"]
-        st.caption(
-            "Savings assumption: ENERGY STAR's 11% national modeled benchmark for combined air sealing and insulation, applied to "
-            f"${annual_spending:,.2f} in annual home-energy spending."
-        )
+        st.caption("Savings assumption: ENERGY STAR's 11% national modeled benchmark for combined air sealing and insulation, applied to " f"${annual_spending:,.2f} in annual home-energy spending.")
         st.markdown("[Benchmark source: ENERGY STAR](https://www.energystar.gov/saveathome/seal_insulate/methodology)")
     else:
         st.caption("Savings assumption: the monthly amount you entered—not an official benchmark.")
 
-    st.caption(
-        "Results reflect your last submitted scenario: "
-        f"${cost:,.2f} upfront, {savings:,.2f} saved per month, over {horizon_years} years. If you change the inputs, select 'Run my scenario' again."
-    )
+    st.caption("Results reflect your last submitted scenario: " f"${cost:,.2f} upfront, {savings:,.2f} saved per month, over {horizon_years} years. If you change the inputs, select 'Run my scenario' again.")
 
     if cost == 0:
         payback_months = 0.0
@@ -377,13 +288,10 @@ def render_simulator():
         st.warning("With no monthly savings, this scenario does not recover its upfront cost.")
     elif payback_months > total_months:
         st.warning(
-            "This scenario does not recover its upfront cost within the selected {horizon_years} years. "
-            f"At the same monthly savings, simple payback would take {payback_months:,.1f} months ({payback_months/12:,.1f} years)."
+            f"This scenario does not recover its upfront cost within the selected {horizon_years} years. At the same monthly savings, simple payback would take {payback_months:,.1f} months ({payback_months/12:,.1f} years)."
         )
     else:
-        st.success(
-            f"Under these assumptions, savings recover the upfront cost after {payback_months:,.1f} months ({payback_months/12:,.1f} years)."
-        )
+        st.success(f"Under these assumptions, savings recover the upfront cost after {payback_months:,.1f} months ({payback_months/12:,.1f} years).")
 
     months = list(range(total_months + 1))
     if payback_months is not None and 0 < payback_months <= total_months and payback_months not in months:
@@ -392,23 +300,11 @@ def render_simulator():
     balances = [savings * month - cost for month in months]
 
     fig = go.Figure()
-    fig.add_trace(
-        go.Scatter(
-            x=months,
-            y=balances,
-            mode="lines",
-            name="Savings minus upfront cost",
-            line={"color": "#176B68", "width": 4},
-            hovertemplate=("Month %{x:.1f}<br>Net savings: $%{y:,.2f}<extra></extra>"),
-        )
-    )
-
+    fig.add_trace(go.Scatter(x=months, y=balances, mode="lines", name="Savings minus upfront cost", line={"color": "#176B68", "width": 4}, hovertemplate=("Month %{x:.1f}<br>Net savings: $%{y:,.2f}<extra></extra>"),))
     fig.add_hline(y=0, line_dash="dash", line_color="#64748B", annotation_text="Break-even", annotation_position="top left")
 
     if payback_months is not None and 0 < payback_months <= total_months:
-        fig.add_trace(
-            go.Scatter(x=[payback_months], y=[0], mode="markers", name="Payback point", marker={"color": "#164B40", "size": 12}, hovertemplate=("Payback: %{x:.1f} months<extra></extra>"))
-        )
+        fig.add_trace(go.Scatter(x=[payback_months], y=[0], mode="markers", name="Payback point", marker={"color": "#164B40", "size": 12}, hovertemplate=("Payback: %{x:.1f} months<extra></extra>")))
 
     fig.update_layout(title="How assumed savings compare with upfront cost", xaxis_title="Months after upgrade", yaxis_title="Cumulative savings minus upfront cost ($)", template="plotly_white", hovermode="x unified", showlegend=False, margin={"l": 20, "r": 20, "t": 70, "b": 30})
     fig.update_xaxes(range=[0, total_months])
@@ -419,12 +315,9 @@ def render_simulator():
     with st.expander("Sources, assumptions & calculation"):
         st.markdown("#### Where the numbers come from")
         if result_mode == "Explore an air-sealing + insulation example":
-            st.write(
-                "The savings percentage comes from ENERGY STAR's published national modeled benchmark for combined air sealing and insulation. The source link appears above these results. Applying that percentage to your entered spending is an illustration, not a home-specific prediction."
-            )
+            st.write("The savings percentage comes from ENERGY STAR's published national modeled benchmark for combined air sealing and insulation. The source link appears above these results. Applying that percentage to your entered spending is an illustration, not a home-specific prediction.")
         else:
             st.write("The monthly savings figure is the amount you entered. Energy Path does not verify or independently predict that amount.")
-
         st.write("Project cost and the time period are your inputs. Starting dollar amounts are editable examples, not researched typical costs.")
         st.markdown("#### Formulas and limitations")
         st.write("Simple payback in months = upfront cost ÷ assumed monthly savings.")
@@ -434,6 +327,7 @@ def render_simulator():
 
 
 def render_questionnaire():
+    top_bar()
     st.title("Energy Path")
     st.subheader("A home-energy resource navigator for Long Island residents")
     st.write("Answer a few questions to find practical next steps and relevant local resources for your home.")
@@ -557,10 +451,10 @@ def render_questionnaire():
     with result_col1:
         st.markdown(
             """
-            <section style="background: linear-gradient(135deg, #DDECE2, #E7F2EC); border: 1px solid #C7DDD2; border-left: 6px solid #176B68; border-radius: 18px; padding: 1.5rem; margin-bottom: 1rem;">
-                <p style="color: #176B68; font-size: 0.8rem; font-weight: 750; letter-spacing: 0.14em; margin: 0 0 0.5rem;">ENERGY PATH · LONG ISLAND</p>
-                <h2 style="color: #164B40; font-size: clamp(1.6rem, 3vw, 2.2rem); line-height: 1.2; margin: 0 0 0.6rem; padding: 0;">Your Energy Action Plan</h2>
-                <p style="color: #38574F; font-size: 1rem; line-height: 1.6; margin: 0;">A starting point based on your concern, preferred next step, and equipment-change permissions.</p>
+            <section style="background: linear-gradient(135deg, #EAF6F1, #F7FBFF); border: 1px solid #D7EDE3; border-left: 6px solid #176B68; border-radius: 14px; padding: 1.2rem; margin-bottom: 1rem; box-shadow: 0 8px 20px rgba(20,75,64,0.04);">
+                <p style="color: #176B68; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.14em; margin: 0 0 0.5rem;">ENERGY PATH · LONG ISLAND</p>
+                <h2 style="color: #083F36; font-size: clamp(1.4rem, 2.4vw, 2rem); line-height: 1.2; margin: 0 0 0.4rem;">Your Energy Action Plan</h2>
+                <p style="color: #38574F; font-size: 1rem; line-height: 1.5; margin: 0;">A starting point based on your concern, preferred next step, and equipment-change permissions.</p>
             </section>
             """,
             unsafe_allow_html=True,
@@ -568,21 +462,6 @@ def render_questionnaire():
 
     with result_col2:
         st.button("Start a New Plan", type="secondary", use_container_width=True, on_click=reset_energy_plan)
-
-    step_labels = {"Easy changes I can do now": "Easy changes", "Programs or incentives to explore": "Programs & incentives", "Bigger long-term updates": "Long-term updates"}
-    permission_labels = {
-        "Yes, I can authorize equipment changes": "You can approve changes",
-        "Only with landlord or property-manager approval": "Landlord or manager approval needed",
-        "No, I cannot authorize equipment changes": "Someone else must approve changes",
-        "I am not sure": "Approval authority uncertain",
-    }
-
-    with st.expander("Review your answers"):
-        st.write(f"Concern: {main_concern}")
-        st.write(f"Next-step preference: {step_labels.get(change_level, change_level)}")
-        st.write(f"Equipment permissions: {permission_labels.get(equipment_control, equipment_control)}")
-
-    st.subheader("Start Here")
 
     # Load actions and match
     try:
@@ -596,12 +475,14 @@ def render_questionnaire():
     st.markdown(
         """
         <style>
-        .ep-action-title { color: #164B40; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: clamp(1.35rem, 2.5vw, 1.8rem); font-weight: 750; line-height: 1.25; margin: 0.35rem 0 0.8rem; padding: 0; }
-        .ep-action-panel { background: #F2F8F5; border-left: 4px solid #176B68; border-radius: 0 12px 12px 0; padding: 1rem 1.15rem; margin: 0 0 0.8rem; }
-        .ep-action-panel p, .ep-action-panel li { color: #183247; font-size: 1rem; line-height: 1.65; }
-        .ep-action-panel p { max-width: 760px; margin: 0; }
-        .ep-action-panel ul { margin: 0; padding-left: 1.25rem; max-width: 760px; }
-        .ep-action-label { display: inline-block; background: #F4C95D; color: #183247; font-size: 0.8rem; font-weight: 750; padding: 0.2rem 0.55rem; border-radius: 6px; margin-bottom: 0.65rem; }
+        .ep-action-title { color: #083F36; font-size: clamp(1.15rem, 2vw, 1.6rem); font-weight:750; margin:0.25rem 0 0.6rem }
+        .ep-action-panel { background: #FFFFFF; border-left: 4px solid #176B68; border-radius: 10px; padding: 1rem 1.15rem; margin: 0 0 0.9rem; box-shadow:0 6px 18px rgba(15,60,52,0.04) }
+        .ep-action-label { display:inline-block; background:#F4C95D; color:#183247; font-weight:750; padding:0.18rem 0.5rem; border-radius:6px; margin-bottom:0.6rem }
+        .ep-resource-provider { display:inline-block; background:#EAF4FC; color:#183247; padding:0.35rem 0.75rem; border-radius:999px; font-size:0.85rem; font-weight:650; }
+        .ep-resource-step { background:#fff; border-left:4px solid #176B68; padding:0.9rem; border-radius:10px; box-shadow:0 6px 14px rgba(15,60,52,0.03); }
+        .ep-resource-heading { color:#083F36; font-size:1.2rem; font-weight:750; margin:0.4rem 0 }
+        .ep-resource-summary { color:#38524B }
+        .ep-resource-note { color:#38524B; margin-top:0.6rem }
         </style>
         """,
         unsafe_allow_html=True,
@@ -625,23 +506,11 @@ def render_questionnaire():
                     st.markdown(f'<h3 class="ep-action-title">{escape(card_title)}</h3>', unsafe_allow_html=True)
 
                     if main_concern == "Heating or cooling":
-                        conversation_items = [
-                            "Note which rooms are affected.",
-                            "Write down when the problem happens.",
-                            "Identify the heating or cooling equipment, if you know it.",
-                        ]
+                        conversation_items = ["Note which rooms are affected.", "Write down when the problem happens.", "Identify the heating or cooling equipment, if you know it."]
                     elif main_concern == "Water use or water heating":
-                        conversation_items = [
-                            "Describe the water-use or hot-water issue.",
-                            "Note where and when it happens.",
-                            "Identify the fixture or equipment involved, if you know it.",
-                        ]
+                        conversation_items = ["Describe the water-use or hot-water issue.", "Note where and when it happens.", "Identify the fixture or equipment involved, if you know it."]
                     else:
-                        conversation_items = [
-                            "List the appliances you are concerned about.",
-                            "Describe the problem or electricity-use concern.",
-                            "Note which appliances belong to you and which belong to the property owner.",
-                        ]
+                        conversation_items = ["List the appliances you are concerned about.", "Describe the problem or electricity-use concern.", "Note which appliances belong to you and which belong to the property owner."]
 
                     items_html = "".join(f"<li>{escape(item)}</li>" for item in conversation_items)
                     st.markdown(f"<div class=\"ep-action-panel\"><span class=\"ep-action-label\">BEFORE YOU TALK</span><ul>{items_html}</ul></div>", unsafe_allow_html=True)
@@ -675,14 +544,12 @@ def render_questionnaire():
     else:
         st.info("No action matches your current selections yet. Try adjusting your concern or next-step preference.")
 
-    # Programs / resources
+    matching_programs = []
     try:
         programs = load_json(PROGRAMS_PATH)
+        matching_programs = [p for p in programs if main_concern in p.get("concerns", []) and change_level in p.get("change_levels", [])]
     except Exception:
         st.warning("Helpful resources could not be loaded. Your action recommendations are still available.")
-        return
-
-    matching_programs = [p for p in programs if main_concern in p["concerns"] and change_level in p["change_levels"]]
 
     st.subheader("Resources for your next step")
     st.caption("Resources match your current topic - not confirmed eligibility.")
@@ -696,10 +563,7 @@ def render_questionnaire():
             next_step_text = escape(str(program.get("next_step", "")))
 
             with st.container(border=True):
-                st.markdown(
-                    f"<span class=\"ep-resource-provider\">{provider_text}</span><h3 class=\"ep-resource-heading\">{title_text}</h3><p class=\"ep-resource-summary\">{summary_text}</p><div class=\"ep-resource-step\"><span class=\"ep-resource-step-label\">NEXT STEP</span><p>{next_step_text}</p></div>",
-                    unsafe_allow_html=True,
-                )
+                st.markdown(f"<span class=\"ep-resource-provider\">{provider_text}</span><h3 class=\"ep-resource-heading\">{title_text}</h3><p class=\"ep-resource-summary\">{summary_text}</p><div class=\"ep-resource-step\"><span class=\"ep-resource-step-label\">NEXT STEP</span><p>{next_step_text}</p></div>", unsafe_allow_html=True)
 
                 if is_heat_pump:
                     st.markdown("#### Check your building category")
