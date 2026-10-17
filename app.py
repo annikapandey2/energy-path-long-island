@@ -1,9 +1,23 @@
+
 import json
 from pathlib import Path
 
 import plotly.graph_objects as go
 import streamlit as st
+
+st.set_page_config(
+    page_title="Energy Path",
+    page_icon="🍃",
+    layout="wide",
+    initial_sidebar_state="collapsed"
+)
+
+if "screen" not in st.session_state:
+    st.session_state.screen = "home"
+
 if st.session_state.screen == "simulator":
+
+
 
     if st.button("← Back to Home", key="payback_back_home"):
         st.session_state.screen = "home"
@@ -402,14 +416,7 @@ if st.session_state.screen == "simulator":
 
 
 
-st.set_page_config(
-    page_title="Energy Path",
-    page_icon="🍃",
-    layout="wide",
-    initial_sidebar_state="collapsed"
-)
-if "screen" not in st.session_state:
-    st.session_state.screen = "home"
+
 def match_actions(actions, concern, change_level, equipment_control):
     matches = []
     excluded = []
