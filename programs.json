@@ -186,8 +186,29 @@
     "verified_requirements": [],
     "eligibility_note": "This is general energy-saving guidance, not a rebate offer or a diagnosis of a heating or cooling problem. Only adjust controls or maintain equipment you are permitted to use, and follow the equipment manufacturer's instructions.",
     "next_step": "Find the heating and cooling sections and choose one tip that fits your home and the controls you can access. If you cannot adjust the equipment, use the guidance to prepare questions for the person responsible."
+  },
+  {
+    "id": "ftc_appliance_energyguide_comparison",
+    "name": "Compare Appliances Using the EnergyGuide Label",
+    "provider": "Federal Trade Commission — National guidance",
+    "summary": "Learn how to compare similar appliances using the EnergyGuide label's estimated energy use and yearly operating costs.",
+    "source_url": "https://consumer.ftc.gov/node/77485",
+    "source_checked_on": "2026-10-17",
+    "concerns": [
+      "Appliances or high electricity use"
+    ],
+    "change_levels": [
+      "Bigger long-term updates"
+    ],
+    "screening_status": "resource_only",
+    "verified_requirements": [],
+    "eligibility_note": "This is appliance-comparison guidance, not a rebate offer or a recommendation to replace an appliance. Label operating costs are estimates based on typical use and national average energy prices; your actual costs may differ.",
+    "next_step": "If replacement is worth exploring, compare the EnergyGuide labels for similar appliance models. Review estimated energy use and operating costs alongside the purchase price. Labels may be available on the appliance or the seller's or manufacturer's website. Confirm permission before replacing equipment you do not control."
   }
 ]
+
+
+
 
 
 
