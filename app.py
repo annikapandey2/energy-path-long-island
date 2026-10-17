@@ -907,7 +907,33 @@ with st.form("energy_plan_form"):
             "Your main energy goal",
             [
                 "Lower my energy bill",
-                "Make
+                "Make my home more comfortable",
+                "Use less energy",
+                "Learn about bigger home upgrades"
+            ],
+            index=None,
+            key="plan_main_goal"
+        )
+
+        heating_source = st.selectbox(
+            "Your primary heating source",
+            [
+                "Electric heat",
+                "Oil",
+                "Natural Gas",
+                "Heat pump",
+                "I am not sure"
+            ],
+            index=None,
+            placeholder="Choose a heating source",
+            key="plan_heating_source"
+        )
+
+    build_plan = st.form_submit_button(
+        "Build My Energy Action Plan",
+        type="primary",
+        use_container_width=True
+    )
 
 
 if build_plan:
@@ -928,7 +954,7 @@ if build_plan:
         "home_status": home_status,
         "dwelling_units": dwelling_units,
         "equipment_control": equipment_control
-    },
+    }
 
 submitted_plan = st.session_state.get("submitted_plan")
 
