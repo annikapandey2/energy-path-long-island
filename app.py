@@ -234,7 +234,7 @@ def render_home():
 
 def render_simulator():
     top_bar()
-    if st.button(←Back to home", key="payback_back_home"):
+    if st.button("←Back to home", key="payback_back_home"):
         st.session_state.screen = "home"
         st.rerun()
     st.title("Explore Upgrade Payback")
