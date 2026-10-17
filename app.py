@@ -793,10 +793,12 @@ def render_questionnaire():
         </style>
         """,
         unsafe_allow_html=True,
-    )
-st.subheader("Start here")
+   )
 
-   if matches:
+    st.subheader("Start here")
+
+    if matches:
+
         for number, action in enumerate(matches, start=1):
             is_authority_summary = (
                 action["id"] == "equipment_permission_next_step"
