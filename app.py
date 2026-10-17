@@ -32,26 +32,26 @@ def reset_energy_plan():
 
     st.session_state.screen = "home"
 
+
 if st.session_state.screen == "simulator":
-    
-        if st.button("← Back to Home", key="payback_back_home"):
-            st.session_state.screen = "home"
-            st.rerun()
 
-        st.title("Explore Upgrade Payback")
-        st.write(
-            "Explore how an upgrade's upfront cost compares "
-            "with its assumed energy savings over time."
-        )
-        st.caption(
-            "Try a sourced air-sealing and insulation example, "
-            "or use an estimate from a quote or assessment. "
-            "This calculator explores assumptions—it does not "
-            "predict savings for your home."
-        )
+    if st.button("← Back to Home", key="payback_back_home"):
+        st.session_state.screen = "home"
+        st.rerun()
 
+    st.title("Explore Upgrade Payback")
+    st.write(
+        "Explore how an upgrade's upfront cost compares "
+        "with its assumed energy savings over time."
+    )
+    st.caption(
+        "Try a sourced air-sealing and insulation example, "
+        "or use an estimate from a quote or assessment. "
+        "This calculator explores assumptions—it does not "
+        "predict savings for your home."
+    )
 
-        mode = st.radio(
+    mode = st.radio(
         "Choose your starting point",
         [
             "Explore an air-sealing + insulation example",
@@ -60,12 +60,12 @@ if st.session_state.screen == "simulator":
         key="payback_mode"
     )
 
-        benchmark_mode = (
+    benchmark_mode = (
         mode == "Explore an air-sealing + insulation example"
     )
 
-        if benchmark_mode:
-            st.subheader("Air sealing + insulation")
+    if benchmark_mode:
+        st.subheader("Air sealing + insulation")
 
         st.info(
             "ENERGY STAR estimates average savings of 11% "
@@ -102,7 +102,7 @@ if st.session_state.screen == "simulator":
                 "your individual home."
             )
 
-        else:
+    else:
         st.info(
             "Use a savings estimate from an assessment, "
             "contractor, or your own hypothetical scenario. "
