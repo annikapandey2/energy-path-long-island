@@ -65,7 +65,7 @@ if st.session_state.screen == "simulator":
     )
 
         if benchmark_mode:
-        st.subheader("Air sealing + insulation")
+            st.subheader("Air sealing + insulation")
 
         st.info(
             "ENERGY STAR estimates average savings of 11% "
