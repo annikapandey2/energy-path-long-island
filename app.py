@@ -1044,8 +1044,7 @@ if action["requires_equipment_control"]:
                     "Explore your options first. This is not a "
                     "recommendation to buy or replace equipment."
                 )
-
-            if action["id"] == "equipment_permission_next_step":
+if action["id"] == "equipment_permission_next_step":
                 with st.expander("Why this step?"):
                     st.write(action["reason"])
 
