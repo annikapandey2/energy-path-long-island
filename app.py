@@ -796,128 +796,299 @@ def render_questionnaire():
     )
 st.subheader("Start here")
 
-if matches:
+   if matches:
         for number, action in enumerate(matches, start=1):
-            is_authority_summary = action["id"] == "equipment_permission_next_step"
+            is_authority_summary = (
+                action["id"] == "equipment_permission_next_step"
+            )
+
             with st.container(border=True):
                 if len(matches) > 1:
                     st.caption(f"STEP {number}")
 
                 if is_authority_summary:
-                    if equipment_control == "Only with landlord or property-manager approval":
+                    if (
+                        equipment_control
+                        == "Only with landlord or property-manager approval"
+                    ):
                         card_title = "Talk to your landlord or property manager"
-                    elif equipment_control == "No, I cannot authorize equipment changes":
+                    elif (
+                        equipment_control
+                        == "No, I cannot authorize equipment changes"
+                    ):
                         card_title = "Find the person who can approve changes"
                     else:
                         card_title = "Check who can approve changes"
 
-                    st.markdown(f'<h3 class="ep-action-title">{escape(card_title)}</h3>', unsafe_allow_html=True)
+                    st.markdown(
+                        f'<h3 class="ep-action-title">'
+                        f'{escape(card_title)}</h3>',
+                        unsafe_allow_html=True,
+                    )
 
                     if main_concern == "Heating or cooling":
-                        conversation_items = ["Note which rooms are affected.", "Write down when the problem happens.", "Identify the heating or cooling equipment, if you know it."]
+                        conversation_items = [
+                            "Note which rooms are affected.",
+                            "Write down when the problem happens.",
+                            "Identify the heating or cooling equipment, "
+                            "if you know it.",
+                        ]
                     elif main_concern == "Water use or water heating":
-                        conversation_items = ["Describe the water-use or hot-water issue.", "Note where and when it happens.", "Identify the fixture or equipment involved, if you know it."]
+                        conversation_items = [
+                            "Describe the water-use or hot-water issue.",
+                            "Note where and when it happens.",
+                            "Identify the fixture or equipment involved, "
+                            "if you know it.",
+                        ]
                     else:
-                        conversation_items = ["List the appliances you are concerned about.", "Describe the problem or electricity-use concern.", "Note which appliances belong to you and which belong to the property owner."]
+                        conversation_items = [
+                            "List the appliances you are concerned about.",
+                            "Describe the problem or electricity-use concern.",
+                            "Note which appliances belong to you and which "
+                            "belong to the property owner.",
+                        ]
 
-                    items_html = "".join(f"<li>{escape(item)}</li>" for item in conversation_items)
-                    st.markdown(f"<div class=\"ep-action-panel\"><span class=\"ep-action-label\">BEFORE YOU TALK</span><ul>{items_html}</ul></div>", unsafe_allow_html=True)
+                    items_html = "".join(
+                        f"<li>{escape(item)}</li>"
+                        for item in conversation_items
+                    )
+
+                    st.markdown(
+                        f'<div class="ep-action-panel">'
+                        f'<span class="ep-action-label">BEFORE YOU TALK</span>'
+                        f"<ul>{items_html}</ul>"
+                        f"</div>",
+                        unsafe_allow_html=True,
+                    )
 
                     if home_status == "Rent":
-                        st.write("Share your notes with your landlord or property manager. Ask who handles equipment decisions if you are unsure.")
+                        st.write(
+                            "Share your notes with your landlord or property "
+                            "manager. Ask who handles equipment decisions "
+                            "if you are unsure."
+                        )
                     else:
-                        st.write("Share your notes with the person responsible for approving equipment changes.")
+                        st.write(
+                            "Share your notes with the person responsible "
+                            "for approving equipment changes."
+                        )
 
                 else:
                     card_title = action["title"]
                     card_description = action["description"]
 
                     if (
-                        main_concern == "Drafts or rooms that feel too hot or cold"
+                        main_concern
+                        == "Drafts or rooms that feel too hot or cold"
                         and change_level == "Easy changes I can do now"
-                        and card_title == "Identify where comfort problems occur"
+                        and card_title
+                        == "Identify where comfort problems occur"
                     ):
                         card_title = "Find your comfort trouble spots"
                         card_description = (
-                            "Note which rooms feel too hot or cold, when it happens, and any noticeable drafts around windows or doors. Record what you find before deciding on property changes."
+                            "Note which rooms feel too hot or cold, when it "
+                            "happens, and any noticeable drafts around windows "
+                            "or doors. Record what you find before deciding "
+                            "on property changes."
                         )
 
-                    st.markdown(f"<h3 class=\"ep-action-title\">{escape(card_title)}</h3><div class=\"ep-action-panel\"><span class=\"ep-action-label\">YOUR FIRST MOVE</span><p>{escape(card_description)}</p></div>", unsafe_allow_html=True)
+                    st.markdown(
+                        f'<h3 class="ep-action-title">'
+                        f"{escape(card_title)}</h3>"
+                        f'<div class="ep-action-panel">'
+                        f'<span class="ep-action-label">YOUR FIRST MOVE</span>'
+                        f"<p>{escape(card_description)}</p>"
+                        f"</div>",
+                        unsafe_allow_html=True,
+                    )
 
                 if action["requires_equipment_control"]:
-                    st.caption("Explore your options first. This is not a recommendation to buy or replace equipment.")
+                    st.caption(
+                        "Explore your options first. This is not a "
+                        "recommendation to buy or replace equipment."
+                    )
+
                 if action["id"] == "equipment_permission_next_step":
                     with st.expander("Why this step?"):
                         st.write(action["reason"])
-        else:
-            st.info("No action matches your current selections yet. Try adjusting your concern or next-step preference.")
 
-matching_programs = []
+    else:
+        st.info(
+            "No action matches your current selections yet. "
+            "Try adjusting your concern or next-step preference."
+        )
+
+    matching_programs = []
+
     try:
         programs = load_json(PROGRAMS_PATH)
-        matching_programs = [p for p in programs if main_concern in p.get("concerns", []) and change_level in p.get("change_levels", [])]
+        matching_programs = [
+            program
+            for program in programs
+            if main_concern in program.get("concerns", [])
+            and change_level in program.get("change_levels", [])
+        ]
     except Exception:
-        st.warning("Helpful resources could not be loaded. Your action recommendations are still available.")
+        st.warning(
+            "Helpful resources could not be loaded. "
+            "Your action recommendations are still available."
+        )
 
     st.subheader("Resources for your next step")
-    st.caption("Resources match your current topic - not confirmed eligibility.")
+    st.caption(
+        "Resources match your current topic—not confirmed eligibility."
+    )
 
     if matching_programs:
         for program in matching_programs:
-            is_heat_pump = program.get("id") == "pseg_li_home_comfort_heat_pumps"
+            is_heat_pump = (
+                program.get("id") == "pseg_li_home_comfort_heat_pumps"
+            )
+
             provider_text = escape(str(program.get("provider", "")))
             title_text = escape(str(program.get("name", "")))
             summary_text = escape(str(program.get("summary", "")))
             next_step_text = escape(str(program.get("next_step", "")))
 
             with st.container(border=True):
-                st.markdown(f"<span class=\"ep-resource-provider\">{provider_text}</span><h3 class=\"ep-resource-heading\">{title_text}</h3><p class=\"ep-resource-summary\">{summary_text}</p><div class=\"ep-resource-step\"><span class=\"ep-resource-step-label\">NEXT STEP</span><p>{next_step_text}</p></div>", unsafe_allow_html=True)
+                st.markdown(
+                    f'<span class="ep-resource-provider">'
+                    f"{provider_text}</span>"
+                    f'<h3 class="ep-resource-heading">{title_text}</h3>'
+                    f'<p class="ep-resource-summary">{summary_text}</p>'
+                    f'<div class="ep-resource-step">'
+                    f'<span class="ep-resource-step-label">NEXT STEP</span>'
+                    f"<p>{next_step_text}</p>"
+                    f"</div>",
+                    unsafe_allow_html=True,
+                )
 
                 if is_heat_pump:
                     st.markdown("#### Check your building category")
+
                     if dwelling_units == "1–4":
-                        st.success("Your answer places your building in the 1–4-unit category.")
-                        st.caption("Building size only—not an eligibility decision. Project, equipment, contractor, and other requirements still need review.")
+                        st.success(
+                            "Your answer places your building "
+                            "in the 1–4-unit category."
+                        )
+                        st.caption(
+                            "Building size only—not an eligibility decision. "
+                            "Project, equipment, contractor, and other "
+                            "requirements still need review."
+                        )
+
                     elif dwelling_units == "5 or more":
-                        st.info("Your answer places your building in the separate multifamily category.")
-                        st.caption("The 1–4-unit screening path does not apply. Other rebates may be available; review the multifamily requirements on the official page.")
+                        st.info(
+                            "Your answer places your building in the "
+                            "separate multifamily category."
+                        )
+                        st.caption(
+                            "The 1–4-unit screening path does not apply. "
+                            "Other rebates may be available; review the "
+                            "multifamily requirements on the official page."
+                        )
+
                     else:
-                        st.warning("Confirm the number of homes or apartments in your building to identify the category to review.")
-                        st.caption("Ask the owner or manager if needed. Count separate homes or apartments, not bedrooms.")
+                        st.warning(
+                            "Confirm the number of homes or apartments in "
+                            "your building to identify the category to review."
+                        )
+                        st.caption(
+                            "Ask the owner or manager if needed. Count "
+                            "separate homes or apartments, not bedrooms."
+                        )
 
                     heat_pump_permission_notes = {
-                        "Yes, I can authorize equipment changes": "You reported that you can approve equipment changes. Review the program requirements before planning a purchase.",
-                        "Only with landlord or property-manager approval": "Discuss proposed equipment changes with your landlord or property manager before moving forward.",
-                        "No, I cannot authorize equipment changes": "Identify who can approve equipment changes before planning an upgrade.",
-                        "I am not sure": "Confirm who can approve equipment changes before planning an upgrade.",
+                        "Yes, I can authorize equipment changes": (
+                            "You reported that you can approve equipment "
+                            "changes. Review the program requirements "
+                            "before planning a purchase."
+                        ),
+                        "Only with landlord or property-manager approval": (
+                            "Discuss proposed equipment changes with your "
+                            "landlord or property manager before moving forward."
+                        ),
+                        "No, I cannot authorize equipment changes": (
+                            "Identify who can approve equipment changes "
+                            "before planning an upgrade."
+                        ),
+                        "I am not sure": (
+                            "Confirm who can approve equipment changes "
+                            "before planning an upgrade."
+                        ),
                     }
 
-                    permission_note = heat_pump_permission_notes.get(equipment_control, "Confirm who can approve equipment changes before planning an upgrade.")
-                    st.markdown(f"<p class=\"ep-resource-note\">{escape(permission_note)} Building category and equipment permission are separate checks. Neither establishes rebate eligibility.</p>", unsafe_allow_html=True)
+                    permission_note = heat_pump_permission_notes.get(
+                        equipment_control,
+                        "Confirm who can approve equipment changes "
+                        "before planning an upgrade.",
+                    )
+
+                    st.markdown(
+                        f'<p class="ep-resource-note">'
+                        f"{escape(permission_note)} "
+                        f"Building category and equipment permission are "
+                        f"separate checks. Neither establishes rebate "
+                        f"eligibility.</p>",
+                        unsafe_allow_html=True,
+                    )
+
                 else:
                     with st.expander("Resource scope and limitations"):
                         st.write(program.get("eligibility_note", ""))
 
-                button_label = "Explore the program ↗" if is_heat_pump else "Open official resource ↗"
-                st.link_button(button_label, program.get("source_url"), type="primary", use_container_width=False)
+                button_label = (
+                    "Explore the program ↗"
+                    if is_heat_pump
+                    else "Open official resource ↗"
+                )
+
+                st.link_button(
+                    button_label,
+                    program.get("source_url"),
+                    type="primary",
+                    use_container_width=False,
+                )
 
                 with st.expander("Source details & requirements"):
                     st.write(f"Provider: {program.get('provider')}")
-                    st.caption(f"Source checked: {program.get('source_checked_on')}")
+                    st.caption(
+                        f"Source checked: {program.get('source_checked_on')}"
+                    )
+
                     if program.get("verified_requirements"):
                         st.write("Requirements to review")
-                        st.caption("Selected requirements—not a complete eligibility checklist.")
-                        for requirement in program.get("verified_requirements", []):
-                            st.write(f"- {requirement.get('description')}")
+                        st.caption(
+                            "Selected requirements—not a complete "
+                            "eligibility checklist."
+                        )
+
+                        for requirement in program.get(
+                            "verified_requirements", []
+                        ):
+                            st.write(
+                                f"- {requirement.get('description')}"
+                            )
+
     else:
-        st.info("No matching resource is listed in our current catalog. Other guidance, programs, or incentives may be available.")
+        st.info(
+            "No matching resource is listed in our current catalog. "
+            "Other guidance, programs, or incentives may be available."
+        )
 
     with st.expander("How your plan is matched"):
-        st.write("Actions are matched to your concern, next-step preference, and equipment-change permissions. Resources are matched to your concern and next-step preference.")
-        st.write("The heat-pump resource also displays a building-category check based on your answer.")
-        
+        st.write(
+            "Actions are matched to your concern, next-step preference, "
+            "and equipment-change permissions. Resources are matched "
+            "to your concern and next-step preference."
+        )
+        st.write(
+            "The heat-pump resource also displays a building-category "
+            "check based on your answer."
+        )
 
     st.divider()
+
     st.subheader("Explore a potential upgrade")
     st.write("Have a project cost and savings estimate? See how they compare over time.")
     if st.button("Explore Upgrade Payback", key="results_open_payback", type="primary"):
