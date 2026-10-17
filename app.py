@@ -320,7 +320,7 @@ def render_simulator():
     top_bar()
   
     st.title("Explore Upgrade Payback")
-      if st.button("←Back to home", key="payback_back_home"):
+    if st.button("←Back to home", key="payback_back_home"):
         st.session_state.screen = "home"
         st.rerun()
     st.write("Explore how an upgrade's upfront cost compares with its assumed energy savings over time.")
