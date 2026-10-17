@@ -183,7 +183,7 @@ def render_home():
         </style>
 
 <section class="ep-hero">
-    <h1 class="ep-title">Energy Path</h1>
+    <h1 class="ep-title">Energy Path TEST</h1>
     <div class="ep-location">LONG ISLAND</div>
     <p class="ep-tagline">
         Your home-energy concern. A clearer next step.
