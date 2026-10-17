@@ -15,6 +15,24 @@ st.set_page_config(
 if "screen" not in st.session_state:
     st.session_state.screen = "home"
 
+def reset_energy_plan():
+    keys_to_clear = [
+        "submitted_plan",
+        "plan_main_concern",
+        "plan_change_level",
+        "plan_home_status",
+        "plan_dwelling_units",
+        "plan_equipment_control",
+        "plan_main_goal",
+        "plan_heating_source"
+    ]
+
+    for key in keys_to_clear:
+        st.session_state.pop(key, None)
+
+    st.session_state.screen = "home"
+
+
 if st.session_state.screen == "simulator":
 
 
@@ -1038,13 +1056,13 @@ with result_col1:
     )
 
 with result_col2:
-    if st.button(
-        "Start over", 
+    st.button(
+        "Start a New Plan",
         type="secondary",
-        use_container_width=True
-    ):
-        st.session_state.screen = "home"
-        st.rerun()
+        use_container_width=True,
+        on_click=reset_energy_plan
+    )
+
 permission_notes = {
     "Yes, I can authorize equipment changes": (
         "You selected that you can approve equipment changes. "
