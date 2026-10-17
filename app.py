@@ -1569,19 +1569,22 @@ else:
 
     else:
         st.info(
-            "We do not have a resource matching both your concern "
-            "and preferred next step yet."
-        )
-        st.caption(
-            "Other guidance, programs, or incentives may still "
-            "be available."
-        )
-
-st.caption(
-    "About your results: recommendations use your concern, "
-    "next-step preference, and equipment-control answer. "
-    "Some resources also display a building-size check. "
-    "Your optional goal and heating source do not affect results yet."
-)
+            "No matching resource is listed in our currnt catalog. "
+            "Other guidance, programs, or incentives may be available."
+       
+with st.expander("How your plan is matched"):
+    st.write(
+        "Actions are matched to your concern, next-step preference, "
+        "and equipment-change permissions. Resources are matched "
+        "to your concern and next-step preference."
+    )
+    st.write(
+        "The heat-pump resource also displays a building-category "
+        "check based on your answer."
+    )
+    st.caption(
+        "Your optional goal and heating source do not affect "
+        "recommendations yet."
+    )
 
 
