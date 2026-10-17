@@ -33,9 +33,7 @@ def reset_energy_plan():
     st.session_state.screen = "home"
 
 if st.session_state.screen == "simulator":
-    left_space, calculator_col, right_space = st.columns([1, 6, 1])
-
-    with calculator_col:
+    
         if st.button("← Back to Home", key="payback_back_home"):
             st.session_state.screen = "home"
             st.rerun()
