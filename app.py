@@ -64,7 +64,7 @@ if st.session_state.screen == "simulator":
         mode == "Explore an air-sealing + insulation example"
     )
 
-    if benchmark_mode:
+        if benchmark_mode:
         st.subheader("Air sealing + insulation")
 
         st.info(
