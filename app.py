@@ -60,7 +60,7 @@ if st.session_state.screen == "simulator":
         key="payback_mode"
     )
 
-    benchmark_mode = (
+        benchmark_mode = (
         mode == "Explore an air-sealing + insulation example"
     )
 
