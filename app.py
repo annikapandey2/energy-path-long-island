@@ -421,7 +421,38 @@ if st.session_state.screen == "simulator":
             config={"displaylogo": False}
         )
 
-        with st.expander("How this calculation works"):
+       with st.expander("Sources, assumptions & calculation"):
+            st.markdown(
+                "#### Where the numbers come from"
+            )
+
+            if result_mode == (
+                "Explore an air-sealing + insulation example"
+            ):
+                st.write(
+                    "The savings percentage comes from "
+                    "ENERGY STAR's published national modeled "
+                    "benchmark for combined air sealing and "
+                    "insulation. The source link appears above "
+                    "these results. Applying that percentage "
+                    "to your entered spending is an illustration, "
+                    "not a home-specific prediction."
+                )
+            else:
+                st.write(
+                    "The monthly savings figure is the amount "
+                    "you entered. Energy Path does not verify "
+                    "or independently predict that amount."
+                )
+
+            st.write(
+                "Project cost and the time period are your "
+                "inputs. Starting dollar amounts are editable "
+                "examples, not researched typical costs."
+            )
+
+            st.markdown("#### Formulas and limitations")
+
             st.write(
                 "Simple payback in months = upfront cost "
                 "÷ assumed monthly savings."
