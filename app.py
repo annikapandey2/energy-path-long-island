@@ -1533,7 +1533,7 @@ else:
                     )
 
                 else:
-                    with st.expander("Resourcescope and limitations")
+                    with st.expander("Resource scope and limitations"):
                         st.write(program["eligibility_note"])
                 button_label = (
                     "Explore the program ↗"
