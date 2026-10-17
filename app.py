@@ -1029,32 +1029,9 @@ with result_col1:
         unsafe_allow_html=True
     )
 
-    concern_intros = {
+  
 
-        "Drafts or rooms that feel too hot or cold": (
-            "Start here for drafts or uneven room temperatures."
-        ),
-        "Heating or cooling": (
-            "Start here for your heating or cooling concern."
-        ),
-        "Lighting and electronics": (
-            "Start here for lighting and electronics."
-        ),
-        "Water use or water heating": (
-            "Start here for your water-use or hot-water concern."
-        ),
-        "Appliances or high electricity use": (
-            "Start here for appliances or high electricity use."
-        ),
-    }
-
-    st.write(
-        concern_intros.get(
-            main_concern,
-            "Here is a practical place to begin."
-        )
-    )
-
+   
 with result_col2:
     st.button(
         "Start a New Plan",
