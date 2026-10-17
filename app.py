@@ -814,7 +814,7 @@ with st.form("energy_plan_form"):
 
     concern_col, home_col = st.columns(2)
 
-    with concern_col:
+     with concern_col:
         with st.container(border=True):
             st.subheader("1. Your priorities")
             st.caption("What would you like to tackle?")
@@ -829,7 +829,8 @@ with st.form("energy_plan_form"):
                     "Appliances or high electricity use"
                 ],
                 index=None,
-                placeholder="Choose a concern"
+                placeholder="Choose a concern",
+                key="plan_main_concern"
             )
 
             change_level = st.radio(
@@ -838,7 +839,8 @@ with st.form("energy_plan_form"):
                     "Easy changes I can do now",
                     "Programs or incentives to explore",
                     "Bigger long-term updates"
-                ]
+                ],
+                key="plan_change_level"
             )
 
             st.caption(
@@ -854,7 +856,8 @@ with st.form("energy_plan_form"):
             home_status = st.radio(
                 "Do you rent or own?",
                 ["Rent", "Own"],
-                horizontal=True
+                horizontal=True,
+                key="plan_home_status"
             )
 
             dwelling_units = st.selectbox(
@@ -872,7 +875,8 @@ with st.form("energy_plan_form"):
                     "A single-family house—even with 5 bedrooms—"
                     "counts as 1. A building with 6 separate "
                     "apartments counts as 6."
-                )
+                ),
+                key="plan_dwelling_units"
             )
 
             equipment_control = st.selectbox(
@@ -884,7 +888,8 @@ with st.form("energy_plan_form"):
                     "I am not sure"
                 ],
                 index=None,
-                placeholder="Choose an answer"
+                placeholder="Choose an answer",
+                key="plan_equipment_control"
             )
 
             st.caption(
@@ -906,7 +911,8 @@ with st.form("energy_plan_form"):
                 "Use less energy",
                 "Learn about bigger home upgrades"
             ],
-            index=None
+            index=None,
+            key="plan_main_goal"
         )
 
         heating_source = st.selectbox(
@@ -919,7 +925,8 @@ with st.form("energy_plan_form"):
                 "I am not sure"
             ],
             index=None,
-            placeholder="Choose a heating source"
+            placeholder="Choose a heating source",
+            key="plan_heating_source"
         )
 
     build_plan = st.form_submit_button(
@@ -927,6 +934,7 @@ with st.form("energy_plan_form"):
         type="primary",
         use_container_width=True
     )
+
 
 if build_plan:
     if main_concern is None:
