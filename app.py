@@ -215,7 +215,7 @@ def render_home():
             st.rerun()
         st.caption("Already have a cost and savings estimate? Explore a what-if scenario.")
 
-    st.markdown('<div style="text-align:center;color:#176B68;font-weight:700;letter-spacing:0.14em;margin:2rem 0 1rem">A PRACTICAL PLACE TO BEGIN</div>', unsafe_allow_html=True)
+    st.markdown('<div style="text-align:center;color:#176B68;font-weight:700;letter-spacing:0.14em;margin:2rem 0 1rem">A PLACE TO BEGIN</div>', unsafe_allow_html=True)
 
     col1, col2, col3 = st.columns(3)
     with col1:
@@ -234,6 +234,9 @@ def render_home():
 
 def render_simulator():
     top_bar()
+    if st.button(←Back to home", key="payback_back_home"):
+        st.session_state.screen = "home"
+        st.rerun()
     st.title("Explore Upgrade Payback")
     st.write("Explore how an upgrade's upfront cost compares with its assumed energy savings over time.")
     st.caption("Start with a guided example, or enter savings from your own project estimate.")
