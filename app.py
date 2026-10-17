@@ -186,6 +186,38 @@ if st.session_state.screen == "simulator":
         net_savings = savings * total_months - cost
 
         st.subheader("Your scenario results")
+               result_mode = scenario.get(
+            "mode",
+            "My own estimate"
+        )
+
+        st.write(f"Scenario basis: {result_mode}")
+
+        if result_mode == "Explore official benchmarks":
+            annual_spending = scenario[
+                "annual_energy_spending"
+            ]
+
+            st.caption(
+                "Savings assumption: ENERGY STAR's 11% "
+                "national modeled benchmark for combined "
+                "air sealing and insulation, applied to "
+                f"${annual_spending:,.2f} in annual "
+                "home-energy spending."
+            )
+
+            st.markdown(
+                "[Benchmark source: ENERGY STAR]"
+                "(https://www.energystar.gov/"
+                "saveathome/seal_insulate/methodology)"
+            )
+
+        else:
+            st.caption(
+                "Savings assumption: the monthly amount "
+                "you entered—not an official benchmark."
+            )
+
         st.caption(
             "Results reflect your last submitted scenario: "
             f"${cost:,.2f} upfront, "
