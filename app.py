@@ -9,7 +9,7 @@ if st.session_state.screen == "simulator":
         st.session_state.screen = "home"
         st.rerun()
 
-       st.title("Explore Upgrade Payback")
+    st.title("Explore Upgrade Payback")
     st.write(
         "Explore an official savings benchmark or enter "
         "your own estimate to see how an upgrade could "
