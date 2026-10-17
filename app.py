@@ -814,7 +814,7 @@ with st.form("energy_plan_form"):
 
     concern_col, home_col = st.columns(2)
 
-with concern_col:
+    with concern_col:
         with st.container(border=True):
             st.subheader("1. Your priorities")
             st.caption("What would you like to tackle?")
@@ -848,7 +848,7 @@ with concern_col:
                 "Matching a resource does not confirm that you qualify."
             )
 
-with home_col:
+    with home_col:
         with st.container(border=True):
             st.subheader("2. Your home")
             st.caption("Help us suggest appropriate next steps.")
@@ -897,7 +897,7 @@ with home_col:
                 "equipment, and appliances involved in your concern."
             )
 
-with st.expander("Optional details—not used in matching yet"):
+    with st.expander("Optional details—not used in matching yet"):
         st.caption(
             "These answers do not change your recommendations "
             "in the current prototype."
@@ -907,33 +907,7 @@ with st.expander("Optional details—not used in matching yet"):
             "Your main energy goal",
             [
                 "Lower my energy bill",
-                "Make my home more comfortable",
-                "Use less energy",
-                "Learn about bigger home upgrades"
-            ],
-            index=None,
-            key="plan_main_goal"
-        )
-
-        heating_source = st.selectbox(
-            "Your primary heating source",
-            [
-                "Electric heat",
-                "Oil",
-                "Natural Gas",
-                "Heat pump",
-                "I am not sure"
-            ],
-            index=None,
-            placeholder="Choose a heating source",
-            key="plan_heating_source"
-        )
-
-        build_plan = st.form_submit_button(
-        "Build My Energy Action Plan",
-        type="primary",
-        use_container_width=True
-    )
+                "Make
 
 
 if build_plan:
