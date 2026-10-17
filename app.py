@@ -182,7 +182,7 @@ def render_home():
        @media (max-width:640px){ .ep-hero{padding:2rem 1rem} .ep-feature{min-height:auto} }
 
         .ep-hero h1.ep-title {
-            font-size: clamp(3.4rem, 8vw, 6rem) !important;
+            font-size: clamp(2.8rem, 6vw, 4.5rem) !important;
             line-height: 1.05;
         }
         .ep-feature {
