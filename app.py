@@ -840,7 +840,7 @@ with st.form("energy_plan_form"):
     with concern_col:
         with st.container(border=True):
             st.subheader("1. Your priorities")
-            st.caption("What would you like to tackle?")
+            
 
             main_concern = st.selectbox(
                 "Your main concern",
@@ -874,7 +874,6 @@ with st.form("energy_plan_form"):
     with home_col:
         with st.container(border=True):
             st.subheader("2. Your home")
-            st.caption("Help us suggest appropriate next steps.")
 
             home_status = st.radio(
                 "Do you rent or own?",
