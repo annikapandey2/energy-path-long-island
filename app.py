@@ -102,7 +102,7 @@ if st.session_state.screen == "simulator":
                 "your individual home."
             )
 
-    else:
+        else:
         st.info(
             "Use a savings estimate from an assessment, "
             "contractor, or your own hypothetical scenario. "
