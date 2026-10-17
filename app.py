@@ -814,7 +814,7 @@ with st.form("energy_plan_form"):
 
     concern_col, home_col = st.columns(2)
 
-     with concern_col:
+with concern_col:
         with st.container(border=True):
             st.subheader("1. Your priorities")
             st.caption("What would you like to tackle?")
