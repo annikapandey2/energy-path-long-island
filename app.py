@@ -273,9 +273,17 @@ if st.session_state.screen == "simulator":
         elif savings == 0:
             payback_months = None
             payback_label = "No payback"
-        else:
+           else:
             payback_months = cost / savings
-            payback_label = f"{payback_months:,.1f} months"
+
+            if payback_months >= 12:
+                payback_label = (
+                    f"{payback_months / 12:,.1f} years"
+                )
+            else:
+                payback_label = (
+                    f"{payback_months:,.1f} months"
+                )
 
         metric1, metric2, metric3 = st.columns(3)
 
