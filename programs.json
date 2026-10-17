@@ -168,8 +168,29 @@
     "verified_requirements": [],
     "eligibility_note": "This is educational guidance, not a rebate offer or a recommendation to replace windows. Ask the property owner or manager before modifying fixtures you do not control.",
     "next_step": "On the linked page, find the Air Leaks section under Other Tips. Note where you notice drafts around accessible windows and doors, and share those observations with the person responsible for repairs."
+  },
+  {
+    "id": "pseg_li_heating_cooling_everyday_tips",
+    "name": "Everyday Heating and Cooling Tips",
+    "provider": "PSEG Long Island",
+    "summary": "Explore everyday heating and cooling guidance, including thermostat use, window coverings, and air-conditioning filters.",
+    "source_url": "https://www.psegliny.com/saveenergyandmoney/tipsandtools/66waystosave",
+    "source_checked_on": "2026-10-17",
+    "concerns": [
+      "Heating or cooling"
+    ],
+    "change_levels": [
+      "Easy changes I can do now"
+    ],
+    "screening_status": "resource_only",
+    "verified_requirements": [],
+    "eligibility_note": "This is general energy-saving guidance, not a rebate offer or a diagnosis of a heating or cooling problem. Only adjust controls or maintain equipment you are permitted to use, and follow the equipment manufacturer's instructions.",
+    "next_step": "Find the heating and cooling sections and choose one tip that fits your home and the controls you can access. If you cannot adjust the equipment, use the guidance to prepare questions for the person responsible."
   }
 ]
+
+
+
 
 
 
