@@ -108,10 +108,7 @@ if st.session_state.screen == "simulator":
             "it does not independently predict the savings."
         )
 
-    st.caption(
-        "Starting dollar amounts are editable examples, "
-        "not researched typical costs or household bills."
-    )
+ 
 
     with st.form("payback_scenario_form"):
 
