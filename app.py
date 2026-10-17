@@ -50,7 +50,10 @@ if st.session_state.screen == "simulator":
         "This calculator explores assumptions—it does not "
         "predict savings for your home."
     )
-
+    st.caption(
+        "Start with a guided example, or enter savings "
+        "from your own project estimate."
+    )
     mode = st.radio(
         "Choose your starting point",
         [
