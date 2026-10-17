@@ -1039,7 +1039,7 @@ with result_col2:
         use_container_width=True,
         on_click=reset_energy_plan
     )
-           if action["requires_equipment_control"]:
+        if action["requires_equipment_control"]:
                 st.caption(
                     "Explore your options first. This is not a "
                     "recommendation to buy or replace equipment."
