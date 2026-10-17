@@ -185,6 +185,43 @@ def render_home():
             font-size: clamp(3.4rem, 8vw, 6rem) !important;
             line-height: 1.05;
         }
+        .ep-feature {
+    border: 1px solid #B8D6CC;
+    border-radius: 14px;
+    padding: 1.4rem;
+    min-height: 200px;
+    box-shadow: none;
+}
+
+.ep-feature h3 {
+    color: #164B40;
+    margin: 0 0 0.6rem;
+}
+
+.ep-feature p {
+    color: #264D47;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Pale blue */
+.ep-feature-options {
+    background: #EDF5FC;
+    border-color: #BDD4E8;
+}
+
+/* Pale green */
+.ep-feature-permissions {
+    background: #EAF6F1;
+    border-color: #B8D6C8;
+}
+
+/* Pale teal */
+.ep-feature-resources {
+    background: #E8F5F5;
+    border-color: #ACD3D3;
+}
+
         </style>
 
 
@@ -218,12 +255,59 @@ def render_home():
     st.markdown('<div style="text-align:center;color:#176B68;font-weight:700;letter-spacing:0.14em;margin:2rem 0 1rem">A PLACE TO BEGIN</div>', unsafe_allow_html=True)
 
     col1, col2, col3 = st.columns(3)
+
     with col1:
-        st.markdown('<div class="ep-feature"><div style="color:#176B68;font-weight:750;margin-bottom:8px">01 / YOUR CONCERN</div><h3>Understand your options</h3><p>Start with what matters to you—from drafts and hot water to lighting and electricity use.</p></div>', unsafe_allow_html=True)
+        st.markdown(
+            """
+            <div class="ep-feature ep-feature-options">
+                <div style="color:#176B68;font-weight:750;margin-bottom:8px">
+                    01 / YOUR CONCERN
+                </div>
+                <h3>Understand your options</h3>
+                <p>
+                    Start with what matters to you—from drafts
+                    and hot water to lighting and electricity use.
+                </p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
     with col2:
-        st.markdown('<div class="ep-feature"><div style="color:#176B68;font-weight:750;margin-bottom:8px">02 / YOUR SITUATION</div><h3>Plan around permissions</h3><p>Explore next steps that account for whether you can approve equipment changes or need someone else\'s approval.</p></div>', unsafe_allow_html=True)
+        st.markdown(
+            """
+            <div class="ep-feature ep-feature-permissions">
+                <div style="color:#176B68;font-weight:750;margin-bottom:8px">
+                    02 / YOUR SITUATION
+                </div>
+                <h3>Plan around permissions</h3>
+                <p>
+                    Explore next steps that account for whether
+                    you can approve equipment changes or need
+                    someone else's approval.
+                </p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
     with col3:
-        st.markdown('<div class="ep-feature"><div style="color:#176B68;font-weight:750;margin-bottom:8px">03 / YOUR NEXT STEP</div><h3>Find helpful resources</h3><p>Get a practical starting action and explore available official guidance and program pages.</p></div>', unsafe_allow_html=True)
+        st.markdown(
+            """
+            <div class="ep-feature ep-feature-resources">
+                <div style="color:#176B68;font-weight:750;margin-bottom:8px">
+                    03 / YOUR NEXT STEP
+                </div>
+                <h3>Find helpful resources</h3>
+                <p>
+                    Get a practical starting action and explore
+                    available official guidance and program pages.
+                </p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
 
     st.markdown('<div class="ep-about"><h3 style="margin:0 0 8px;color:#164B40">Why Energy Path?</h3><p style="margin:0;color:#38524B">Knowing where to begin can be the hardest part. Energy Path brings a starting action and relevant resources into one place, with guidance for renters and homeowners in Nassau and Suffolk counties.</p></div>', unsafe_allow_html=True)
 
