@@ -657,7 +657,7 @@ def render_questionnaire():
     st.divider()
 
     result_col1, result_col2 = st.columns([4, 1])
-   with result_col1:
+    with result_col1:
         st.markdown(
             '<section style="background:#EAF6F1; '
             'border:1px solid #B8D6C8; '
