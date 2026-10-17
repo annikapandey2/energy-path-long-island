@@ -44,12 +44,7 @@ if st.session_state.screen == "simulator":
         "Explore how an upgrade's upfront cost compares "
         "with its assumed energy savings over time."
     )
-    st.caption(
-        "Try a sourced air-sealing and insulation example, "
-        "or use an estimate from a quote or assessment. "
-        "This calculator explores assumptions—it does not "
-        "predict savings for your home."
-    )
+    
     st.caption(
         "Start with a guided example, or enter savings "
         "from your own project estimate."
