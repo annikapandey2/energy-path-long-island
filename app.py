@@ -186,7 +186,7 @@ if st.session_state.screen == "simulator":
         net_savings = savings * total_months - cost
 
         st.subheader("Your scenario results")
-               result_mode = scenario.get(
+            result_mode = scenario.get(
             "mode",
             "My own estimate"
         )
