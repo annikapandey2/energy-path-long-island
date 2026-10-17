@@ -683,7 +683,7 @@ def render_questionnaire():
     matches, excluded = match_actions(actions=actions, concern=main_concern, change_level=change_level, equipment_control=equipment_control)
 
 
-       st.markdown(
+      st.markdown(
         """
         <style>
         .ep-action-title {
