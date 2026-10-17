@@ -848,7 +848,7 @@ with concern_col:
                 "Matching a resource does not confirm that you qualify."
             )
 
-    with home_col:
+with home_col:
         with st.container(border=True):
             st.subheader("2. Your home")
             st.caption("Help us suggest appropriate next steps.")
