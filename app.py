@@ -796,7 +796,7 @@ def render_questionnaire():
     )
 st.subheader("Start here")
 
-    if matches:
+if matches:
         for number, action in enumerate(matches, start=1):
             is_authority_summary = action["id"] == "equipment_permission_next_step"
             with st.container(border=True):
