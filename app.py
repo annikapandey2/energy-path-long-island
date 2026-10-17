@@ -657,18 +657,30 @@ def render_questionnaire():
     st.divider()
 
     result_col1, result_col2 = st.columns([4, 1])
-    with result_col1:
+   with result_col1:
         st.markdown(
-            """
-            <section style="background: #EAF6F1; border: 1px solid #B8D6C8; border-left: 6px solid #176B68; border-radius: 16px; padding: 1.4rem 1.6rem; margin-bottom: 1rem;">
-
-                <p style="color: #176B68; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.14em; margin: 0 0 0.5rem;">ENERGY PATH · LONG ISLAND</p>
-                <h2 style="color: #083F36; font-size: clamp(1.4rem, 2.4vw, 2rem); line-height: 1.2; margin: 0 0 0.4rem;">Your Energy Action Plan</h2>
-                <p style="color: #38574F; font-size: 1rem; line-height: 1.5; margin: 0;">A starting point based on your concern, preferred next step, and equipment-change permissions.</p>
-            </section>
-            """,
+            '<section style="background:#EAF6F1; '
+            'border:1px solid #B8D6C8; '
+            'border-left:6px solid #176B68; '
+            'border-radius:16px; '
+            'padding:1.4rem 1.6rem; '
+            'margin-bottom:1rem;">'
+            '<p style="color:#176B68; font-size:0.8rem; '
+            'font-weight:700; letter-spacing:0.14em; '
+            'margin:0 0 0.5rem;">'
+            'ENERGY PATH · LONG ISLAND</p>'
+            '<h2 style="color:#083F36; '
+            'font-size:clamp(1.4rem, 2.4vw, 2rem); '
+            'line-height:1.2; margin:0 0 0.4rem; padding:0;">'
+            'Your Energy Action Plan</h2>'
+            '<p style="color:#38574F; font-size:1rem; '
+            'line-height:1.5; margin:0;">'
+            'A starting point based on your concern, preferred '
+            'next step, and equipment-change permissions.</p>'
+            '</section>',
             unsafe_allow_html=True,
         )
+
 
     with result_col2:
         st.button("Start a New Plan", type="secondary", use_container_width=True, on_click=reset_energy_plan)
