@@ -9,39 +9,123 @@ if st.session_state.screen == "simulator":
         st.session_state.screen = "home"
         st.rerun()
 
-    st.title("Explore Upgrade Payback")
+       st.title("Explore Upgrade Payback")
     st.write(
-        "Already have a project cost and savings estimate? "
-        "Explore how those assumptions affect the time it "
-        "takes to recover the upfront cost."
+        "Explore an official savings benchmark or enter "
+        "your own estimate to see how an upgrade could "
+        "recover its upfront cost."
     )
 
-    st.info(
-        "This is a what-if calculator, not a prediction of "
-        "your home's energy savings. The starting numbers "
-        "are examples—not typical costs or savings."
+    mode = st.radio(
+        "Choose your starting point",
+        [
+            "Explore official benchmarks",
+            "My own estimate"
+        ],
+        key="payback_mode"
+    )
+
+    benchmark_mode = mode == "Explore official benchmarks"
+
+    if benchmark_mode:
+        st.subheader("Air sealing + insulation")
+
+        st.info(
+            "ENERGY STAR estimates average savings of 11% "
+            "on total home-energy costs from combined "
+            "air sealing and insulation improvements. "
+            "This is a national modeled benchmark—not "
+            "a prediction for your home."
+        )
+
+        st.markdown(
+            "[View the official ENERGY STAR methodology]"
+            "(https://www.energystar.gov/"
+            "saveathome/seal_insulate/methodology)"
+        )
+
+        with st.expander("What this benchmark covers"):
+            st.write(
+                "The estimate covers combined improvements: "
+                "sealing air leaks throughout the home and "
+                "adding insulation in areas such as attics, "
+                "floors over crawl spaces, and accessible "
+                "basement rim joists."
+            )
+            st.write(
+                "It does not describe weatherstripping alone "
+                "or attic sealing alone. Existing insulation, "
+                "air leakage, climate, and the work performed "
+                "can change actual savings."
+            )
+            st.write(
+                "Energy Path applies the published 11% "
+                "national average to the annual home-energy "
+                "spending you enter. It does not model "
+                "your individual home."
+            )
+
+    else:
+        st.info(
+            "Use a savings estimate from an assessment, "
+            "contractor, or your own hypothetical scenario. "
+            "Energy Path calculates payback from your inputs; "
+            "it does not independently predict the savings."
+        )
+
+    st.caption(
+        "Starting dollar amounts are editable examples, "
+        "not researched typical costs or household bills."
     )
 
     with st.form("payback_scenario_form"):
 
-        cost_column, savings_column = st.columns(2)
+        upfront_cost = st.number_input(
+            "Upfront project cost you would pay ($)",
+            min_value=0.0,
+            max_value=1000000.0,
+            value=1500.0,
+            step=50.0,
+            format="%.2f",
+            key="payback_project_cost",
+            help=(
+                "Replace the example with your project "
+                "estimate or quote. Do not subtract "
+                "unconfirmed rebates or tax credits. "
+                "In benchmark mode, the cost should cover "
+                "the combined air-sealing and insulation "
+                "work being explored."
+            )
+        )
 
-        with cost_column:
-            upfront_cost = st.number_input(
-                "Upfront cost you would pay ($)",
+        if benchmark_mode:
+            annual_energy_spending = st.number_input(
+                "Total annual home-energy spending ($/year)",
                 min_value=0.0,
                 max_value=1000000.0,
-                value=600.0,
-                step=50.0,
+                value=3000.0,
+                step=100.0,
                 format="%.2f",
+                key="payback_annual_energy_spending",
                 help=(
-                    "Enter your assumed out-of-pocket cost. "
-                    "Do not subtract an unconfirmed rebate "
-                    "or tax credit."
+                    "Add a full year of electricity and "
+                    "any natural gas, heating oil, propane, "
+                    "or other home-energy costs. Include "
+                    "each fuel once. Do not include water, "
+                    "internet, or vehicle fuel."
                 )
             )
 
-        with savings_column:
+            st.caption(
+                "Calculation: annual home-energy spending "
+                "× 11% ÷ 12 = assumed average monthly savings."
+            )
+
+            monthly_savings = (
+                annual_energy_spending * 0.11 / 12
+            )
+
+        else:
             monthly_savings = st.number_input(
                 "Assumed monthly savings ($)",
                 min_value=0.0,
@@ -49,10 +133,11 @@ if st.session_state.screen == "simulator":
                 value=20.0,
                 step=5.0,
                 format="%.2f",
+                key="payback_own_monthly_savings",
                 help=(
-                    "Use your own estimate, such as one from "
-                    "an assessment or contractor. Energy Path "
-                    "does not calculate this from your home."
+                    "Enter your own estimate. This value "
+                    "is not supplied or verified by "
+                    "Energy Path."
                 )
             )
 
@@ -60,7 +145,8 @@ if st.session_state.screen == "simulator":
             "Years to explore",
             min_value=1,
             max_value=30,
-            value=5
+            value=5,
+            key="payback_horizon"
         )
 
         submitted = st.form_submit_button(
@@ -72,8 +158,15 @@ if st.session_state.screen == "simulator":
         st.session_state.payback_scenario = {
             "upfront_cost": float(upfront_cost),
             "monthly_savings": float(monthly_savings),
-            "years": int(years)
+            "years": int(years),
+            "mode": mode,
+            "annual_energy_spending": (
+                float(annual_energy_spending)
+                if benchmark_mode
+                else None
+            )
         }
+
 
     scenario = st.session_state.get("payback_scenario")
 
