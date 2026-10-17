@@ -163,7 +163,7 @@ def render_home():
     box-shadow: none;
 }
 
-        .ep-title { color: #083F36; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: clamp(2.4rem, 6vw, 4.2rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.06; margin: 0; }
+        .ep-title { color: #083F36; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: clamp(2.8rem, 6.5vw, 4.8rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.06; margin: 0; }
         .ep-location { color: #176B68; font-size: 0.85rem; font-weight:700; letter-spacing:0.26em; margin:0.6rem 0; }
         .ep-tagline { color:#0f3b32; font-size:clamp(1.05rem,2.4vw,1.5rem); margin:0.2rem 0 0.6rem }
 .ep-hero p.ep-intro {
