@@ -929,7 +929,7 @@ with st.expander("Optional details—not used in matching yet"):
             key="plan_heating_source"
         )
 
-            build_plan = st.form_submit_button(
+        build_plan = st.form_submit_button(
         "Build My Energy Action Plan",
         type="primary",
         use_container_width=True
