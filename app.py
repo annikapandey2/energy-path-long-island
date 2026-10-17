@@ -849,7 +849,7 @@ if matches:
                 if action["id"] == "equipment_permission_next_step":
                     with st.expander("Why this step?"):
                         st.write(action["reason"])
-    else:
+        else:
         st.info("No action matches your current selections yet. Try adjusting your concern or next-step preference.")
 
     matching_programs = []
