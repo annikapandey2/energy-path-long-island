@@ -1039,6 +1039,15 @@ with result_col2:
         use_container_width=True,
         on_click=reset_energy_plan
     )
+           if action["requires_equipment_control"]:
+                st.caption(
+                    "Explore your options first. This is not a "
+                    "recommendation to buy or replace equipment."
+                )
+
+            if action["id"] == "equipment_permission_next_step":
+                with st.expander("Why this step?"):
+                    st.write(action["reason"])
 
 permission_notes = {
     "Yes, I can authorize equipment changes": (
@@ -1290,57 +1299,6 @@ if matches:
                     unsafe_allow_html=True
                 )
 
-               if action["requires_equipment_control"]:
-                st.caption(
-                    "Explore your options first. This is not a "
-                    "recommendation to buy or replace equipment."
-                )
-
-                if action["id"] == "equipment_permission_next_step":
-                with st.expander("Why this step?"):
-                    st.write(action["reason"])
-
-
-else:
-    if change_level == "Programs or incentives to explore":
-        st.info(
-            "Explore Resources for your next step below "
-            "for matching resources or current coverage."
-        )
-
-    else:
-        st.info(
-            "No action in the current catalog matches your answers. "
-            "This does not mean you have no options."
-        )
-
-
-if excluded:
-    with st.expander("Why some equipment options are not recommended"):
-        for action in excluded:
-            st.markdown(f"**{action['title']}**")
-
-            if equipment_control == (
-                "Only with landlord or property-manager approval"
-            ):
-                st.write(
-                    "This option requires approval from your landlord "
-                    "or property manager. Start with the conversation above."
-                )
-            elif equipment_control == (
-                "No, I cannot authorize equipment changes"
-            ):
-                st.write(
-                    "You selected that you cannot approve equipment changes. "
-                    "Identify who can approve them before planning an upgrade."
-                )
-            elif equipment_control == "I am not sure":
-                st.write(
-                    "You have not confirmed who can approve equipment changes. "
-                    "Clarify that before planning an upgrade."
-                )
-            else:
-                st.write(action["reason"])
 
 permission_notes = {
     "Yes, I can authorize equipment changes": (
