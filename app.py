@@ -554,7 +554,7 @@ if st.session_state.screen == "home":
 
     button_left, button_center, button_right = st.columns([1, 2, 1])
 
-     with button_center:
+    with button_center:
         if st.button(
             "Find My Next Step",
             type="primary",
