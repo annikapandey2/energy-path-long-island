@@ -928,22 +928,39 @@ with st.form("energy_plan_form"):
         use_container_width=True
     )
 
-if not build_plan:
+if build_plan:
+    if main_concern is None:
+        st.warning("Choose your main concern first.")
+        st.stop()
+
+    if equipment_control is None:
+        st.warning(
+            "Choose an equipment-control answer. "
+            "If you are unsure, select 'I am not sure'."
+        )
+        st.stop()
+
+    st.session_state.submitted_plan = {
+        "main_concern": main_concern,
+        "change_level": change_level,
+        "home_status": home_status,
+        "dwelling_units": dwelling_units,
+        "equipment_control": equipment_control
+    }
+
+submitted_plan = st.session_state.get("submitted_plan")
+
+if submitted_plan is None:
     st.stop()
 
-if main_concern is None:
-    st.warning("Choose your main concern first.")
-    st.stop()
-
-if equipment_control is None:
-    st.warning(
-        "Choose an equipment-control answer. "
-        "If you are unsure, select 'I am not sure'."
-    )
-    st.stop()
-
+main_concern = submitted_plan["main_concern"]
+change_level = submitted_plan["change_level"]
+home_status = submitted_plan["home_status"]
+dwelling_units = submitted_plan["dwelling_units"]
+equipment_control = submitted_plan["equipment_control"]
 
 st.divider()
+
 
 result_col1, result_col2 = st.columns([4, 1])
 
