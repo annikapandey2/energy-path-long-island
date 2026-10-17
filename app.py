@@ -66,11 +66,10 @@ if st.session_state.screen == "simulator":
         st.subheader("Air sealing + insulation")
 
         st.info(
-            "ENERGY STAR estimates average savings of 11% "
-            "on total home-energy costs from combined "
-            "air sealing and insulation improvements. "
-            "This is a national modeled benchmark—not "
-            "a prediction for your home."
+            "This example uses ENERGY STAR's estimated "
+            "national average savings of 11% on total "
+            "home-energy costs from combined air sealing "
+            "and insulation. Actual savings vary by home."
         )
 
         st.markdown(
