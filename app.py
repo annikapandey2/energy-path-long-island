@@ -660,7 +660,8 @@ def render_questionnaire():
     with result_col1:
         st.markdown(
             """
-            <section style="background: linear-gradient(135deg, #EAF6F1, #F7FBFF); border: 1px solid #D7EDE3; border-left: 6px solid #176B68; border-radius: 14px; padding: 1.2rem; margin-bottom: 1rem; box-shadow: 0 8px 20px rgba(20,75,64,0.04);">
+            <section style="background: #EAF6F1; border: 1px solid #B8D6C8; border-left: 6px solid #176B68; border-radius: 16px; padding: 1.4rem 1.6rem; margin-bottom: 1rem;">
+
                 <p style="color: #176B68; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.14em; margin: 0 0 0.5rem;">ENERGY PATH · LONG ISLAND</p>
                 <h2 style="color: #083F36; font-size: clamp(1.4rem, 2.4vw, 2rem); line-height: 1.2; margin: 0 0 0.4rem;">Your Energy Action Plan</h2>
                 <p style="color: #38574F; font-size: 1rem; line-height: 1.5; margin: 0;">A starting point based on your concern, preferred next step, and equipment-change permissions.</p>
@@ -681,21 +682,119 @@ def render_questionnaire():
 
     matches, excluded = match_actions(actions=actions, concern=main_concern, change_level=change_level, equipment_control=equipment_control)
 
-    st.markdown(
+
+   st.markdown(
         """
         <style>
-        .ep-action-title { color: #083F36; font-size: clamp(1.15rem, 2vw, 1.6rem); font-weight:750; margin:0.25rem 0 0.6rem }
-        .ep-action-panel { background: #FFFFFF; border-left: 4px solid #176B68; border-radius: 10px; padding: 1rem 1.15rem; margin: 0 0 0.9rem; box-shadow:0 6px 18px rgba(15,60,52,0.04) }
-        .ep-action-label { display:inline-block; background:#F4C95D; color:#183247; font-weight:750; padding:0.18rem 0.5rem; border-radius:6px; margin-bottom:0.6rem }
-        .ep-resource-provider { display:inline-block; background:#EAF4FC; color:#183247; padding:0.35rem 0.75rem; border-radius:999px; font-size:0.85rem; font-weight:650; }
-        .ep-resource-step { background:#fff; border-left:4px solid #176B68; padding:0.9rem; border-radius:10px; box-shadow:0 6px 14px rgba(15,60,52,0.03); }
-        .ep-resource-heading { color:#083F36; font-size:1.2rem; font-weight:750; margin:0.4rem 0 }
-        .ep-resource-summary { color:#38524B }
-        .ep-resource-note { color:#38524B; margin-top:0.6rem }
+        .ep-action-title {
+            color: #083F36;
+            font-size: clamp(1.25rem, 2vw, 1.6rem) !important;
+            font-weight: 750;
+            line-height: 1.3;
+            margin: 0 0 0.8rem;
+            padding-top: 0;
+        }
+
+        .ep-action-panel {
+            background: #EAF6F1;
+            border: 1px solid #B8D6C8;
+            border-left: 4px solid #176B68;
+            border-radius: 12px;
+            padding: 1.1rem 1.2rem;
+            margin: 0 0 0.9rem;
+            color: #264D47;
+            line-height: 1.65;
+            box-shadow: none;
+        }
+
+        .ep-action-panel p {
+            margin: 0;
+            color: #264D47;
+            line-height: 1.65;
+        }
+
+        .ep-action-panel ul {
+            margin: 0.3rem 0 0;
+            padding-left: 1.3rem;
+        }
+
+        .ep-action-panel li {
+            margin-bottom: 0.4rem;
+        }
+
+        .ep-action-label {
+            display: inline-block;
+            background: #D3EAE1;
+            color: #164B40;
+            font-size: 0.75rem;
+            font-weight: 750;
+            letter-spacing: 0.08em;
+            padding: 0.3rem 0.6rem;
+            border-radius: 6px;
+            margin-bottom: 0.7rem;
+        }
+
+        .ep-resource-provider {
+            display: inline-block;
+            background: #EDF5FC;
+            border: 1px solid #BDD4E8;
+            color: #234B65;
+            padding: 0.3rem 0.7rem;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 650;
+        }
+
+        .ep-resource-heading {
+            color: #083F36;
+            font-size: clamp(1.15rem, 2vw, 1.4rem) !important;
+            font-weight: 750;
+            line-height: 1.35;
+            margin: 0.8rem 0 0.5rem;
+            padding-top: 0;
+        }
+
+        .ep-resource-summary {
+            color: #38524B;
+            line-height: 1.65;
+            margin: 0 0 1rem;
+        }
+
+        .ep-resource-step {
+            background: #E8F5F5;
+            border: 1px solid #ACD3D3;
+            border-left: 4px solid #176B68;
+            padding: 1rem 1.1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            box-shadow: none;
+        }
+
+        .ep-resource-step-label {
+            display: block;
+            color: #176B68;
+            font-size: 0.75rem;
+            font-weight: 750;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.4rem;
+        }
+
+        .ep-resource-step p {
+            color: #264D47;
+            line-height: 1.65;
+            margin: 0;
+        }
+
+        .ep-resource-note {
+            color: #38524B;
+            line-height: 1.6;
+            margin-top: 0.6rem;
+        }
         </style>
         """,
         unsafe_allow_html=True,
     )
+st.subheader("Start here")
 
     if matches:
         for number, action in enumerate(matches, start=1):
@@ -816,7 +915,7 @@ def render_questionnaire():
     with st.expander("How your plan is matched"):
         st.write("Actions are matched to your concern, next-step preference, and equipment-change permissions. Resources are matched to your concern and next-step preference.")
         st.write("The heat-pump resource also displays a building-category check based on your answer.")
-        st.caption("Your optional goal and heating source do not affect recommendations yet.")
+        
 
     st.divider()
     st.subheader("Explore a potential upgrade")
