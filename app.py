@@ -34,14 +34,15 @@ def reset_energy_plan():
 
 
 if st.session_state.screen == "simulator":
+    left_space, calcualtor_col1, right_space = st.columns([1, 6, 1])
 
+    with calculator_col:
 
+        if st.button("← Back to Home", key="payback_back_home"):
+            st.session_state.screen = "home"
+            st.rerun()
 
-    if st.button("← Back to Home", key="payback_back_home"):
-        st.session_state.screen = "home"
-        st.rerun()
-
-    st.title("Explore Upgrade Payback")
+        st.title("Explore Upgrade Payback")
     st.write(
         "Explore how an upgrade's upfront cost compares "
         "with its assumed energy savings over time."
