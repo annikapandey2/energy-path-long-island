@@ -42,11 +42,17 @@ if st.session_state.screen == "simulator":
         st.rerun()
 
     st.title("Explore Upgrade Payback")
-    st.write(
-        "Explore an official savings benchmark or enter "
-        "your own estimate to see how an upgrade could "
-        "recover its upfront cost."
+   st.write(
+        "Explore how an upgrade's upfront cost compares "
+        "with its assumed energy savings over time."
     )
+    st.caption(
+        "Try a sourced air-sealing and insulation example, "
+        "or use an estimate from a quote or assessment. "
+        "This calculator explores assumptions—it does not "
+        "predict savings for your home."
+    )
+
 
     mode = st.radio(
         "Choose your starting point",
