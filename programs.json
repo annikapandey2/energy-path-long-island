@@ -204,24 +204,41 @@
     "verified_requirements": [],
     "eligibility_note": "This is appliance-comparison guidance, not a rebate offer or a recommendation to replace an appliance. Label operating costs are estimates based on typical use and national average energy prices; your actual costs may differ.",
     "next_step": "If replacement is worth exploring, compare the EnergyGuide labels for similar appliance models. Review estimated energy use and operating costs alongside the purchase price. Labels may be available on the appliance or the seller's or manufacturer's website. Confirm permission before replacing equipment you do not control."
-  }
-]
+  },
+  {
+  "id": "pseg_li_reap",
+  "name": "REAP: Income-Eligible Home Energy Assistance",
+  "provider": "PSEG Long Island",
+  "summary": "Explore an income-qualified home energy survey, personalized energy-use guidance, and possible installation of energy-saving measures such as LED bulbs and water-conservation devices.",
+  "source_url": "https://www.psegliny.com/myaccount/customersupport/financialassistance/reap",
+  "source_checked_on": "2026-10-17",
+  "concerns": [
+    "Water use or water heating",
+    "Lighting and electronics",
+    "Appliances or high electricity use"
+  ],
+  "change_levels": [
+    "Programs or incentives to explore"
+  ],
+  "screening_status": "resource_only",
+  "verified_requirements": [
+    {
+      "id": "customer_account",
+      "description": "A PSEG Long Island account must be in your name."
+    },
+    {
+      "id": "income_requirements",
+      "description": "Household income must meet the program's current guidelines, and proof of income is required."
+    },
+    {
+      "id": "prior_participation",
+      "description": "You must not have had a REAP Home Energy Survey within the past five years."
+    }
+  ],
+  "eligibility_note": "Both renters and homeowners may participate if program requirements are met. This app has not checked your eligibility. Installed measures depend on the program's assessment; REAP no longer offers appliance evaluations.",
+  "next_step": "Review the current income guidelines and account requirements on the official page. If they appear to fit your household, follow the instructions to schedule a survey. Confirm any property-owner approval needed for installed measures."
+}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
+  
