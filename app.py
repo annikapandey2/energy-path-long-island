@@ -444,23 +444,99 @@ def render_simulator():
 
 
 def render_questionnaire():
-    top_bar()
-    st.title("Energy Path")
-    st.subheader("A home-energy resource navigator for Long Island residents")
-    st.write("Answer a few questions to find practical next steps and relevant local resources for your home.")
+    st.markdown(
+        """
+        <style>
+        .ep-survey-header {
+            background: #EAF6F1;
+            border: 1px solid #B8D6C8;
+            border-left: 5px solid #176B68;
+            border-radius: 16px;
+            padding: 1.4rem 1.6rem;
+            margin-bottom: 1rem;
+        }
+
+        .ep-survey-brand {
+            color: #176B68;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            margin: 0 0 0.6rem;
+        }
+
+        .ep-survey-header h1 {
+            color: #083F36;
+            font-size: clamp(1.6rem, 3vw, 2.3rem) !important;
+            line-height: 1.2;
+            margin: 0 0 0.6rem;
+            padding: 0;
+        }
+
+        .ep-survey-header p.ep-survey-description {
+            color: #264D47;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin: 0;
+            text-align: left;
+        }
+
+        .st-key-survey_priorities {
+            background: #EDF5FC;
+            border: 1px solid #BDD4E8 !important;
+            border-radius: 14px;
+            padding: 1.25rem;
+        }
+
+        .st-key-survey_home {
+            background: #EAF6F1;
+            border: 1px solid #B8D6C8 !important;
+            border-radius: 14px;
+            padding: 1.25rem;
+        }
+
+        .st-key-survey_priorities h3,
+        .st-key-survey_home h3 {
+            color: #164B40;
+            font-size: 1.3rem !important;
+            padding-top: 0;
+        }
+
+        .st-key-survey_priorities label p,
+        .st-key-survey_home label p {
+            color: #183F38;
+        }
+        </style>
+
+        <section class="ep-survey-header">
+            <p class="ep-survey-brand">ENERGY PATH · LONG ISLAND</p>
+            <h1>Build your energy action plan</h1>
+            <p class="ep-survey-description">
+                Choose your home-energy concern and tell us about
+                your situation. Find a practical starting action
+                and relevant official resources.
+            </p>
+        </section>
+        """,
+        unsafe_allow_html=True,
+    )
 
     if st.button("← Back to Home", type="secondary"):
         st.session_state.screen = "home"
         st.rerun()
 
     with st.form("energy_plan_form"):
-        st.subheader("Build your energy action plan")
-        st.caption("Choose your concern and tell us about your home. We will use your answers to suggest a practical next step.")
+        st.caption(
+            "Start with your priorities, then tell us about "
+            "your home and equipment-change permissions."
+        )
 
         concern_col, home_col = st.columns(2)
 
         with concern_col:
-            with st.container(border=True):
+            with st.container(
+                border=True,
+                key="survey_priorities",
+            ):
                 st.subheader("1. Your priorities")
 
                 main_concern = st.selectbox(
@@ -479,24 +555,50 @@ def render_questionnaire():
 
                 change_level = st.radio(
                     "What kind of next step are you looking for?",
-                    ["Easy changes I can do now", "Programs or incentives to explore", "Bigger long-term updates"],
+                    [
+                        "Easy changes I can do now",
+                        "Programs or incentives to explore",
+                        "Bigger long-term updates",
+                    ],
                     key="plan_change_level",
                 )
 
-                st.caption("Our resource list is still growing. Matching a resource does not confirm that you qualify.")
+                st.caption(
+                    "Our resource list is still growing. "
+                    "Matching a resource does not confirm "
+                    "that you qualify."
+                )
 
         with home_col:
-            with st.container(border=True):
+            with st.container(
+                border=True,
+                key="survey_home",
+            ):
                 st.subheader("2. Your home")
 
-                home_status = st.radio("Do you rent or own?", ["Rent", "Own"], horizontal=True, key="plan_home_status")
+                home_status = st.radio(
+                    "Do you rent or own?",
+                    ["Rent", "Own"],
+                    horizontal=True,
+                    key="plan_home_status",
+                )
 
                 dwelling_units = st.selectbox(
                     "How many homes or apartments are in your building?",
-                    ["1–4", "5 or more", "I am not sure"],
+                    [
+                        "1–4",
+                        "5 or more",
+                        "I am not sure",
+                    ],
                     index=None,
                     placeholder="Choose a building size",
-                    help=("Count your own home too. Count whole homes, not rooms or people. A single-family house—even with 5 bedrooms—counts as 1. A building with 6 separate apartments counts as 6."),
+                    help=(
+                        "Count your own home too. Count whole homes, "
+                        "not rooms or people. A single-family house"
+                        "—even with 5 bedrooms—counts as 1. "
+                        "A building with 6 separate apartments "
+                        "counts as 6."
+                    ),
                     key="plan_dwelling_units",
                 )
 
@@ -513,27 +615,17 @@ def render_questionnaire():
                     key="plan_equipment_control",
                 )
 
-                st.caption("Think about heating, cooling, water-heating equipment, and appliances involved in your concern.")
+                st.caption(
+                    "Think about heating, cooling, water-heating "
+                    "equipment, and appliances involved in your concern."
+                )
 
-        with st.expander("Optional details—not used in matching yet"):
-            st.caption("These answers do not change your recommendations in the current prototype.")
+        build_plan = st.form_submit_button(
+            "Build My Energy Action Plan",
+            type="primary",
+            use_container_width=True,
+        )
 
-            main_goal = st.radio(
-                "Your main energy goal",
-                ["Lower my energy bill", "Make my home more comfortable", "Use less energy", "Learn about bigger home upgrades"],
-                index=None,
-                key="plan_main_goal",
-            )
-
-            heating_source = st.selectbox(
-                "Your primary heating source",
-                ["Electric heat", "Oil", "Natural Gas", "Heat pump", "I am not sure"],
-                index=None,
-                placeholder="Choose a heating source",
-                key="plan_heating_source",
-            )
-
-        build_plan = st.form_submit_button("Build My Energy Action Plan", type="primary", use_container_width=True)
 
     if build_plan:
         if main_concern is None:
