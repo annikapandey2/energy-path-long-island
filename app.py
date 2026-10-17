@@ -179,11 +179,17 @@ def render_home():
         .ep-feature { background:#fff;border:1px solid #e6f0ec;border-radius:14px;padding:1.4rem;min-height:170px; box-shadow:0 6px 18px rgba(16,64,55,0.04)}
         .ep-feature h3{margin:0 0 0.4rem}
         .ep-about{background:#fffefc;border:1px solid #eef7ef;border-radius:12px;padding:1.4rem;margin:1rem 0}
-        @media (max-width:640px){ .ep-hero{padding:2rem 1rem} .ep-feature{min-height:auto} }
+       @media (max-width:640px){ .ep-hero{padding:2rem 1rem} .ep-feature{min-height:auto} }
+
+        .ep-hero h1.ep-title {
+            font-size: clamp(3.4rem, 8vw, 6rem) !important;
+            line-height: 1.05;
+        }
         </style>
 
+
 <section class="ep-hero">
-    <h1 class="ep-title">Energy Path TEST</h1>
+    <h1 class="ep-title">Energy Path</h1>
     <div class="ep-location">LONG ISLAND</div>
     <p class="ep-tagline">
         Your home-energy concern. A clearer next step.
