@@ -153,353 +153,242 @@ def render_home():
     st.markdown(
         """
         <style>
-.ep-hero {
-    text-align: center;
-    padding: 3.2rem 1.5rem 2.6rem;
-    margin: 0 0 1.6rem;
-    background: #EAF6F1;
-    border: 2px solid #176B68;
-    border-radius: 20px;
-    box-shadow: none;
-}
-
-        .ep-title { color: #083F36; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: clamp(3.4rem, 8vw, 6rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.06; margin: 0; }
-        .ep-location { color: #176B68; font-size: 0.85rem; font-weight:700; letter-spacing:0.26em; margin:0.6rem 0; }
-        .ep-tagline { color:#0f3b32; font-size:clamp(1.05rem,2.4vw,1.5rem); margin:0.2rem 0 0.6rem }
-.ep-hero p.ep-intro {
-    color: #264d47;
-    font-size: 1rem;
-    line-height: 1.6;
-    width: 100%;
-    max-width: 700px;
-    margin: 0 auto;
-    text-align: center !important;
-}
-
-        .ep-feature { background:#fff;border:1px solid #e6f0ec;border-radius:14px;padding:1.4rem;min-height:170px; box-shadow:0 6px 18px rgba(16,64,55,0.04)}
-        .ep-feature h3{margin:0 0 0.4rem}
-        .ep-about{background:#fffefc;border:1px solid #eef7ef;border-radius:12px;padding:1.4rem;margin:1rem 0}
-       @media (max-width:640px){ .ep-hero{padding:2rem 1rem} .ep-feature{min-height:auto} }
+        .ep-hero {
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            margin-bottom: 1.4rem;
+            background: #EAF6F1;
+            border: 1px solid #B8D6CC;
+            border-radius: 20px;
+        }
 
         .ep-hero h1.ep-title {
-            font-size: clamp(2.8rem, 6vw, 4.5rem) !important;
-            line-height: 1.05;
+            color: #083F36;
+            font-family: system-ui, sans-serif;
+            font-size: clamp(2.6rem, 5vw, 4rem) !important;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            margin: 0;
+            padding: 0;
         }
+
+        .ep-location {
+            color: #176B68;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.24em;
+            margin: 0.9rem 0;
+        }
+
+        .ep-hero .ep-tagline {
+            color: #164B40;
+            font-size: 1.2rem;
+            line-height: 1.5;
+            margin: 0 0 0.6rem;
+        }
+
+        .ep-hero .ep-intro {
+            color: #38524B;
+            font-size: 1rem;
+            line-height: 1.6;
+            max-width: 650px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .st-key-home_primary button,
+        .st-key-home_secondary button {
+            min-height: 48px;
+            border-radius: 12px;
+            padding: 0.65rem 1.1rem;
+            transition:
+                transform 160ms ease,
+                box-shadow 160ms ease,
+                background-color 160ms ease;
+        }
+
+        .st-key-home_primary button {
+            background: #176B68;
+            color: #FFFFFF;
+            border: 1px solid #176B68;
+            box-shadow: 0 5px 12px rgba(23, 107, 104, 0.18);
+        }
+
+        .st-key-home_secondary button {
+            background: #F5FAF8;
+            color: #164B40;
+            border: 1px solid #B8D6CC;
+            box-shadow: 0 4px 10px rgba(22, 75, 64, 0.09);
+        }
+
+        .st-key-home_primary button:hover {
+            background: #125854;
+            color: #FFFFFF;
+            border-color: #125854;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(23, 107, 104, 0.23);
+        }
+
+        .st-key-home_secondary button:hover {
+            background: #EAF6F1;
+            color: #164B40;
+            border-color: #176B68;
+            transform: translateY(-2px);
+            box-shadow: 0 7px 14px rgba(22, 75, 64, 0.13);
+        }
+
+        .st-key-home_primary button:active,
+        .st-key-home_secondary button:active {
+            transform: translateY(0);
+        }
+
+        .ep-button-note {
+            color: #526B64;
+            text-align: center;
+            font-size: 0.88rem;
+            line-height: 1.5;
+            max-width: 600px;
+            margin: 0.8rem auto 0;
+        }
+
+        .ep-section-label {
+            text-align: center;
+            color: #176B68;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            margin: 2rem 0 1rem;
+        }
+
         .ep-feature {
-    border: 1px solid #B8D6CC;
-    border-radius: 14px;
-    padding: 1.4rem;
-    min-height: 200px;
-    box-shadow: none;
-}
+            border: 1px solid #B8D6CC;
+            border-radius: 14px;
+            padding: 1.4rem;
+            min-height: 210px;
+        }
 
-.ep-feature h3 {
-    color: #164B40;
-    margin: 0 0 0.6rem;
-}
+        .ep-feature-number {
+            color: #176B68;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 0.7rem;
+        }
 
-.ep-feature p {
-    color: #264D47;
-    line-height: 1.6;
-    margin: 0;
-}
+        .ep-feature h3 {
+            color: #164B40;
+            font-size: 1.25rem;
+            line-height: 1.35;
+            margin: 0 0 0.7rem;
+            padding: 0;
+        }
 
-/* Pale blue */
-.ep-feature-options {
-    background: #EDF5FC;
-    border-color: #BDD4E8;
-}
+        .ep-feature p {
+            color: #264D47;
+            line-height: 1.6;
+            margin: 0;
+        }
 
-/* Pale green */
-.ep-feature-permissions {
-    background: #EAF6F1;
-    border-color: #B8D6C8;
-}
+        .ep-feature-options {
+            background: #EDF5FC;
+            border-color: #BDD4E8;
+        }
 
-/* Pale teal */
-.ep-feature-resources {
-    background: #E8F5F5;
-    border-color: #ACD3D3;
-}
+        .ep-feature-permissions {
+            background: #EAF6F1;
+            border-color: #B8D6C8;
+        }
 
-/* Slightly smaller, more balanced hero */
-.ep-hero {
-    padding: 2.5rem 1.5rem 2.2rem;
-}
+        .ep-feature-resources {
+            background: #E8F5F5;
+            border-color: #ACD3D3;
+        }
 
-.ep-hero h1.ep-title {
-    font-size: clamp(2.6rem, 5vw, 4rem) !important;
-}
+        .ep-about {
+            background: #F3F8F6;
+            border: 1px solid #C8DDD5;
+            border-left: 4px solid #176B68;
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin: 1.5rem 0 1rem;
+        }
 
-/* Compact, softly raised home buttons */
-.st-key-home_primary,
-.st-key-home_secondary {
-    display: flex;
-    justify-content: center;
-}
+        .ep-about .ep-about-kicker {
+            color: #176B68;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            margin: 0 0 0.5rem;
+        }
 
-.st-key-home_primary button,
-.st-key-home_secondary button {
-    min-height: 48px;
-    border-radius: 12px;
-    padding: 0.7rem 1.4rem;
-    transition:
-        transform 160ms ease,
-        box-shadow 160ms ease,
-        background-color 160ms ease;
-}
+        .ep-about h3 {
+            color: #083F36;
+            margin: 0 0 0.6rem;
+            padding: 0;
+        }
 
-.st-key-home_primary button {
-    background: #176B68;
-    color: #FFFFFF;
-    border: 1px solid #176B68;
-    box-shadow: 0 5px 12px rgba(23, 107, 104, 0.18);
-}
+        .ep-about .ep-about-copy {
+            color: #38524B;
+            line-height: 1.7;
+            margin: 0;
+            max-width: 850px;
+        }
 
-.st-key-home_secondary button {
-    background: #F5FAF8;
-    color: #164B40;
-    border: 1px solid #B8D6CC;
-    box-shadow: 0 4px 10px rgba(22, 75, 64, 0.08);
-}
+        .st-key-home_about details {
+            background: #FFFFFF;
+            border: 1px solid #C8DDD5;
+            border-radius: 12px;
+        }
 
-.st-key-home_primary button:hover {
-    background: #125854;
-    color: #FFFFFF;
-    border-color: #125854;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 16px rgba(23, 107, 104, 0.23);
-}
+        .st-key-home_about summary {
+            color: #164B40;
+            padding: 0.8rem 1rem;
+        }
 
-.st-key-home_secondary button:hover {
-    background: #EAF6F1;
-    color: #164B40;
-    border-color: #176B68;
-    transform: translateY(-2px);
-    box-shadow: 0 7px 14px rgba(22, 75, 64, 0.13);
-}
+        .st-key-home_about summary:hover {
+            background: #F3F8F6;
+            border-radius: 12px;
+        }
 
-.st-key-home_primary button:active,
-.st-key-home_secondary button:active {
-    transform: translateY(0);
-}
+        @media (max-width: 640px) {
+            .ep-hero {
+                padding: 2rem 1rem;
+            }
 
-.ep-button-note {
-    color: #526B64;
-    text-align: center;
-    font-size: 0.88rem;
-    line-height: 1.5;
-    margin: 0.8rem auto 0;
-    max-width: 560px;
-}
+            .ep-feature {
+                min-height: auto;
+            }
+        }
 
-/* A more deliberate "Why Energy Path?" section */
-.ep-about {
-    background: #F3F8F6;
-    border: 1px solid #C8DDD5;
-    border-left: 4px solid #176B68;
-    border-radius: 16px;
-    padding: 1.5rem;
-    margin: 1.5rem 0 1rem;
-}
+        @media (prefers-reduced-motion: reduce) {
+            .st-key-home_primary button,
+            .st-key-home_secondary button {
+                transition: none;
+            }
 
-.ep-about-kicker {
-    color: #176B68;
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    margin: 0 0 0.5rem;
-}
+            .st-key-home_primary button:hover,
+            .st-key-home_secondary button:hover {
+                transform: none;
+            }
+        }
+        </style>
 
-.ep-about h3 {
-    color: #083F36;
-    margin: 0 0 0.6rem;
-    padding: 0;
-}
-
-.ep-about p.ep-about-copy {
-    color: #38524B;
-    line-height: 1.7;
-    margin: 0;
-    max-width: 850px;
-}
-
-/* Home-page About dropdown */
-.st-key-home_about details {
-    background: #FFFFFF;
-    border: 1px solid #C8DDD5;
-    border-radius: 12px;
-}
-
-.st-key-home_about summary {
-    color: #164B40;
-    padding: 0.8rem 1rem;
-}
-
-.st-key-home_about summary:hover {
-    background: #F3F8F6;
-    border-radius: 12px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-
-/* Slightly smaller, more balanced hero */
-.ep-hero {
-    padding: 2.5rem 1.5rem 2.2rem;
-}
-
-.ep-hero h1.ep-title {
-    font-size: clamp(2.6rem, 5vw, 4rem) !important;
-}
-
-/* Compact, softly raised home buttons */
-.st-key-home_primary,
-.st-key-home_secondary {
-    display: flex;
-    justify-content: center;
-}
-
-.st-key-home_primary button,
-.st-key-home_secondary button {
-    min-height: 48px;
-    border-radius: 12px;
-    padding: 0.7rem 1.4rem;
-    transition:
-        transform 160ms ease,
-        box-shadow 160ms ease,
-        background-color 160ms ease;
-}
-
-.st-key-home_primary button {
-    background: #176B68;
-    color: #FFFFFF;
-    border: 1px solid #176B68;
-    box-shadow: 0 5px 12px rgba(23, 107, 104, 0.18);
-}
-
-.st-key-home_secondary button {
-    background: #F5FAF8;
-    color: #164B40;
-    border: 1px solid #B8D6CC;
-    box-shadow: 0 4px 10px rgba(22, 75, 64, 0.08);
-}
-
-.st-key-home_primary button:hover {
-    background: #125854;
-    color: #FFFFFF;
-    border-color: #125854;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 16px rgba(23, 107, 104, 0.23);
-}
-
-.st-key-home_secondary button:hover {
-    background: #EAF6F1;
-    color: #164B40;
-    border-color: #176B68;
-    transform: translateY(-2px);
-    box-shadow: 0 7px 14px rgba(22, 75, 64, 0.13);
-}
-
-.st-key-home_primary button:active,
-.st-key-home_secondary button:active {
-    transform: translateY(0);
-}
-
-.ep-button-note {
-    color: #526B64;
-    text-align: center;
-    font-size: 0.88rem;
-    line-height: 1.5;
-    margin: 0.8rem auto 0;
-    max-width: 560px;
-}
-
-/* A more deliberate "Why Energy Path?" section */
-.ep-about {
-    background: #F3F8F6;
-    border: 1px solid #C8DDD5;
-    border-left: 4px solid #176B68;
-    border-radius: 16px;
-    padding: 1.5rem;
-    margin: 1.5rem 0 1rem;
-}
-
-.ep-about-kicker {
-    color: #176B68;
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    margin: 0 0 0.5rem;
-}
-
-.ep-about h3 {
-    color: #083F36;
-    margin: 0 0 0.6rem;
-    padding: 0;
-}
-
-.ep-about p.ep-about-copy {
-    color: #38524B;
-    line-height: 1.7;
-    margin: 0;
-    max-width: 850px;
-}
-
-/* Home-page About dropdown */
-.st-key-home_about details {
-    background: #FFFFFF;
-    border: 1px solid #C8DDD5;
-    border-radius: 12px;
-}
-
-.st-key-home_about summary {
-    color: #164B40;
-    padding: 0.8rem 1rem;
-}
-
-.st-key-home_about summary:hover {
-    background: #F3F8F6;
-    border-radius: 12px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .st-key-home_primary button,
-    .st-key-home_secondary button {
-        transition: none;
-    }
-
-    .st-key-home_primary button:hover,
-    .st-key-home_secondary button:hover {
-        transform: none;
-    }
-}
-
-
-
-
-
-
-
-
-
-<section class="ep-hero">
-    <h1 class="ep-title">Energy Path</h1>
-    <div class="ep-location">LONG ISLAND</div>
-    <p class="ep-tagline">
-        Your home-energy concern. A clearer next step.
-    </p>
-    <p class="ep-intro">
-        Explore practical guidance and official resources
-        for your home, whether you rent or own.
-    </p>
-</section>
-
+        <section class="ep-hero">
+            <h1 class="ep-title">Energy Path</h1>
+            <div class="ep-location">LONG ISLAND</div>
+            <p class="ep-tagline">
+                Your home-energy concern. A clearer next step.
+            </p>
+            <p class="ep-intro">
+                Explore practical guidance and official resources
+                for your home, whether you rent or own.
+            </p>
+        </section>
         """,
         unsafe_allow_html=True,
     )
 
-  
-   left_space, button_area, right_space = st.columns([1, 3, 1])
+    left_space, button_area, right_space = st.columns([1, 3, 1])
 
     with button_area:
         primary_col, secondary_col = st.columns(2)
@@ -533,73 +422,87 @@ def render_home():
         unsafe_allow_html=True,
     )
 
+    st.markdown(
+        '<div class="ep-section-label">A PLACE TO BEGIN</div>',
+        unsafe_allow_html=True,
+    )
 
+    features = [
+        (
+            "ep-feature-options",
+            "01 / YOUR CONCERN",
+            "Understand your options",
+            "Start with what matters to you—from drafts and hot "
+            "water to lighting and electricity use.",
+        ),
+        (
+            "ep-feature-permissions",
+            "02 / YOUR SITUATION",
+            "Plan around permissions",
+            "Explore next steps that account for whether you can "
+            "approve equipment changes or need someone else's approval.",
+        ),
+        (
+            "ep-feature-resources",
+            "03 / YOUR NEXT STEP",
+            "Find helpful resources",
+            "Get a practical starting action and explore available "
+            "official guidance and program pages.",
+        ),
+    ]
 
+    for column, feature in zip(st.columns(3), features):
+        css_class, label, title, description = feature
 
+        with column:
+            st.markdown(
+                f'<div class="ep-feature {css_class}">'
+                f'<div class="ep-feature-number">{escape(label)}</div>'
+                f'<h3>{escape(title)}</h3>'
+                f'<p>{escape(description)}</p>'
+                '</div>',
+                unsafe_allow_html=True,
+            )
 
+    st.markdown(
+        """
+        <section class="ep-about">
+            <p class="ep-about-kicker">A CLEARER START</p>
+            <h3>Why Energy Path?</h3>
+            <p class="ep-about-copy">
+                You have a home-energy concern—but knowing what
+                to do next can be confusing. Energy Path brings
+                together a practical starting action and relevant
+                official resources, with guidance that accounts
+                for who can approve equipment changes.
+            </p>
+        </section>
+        """,
+        unsafe_allow_html=True,
+    )
 
-    st.markdown('<div style="text-align:center;color:#176B68;font-weight:700;letter-spacing:0.14em;margin:2rem 0 1rem">A PLACE TO BEGIN</div>', unsafe_allow_html=True)
+    with st.container(key="home_about"):
+        with st.expander("About Energy Path"):
+            st.markdown("#### Built for a practical first step")
+            st.write(
+                "Energy Path is a student-built prototype for "
+                "renters and homeowners in Nassau and Suffolk "
+                "counties on Long Island."
+            )
+            st.write(
+                "Answer a few questions to explore a starting "
+                "action and relevant official resources. Or use "
+                "the separate payback calculator to compare a "
+                "project cost with assumed savings."
+            )
 
-    col1, col2, col3 = st.columns(3)
+            st.markdown("#### What to keep in mind")
+            st.write(
+                "Resource coverage is limited. Matches do not "
+                "confirm rebate eligibility, replace a home-energy "
+                "assessment, or guarantee energy or cost savings."
+            )
 
-    with col1:
-        st.markdown(
-            """
-            <div class="ep-feature ep-feature-options">
-                <div style="color:#176B68;font-weight:750;margin-bottom:8px">
-                    01 / YOUR CONCERN
-                </div>
-                <h3>Understand your options</h3>
-                <p>
-                    Start with what matters to you—from drafts
-                    and hot water to lighting and electricity use.
-                </p>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-    with col2:
-        st.markdown(
-            """
-            <div class="ep-feature ep-feature-permissions">
-                <div style="color:#176B68;font-weight:750;margin-bottom:8px">
-                    02 / YOUR SITUATION
-                </div>
-                <h3>Plan around permissions</h3>
-                <p>
-                    Explore next steps that account for whether
-                    you can approve equipment changes or need
-                    someone else's approval.
-                </p>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-    with col3:
-        st.markdown(
-            """
-            <div class="ep-feature ep-feature-resources">
-                <div style="color:#176B68;font-weight:750;margin-bottom:8px">
-                    03 / YOUR NEXT STEP
-                </div>
-                <h3>Find helpful resources</h3>
-                <p>
-                    Get a practical starting action and explore
-                    available official guidance and program pages.
-                </p>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-
-    st.markdown('<div class="ep-about"><h3 style="margin:0 0 8px;color:#164B40">Why Energy Path?</h3><p style="margin:0;color:#38524B">Knowing where to begin can be the hardest part. Energy Path brings a starting action and relevant resources into one place, with guidance for renters and homeowners in Nassau and Suffolk counties.</p></div>', unsafe_allow_html=True)
-
-    with st.expander("About this app"):
-        st.write("Energy Path is a student-built prototype for exploring home-energy next steps on Long Island. Recommendations use your main concern, preferred type of change, and equipment-change permission.")
-        st.write("Resource coverage is limited. The app does not establish rebate eligibility, provide a home-energy assessment, or guarantee energy or cost savings.")
 
 
 def render_simulator():
