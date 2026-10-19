@@ -158,7 +158,7 @@ def render_home():
             padding: 2.5rem 1.5rem;
             margin-bottom: 1.4rem;
             background: #EAF6F1;
-            border: 1px solid #B8D6CC;
+            border: 2px solid #176B68;
             border-radius: 20px;
         }
 
@@ -197,51 +197,81 @@ def render_home():
             text-align: center;
         }
 
-        .st-key-home_primary button,
+       .st-key-home_primary button,
         .st-key-home_secondary button {
-            min-height: 48px;
-            border-radius: 12px;
-            padding: 0.65rem 1.1rem;
+            width: 100%;
+            min-height: 150px;
+            border-radius: 18px;
+            padding: 1.5rem 1.2rem;
             transition:
                 transform 160ms ease,
                 box-shadow 160ms ease,
                 background-color 160ms ease;
         }
 
+        .st-key-home_primary button p,
+        .st-key-home_secondary button p {
+            font-family:
+                "Segoe UI", system-ui, -apple-system,
+                BlinkMacSystemFont, sans-serif;
+            font-size: clamp(1.15rem, 2vw, 1.4rem);
+            font-weight: 700;
+            line-height: 1.35;
+            letter-spacing: -0.02em;
+            text-align: center;
+        }
+
         .st-key-home_primary button {
             background: #176B68;
             color: #FFFFFF;
-            border: 1px solid #176B68;
-            box-shadow: 0 5px 12px rgba(23, 107, 104, 0.18);
+            border: 1px solid #125854;
+            box-shadow: 0 6px 0 #104E4B,
+                        0 10px 20px rgba(23, 107, 104, 0.16);
         }
 
         .st-key-home_secondary button {
-            background: #F5FAF8;
+            background: #EDF5FC;
             color: #164B40;
-            border: 1px solid #B8D6CC;
-            box-shadow: 0 4px 10px rgba(22, 75, 64, 0.09);
+            border: 1px solid #BDD4E8;
+            box-shadow: 0 6px 0 #C2D4E2,
+                        0 10px 20px rgba(35, 75, 101, 0.10);
         }
 
         .st-key-home_primary button:hover {
-            background: #125854;
+            background: #125E5B;
             color: #FFFFFF;
-            border-color: #125854;
+            border-color: #104E4B;
             transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(23, 107, 104, 0.23);
+            box-shadow: 0 8px 0 #104E4B,
+                        0 14px 24px rgba(23, 107, 104, 0.19);
         }
 
         .st-key-home_secondary button:hover {
-            background: #EAF6F1;
+            background: #E3EFF9;
             color: #164B40;
-            border-color: #176B68;
+            border-color: #9BBFD9;
             transform: translateY(-2px);
-            box-shadow: 0 7px 14px rgba(22, 75, 64, 0.13);
+            box-shadow: 0 8px 0 #C2D4E2,
+                        0 14px 24px rgba(35, 75, 101, 0.14);
         }
 
         .st-key-home_primary button:active,
         .st-key-home_secondary button:active {
-            transform: translateY(0);
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 rgba(16, 78, 75, 0.4);
         }
+
+        .ep-choice-caption {
+            color: #38524B;
+            text-align: center;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin: 0.9rem 0 0;
+        }
+
+
+
+      
 
         .ep-button-note {
             color: #526B64;
@@ -388,10 +418,16 @@ def render_home():
         unsafe_allow_html=True,
     )
 
-    left_space, button_area, right_space = st.columns([1, 3, 1])
+  
+
+
+
+
+
+   left_space, button_area, right_space = st.columns([1, 2, 1])
 
     with button_area:
-        primary_col, secondary_col = st.columns(2)
+        primary_col, secondary_col = st.columns(2, gap="medium")
 
         with primary_col:
             with st.container(key="home_primary"):
@@ -399,28 +435,38 @@ def render_home():
                     "Find My Next Step →",
                     key="home_find_next_step",
                     type="primary",
-                    use_container_width=False,
+                    use_container_width=True,
                 ):
                     st.session_state.screen = "questionnaire"
                     st.rerun()
 
+            st.markdown(
+                '<p class="ep-choice-caption">'
+                'Get guidance for your home-energy concern.'
+                '</p>',
+                unsafe_allow_html=True,
+            )
+
         with secondary_col:
             with st.container(key="home_secondary"):
                 if st.button(
-                    "Explore Upgrade Payback",
+                    "Explore Upgrade Payback →",
                     key="home_open_payback",
-                    use_container_width=False,
+                    use_container_width=True,
                 ):
                     st.session_state.screen = "simulator"
                     st.rerun()
 
-    st.markdown(
-        '<p class="ep-button-note">'
-        'Start with your concern, or explore payback using '
-        'a project cost and savings estimate.'
-        '</p>',
-        unsafe_allow_html=True,
-    )
+            st.markdown(
+                '<p class="ep-choice-caption">'
+                'Compare a project cost with assumed savings.'
+                '</p>',
+                unsafe_allow_html=True,
+            )
+
+
+
+
 
     st.markdown(
         '<div class="ep-section-label">A PLACE TO BEGIN</div>',
