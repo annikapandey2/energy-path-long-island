@@ -222,6 +222,144 @@ def render_home():
     border-color: #ACD3D3;
 }
 
+/* Slightly smaller, more balanced hero */
+.ep-hero {
+    padding: 2.5rem 1.5rem 2.2rem;
+}
+
+.ep-hero h1.ep-title {
+    font-size: clamp(2.6rem, 5vw, 4rem) !important;
+}
+
+/* Compact, softly raised home buttons */
+.st-key-home_primary,
+.st-key-home_secondary {
+    display: flex;
+    justify-content: center;
+}
+
+.st-key-home_primary button,
+.st-key-home_secondary button {
+    min-height: 48px;
+    border-radius: 12px;
+    padding: 0.7rem 1.4rem;
+    transition:
+        transform 160ms ease,
+        box-shadow 160ms ease,
+        background-color 160ms ease;
+}
+
+.st-key-home_primary button {
+    background: #176B68;
+    color: #FFFFFF;
+    border: 1px solid #176B68;
+    box-shadow: 0 5px 12px rgba(23, 107, 104, 0.18);
+}
+
+.st-key-home_secondary button {
+    background: #F5FAF8;
+    color: #164B40;
+    border: 1px solid #B8D6CC;
+    box-shadow: 0 4px 10px rgba(22, 75, 64, 0.08);
+}
+
+.st-key-home_primary button:hover {
+    background: #125854;
+    color: #FFFFFF;
+    border-color: #125854;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(23, 107, 104, 0.23);
+}
+
+.st-key-home_secondary button:hover {
+    background: #EAF6F1;
+    color: #164B40;
+    border-color: #176B68;
+    transform: translateY(-2px);
+    box-shadow: 0 7px 14px rgba(22, 75, 64, 0.13);
+}
+
+.st-key-home_primary button:active,
+.st-key-home_secondary button:active {
+    transform: translateY(0);
+}
+
+.ep-button-note {
+    color: #526B64;
+    text-align: center;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    margin: 0.8rem auto 0;
+    max-width: 560px;
+}
+
+/* A more deliberate "Why Energy Path?" section */
+.ep-about {
+    background: #F3F8F6;
+    border: 1px solid #C8DDD5;
+    border-left: 4px solid #176B68;
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin: 1.5rem 0 1rem;
+}
+
+.ep-about-kicker {
+    color: #176B68;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    margin: 0 0 0.5rem;
+}
+
+.ep-about h3 {
+    color: #083F36;
+    margin: 0 0 0.6rem;
+    padding: 0;
+}
+
+.ep-about p.ep-about-copy {
+    color: #38524B;
+    line-height: 1.7;
+    margin: 0;
+    max-width: 850px;
+}
+
+/* Home-page About dropdown */
+.st-key-home_about details {
+    background: #FFFFFF;
+    border: 1px solid #C8DDD5;
+    border-radius: 12px;
+}
+
+.st-key-home_about summary {
+    color: #164B40;
+    padding: 0.8rem 1rem;
+}
+
+.st-key-home_about summary:hover {
+    background: #F3F8F6;
+    border-radius: 12px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .st-key-home_primary button,
+    .st-key-home_secondary button {
+        transition: none;
+    }
+
+    .st-key-home_primary button:hover,
+    .st-key-home_secondary button:hover {
+        transform: none;
+    }
+}
+
+
+
+
+
+
+
+
         </style>
 
 
