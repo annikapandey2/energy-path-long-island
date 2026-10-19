@@ -807,8 +807,7 @@ def render_questionnaire():
         unsafe_allow_html=True,
    )
 
-    st.subheader("Start here")
-
+  
     if matches:
 
         for number, action in enumerate(matches, start=1):
@@ -1048,8 +1047,9 @@ def render_questionnaire():
                     )
 
                 else:
-                    with st.expander("Resource scope and limitations"):
-                        st.write(program.get("eligibility_note", ""))
+                    scope_note = program.get("eligibility_note","")
+                    if scope_note:
+                        st.caption(scope_note)
 
                 button_label = (
                     "Explore the program ↗"
@@ -1064,25 +1064,7 @@ def render_questionnaire():
                     use_container_width=False,
                 )
 
-                with st.expander("Source details & requirements"):
-                    st.write(f"Provider: {program.get('provider')}")
-                    st.caption(
-                        f"Source checked: {program.get('source_checked_on')}"
-                    )
-
-                    if program.get("verified_requirements"):
-                        st.write("Requirements to review")
-                        st.caption(
-                            "Selected requirements—not a complete "
-                            "eligibility checklist."
-                        )
-
-                        for requirement in program.get(
-                            "verified_requirements", []
-                        ):
-                            st.write(
-                                f"- {requirement.get('description')}"
-                            )
+             
 
     else:
         st.info(
@@ -1090,16 +1072,54 @@ def render_questionnaire():
             "Other guidance, programs, or incentives may be available."
         )
 
-    with st.expander("How your plan is matched"):
+    with st.expander("About this plan & source details"):
+        st.markdown("#### How your plan is matched")
         st.write(
-            "Actions are matched to your concern, next-step preference, "
-            "and equipment-change permissions. Resources are matched "
-            "to your concern and next-step preference."
+            "Actions match your concern, preferred next step, and "
+            "equipment-change permissions. Resources match your "
+            "concern and preferred next step."
         )
         st.write(
-            "The heat-pump resource also displays a building-category "
-            "check based on your answer."
+            "For the heat-pump resource, your building-size answer "
+            "also determines which category guidance is shown."
         )
+        st.caption(
+            "Matches are starting points—not confirmed eligibility "
+            "or recommendations to buy equipment."
+        )
+
+        for program in matching_programs:
+            st.divider()
+            st.markdown(
+                f"#### {program.get('name', 'Resource')}"
+            )
+            st.write(
+                f"Provider: {program.get('provider', 'Not listed')}"
+            )
+            st.caption(
+                "Source checked: "
+                f"{program.get('source_checked_on') or 'Not recorded'}"
+            )
+
+            requirements = program.get("verified_requirements", [])
+            if requirements:
+                st.write("Selected requirements to review:")
+                for requirement in requirements:
+                    description = requirement.get("description", "")
+                    if description:
+                        st.write(f"- {description}")
+
+                st.caption(
+                    "These are selected requirements, not a complete "
+                    "eligibility checklist. Review the official page."
+                )
+
+
+
+
+
+
+
 
     st.divider()
 
