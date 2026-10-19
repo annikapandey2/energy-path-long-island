@@ -342,6 +342,127 @@ def render_home():
 }
 
 @media (prefers-reduced-motion: reduce) {
+
+/* Slightly smaller, more balanced hero */
+.ep-hero {
+    padding: 2.5rem 1.5rem 2.2rem;
+}
+
+.ep-hero h1.ep-title {
+    font-size: clamp(2.6rem, 5vw, 4rem) !important;
+}
+
+/* Compact, softly raised home buttons */
+.st-key-home_primary,
+.st-key-home_secondary {
+    display: flex;
+    justify-content: center;
+}
+
+.st-key-home_primary button,
+.st-key-home_secondary button {
+    min-height: 48px;
+    border-radius: 12px;
+    padding: 0.7rem 1.4rem;
+    transition:
+        transform 160ms ease,
+        box-shadow 160ms ease,
+        background-color 160ms ease;
+}
+
+.st-key-home_primary button {
+    background: #176B68;
+    color: #FFFFFF;
+    border: 1px solid #176B68;
+    box-shadow: 0 5px 12px rgba(23, 107, 104, 0.18);
+}
+
+.st-key-home_secondary button {
+    background: #F5FAF8;
+    color: #164B40;
+    border: 1px solid #B8D6CC;
+    box-shadow: 0 4px 10px rgba(22, 75, 64, 0.08);
+}
+
+.st-key-home_primary button:hover {
+    background: #125854;
+    color: #FFFFFF;
+    border-color: #125854;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(23, 107, 104, 0.23);
+}
+
+.st-key-home_secondary button:hover {
+    background: #EAF6F1;
+    color: #164B40;
+    border-color: #176B68;
+    transform: translateY(-2px);
+    box-shadow: 0 7px 14px rgba(22, 75, 64, 0.13);
+}
+
+.st-key-home_primary button:active,
+.st-key-home_secondary button:active {
+    transform: translateY(0);
+}
+
+.ep-button-note {
+    color: #526B64;
+    text-align: center;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    margin: 0.8rem auto 0;
+    max-width: 560px;
+}
+
+/* A more deliberate "Why Energy Path?" section */
+.ep-about {
+    background: #F3F8F6;
+    border: 1px solid #C8DDD5;
+    border-left: 4px solid #176B68;
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin: 1.5rem 0 1rem;
+}
+
+.ep-about-kicker {
+    color: #176B68;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    margin: 0 0 0.5rem;
+}
+
+.ep-about h3 {
+    color: #083F36;
+    margin: 0 0 0.6rem;
+    padding: 0;
+}
+
+.ep-about p.ep-about-copy {
+    color: #38524B;
+    line-height: 1.7;
+    margin: 0;
+    max-width: 850px;
+}
+
+/* Home-page About dropdown */
+.st-key-home_about details {
+    background: #FFFFFF;
+    border: 1px solid #C8DDD5;
+    border-radius: 12px;
+}
+
+.st-key-home_about summary {
+    color: #164B40;
+    padding: 0.8rem 1rem;
+}
+
+.st-key-home_about summary:hover {
+    background: #F3F8F6;
+    border-radius: 12px;
+}
+
+@media (prefers-reduced-motion: reduce) {
     .st-key-home_primary button,
     .st-key-home_secondary button {
         transition: none;
@@ -360,8 +481,6 @@ def render_home():
 
 
 
-        </style>
-
 
 <section class="ep-hero">
     <h1 class="ep-title">Energy Path</h1>
@@ -379,16 +498,45 @@ def render_home():
         unsafe_allow_html=True,
     )
 
-    c1, c2, c3 = st.columns([1, 2, 1])
-    with c2:
-        if st.button("Find My Next Step", type="primary", use_container_width=True):
-            st.session_state.screen = "questionnaire"
-            st.rerun()
-        st.write("")
-        if st.button("Explore Upgrade Payback", key="home_open_payback", use_container_width=True):
-            st.session_state.screen = "simulator"
-            st.rerun()
-        st.caption("Already have a cost and savings estimate? Explore a what-if scenario.")
+  
+   left_space, button_area, right_space = st.columns([1, 3, 1])
+
+    with button_area:
+        primary_col, secondary_col = st.columns(2)
+
+        with primary_col:
+            with st.container(key="home_primary"):
+                if st.button(
+                    "Find My Next Step →",
+                    key="home_find_next_step",
+                    type="primary",
+                    use_container_width=False,
+                ):
+                    st.session_state.screen = "questionnaire"
+                    st.rerun()
+
+        with secondary_col:
+            with st.container(key="home_secondary"):
+                if st.button(
+                    "Explore Upgrade Payback",
+                    key="home_open_payback",
+                    use_container_width=False,
+                ):
+                    st.session_state.screen = "simulator"
+                    st.rerun()
+
+    st.markdown(
+        '<p class="ep-button-note">'
+        'Start with your concern, or explore payback using '
+        'a project cost and savings estimate.'
+        '</p>',
+        unsafe_allow_html=True,
+    )
+
+
+
+
+
 
     st.markdown('<div style="text-align:center;color:#176B68;font-weight:700;letter-spacing:0.14em;margin:2rem 0 1rem">A PLACE TO BEGIN</div>', unsafe_allow_html=True)
 
