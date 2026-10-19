@@ -423,8 +423,7 @@ def render_home():
 
 
 
-
-       left_space, button_area, right_space = st.columns([1, 2, 1])
+left_space, button_area, right_space = st.columns([1, 2, 1])
 
     with button_area:
         primary_col, secondary_col = st.columns(2, gap="medium")
