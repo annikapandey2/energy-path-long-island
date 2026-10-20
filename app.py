@@ -649,6 +649,28 @@ def render_simulator():
             font-size: 1.25rem;
             font-weight: 600;
         }
+               .ep-payback-supporting {
+            font-family: inherit;
+            color: #344B46;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.6;
+            margin: 0.5rem 0 1rem;
+        }
+
+        .ep-payback-message {
+            font-family: inherit;
+            color: #233F38;
+            font-size: 1rem;
+            font-weight: 500;
+            line-height: 1.6;
+            background: #F3F6F5;
+            border: 1px solid #D5DFDB;
+            border-radius: 10px;
+            padding: 0.9rem 1rem;
+            margin: 0.8rem 0;
+        }
+
         </style>
         """,
         unsafe_allow_html=True,
@@ -859,11 +881,7 @@ def render_simulator():
                     )
                 ]
 
-            if not benchmark_mode:
-                st.caption(
-                    "Savings are your assumptions, not predictions. "
-                    "Starting dollar amounts are editable examples."
-                )
+           
 
             years = st.slider(
                 "Years to explore",
@@ -905,30 +923,21 @@ def render_simulator():
         else "Your results"
     )
 
-    if saved_benchmark:
-        basis_note = (
-            "Guided example · 11% benchmark applied to "
-            f"${result['annual_spending']:,.2f}/year "
-            "in home-energy spending."
-        )
-    else:
-        basis_note = (
-            "Your entered estimates · Assumed savings, "
-            "not a prediction."
-        )
-
     st.markdown(
-        '<p class="ep-payback-result-note">'
-        f"{escape(basis_note)} "
+        '<p class="ep-payback-supporting">'
         f"Results cover {saved_years} years."
         "</p>",
         unsafe_allow_html=True,
     )
 
-    st.caption(
+    st.markdown(
+        '<p class="ep-payback-supporting">'
         "Showing your last submitted scenario. "
         "After changing inputs or modes, submit again to update."
+        "</p>",
+        unsafe_allow_html=True,
     )
+
 
     calculated = []
 
@@ -1010,11 +1019,16 @@ def render_simulator():
                         "With zero savings, the upfront "
                         "cost is not recovered."
                     )
+                    
                 elif project["payback"] > total_months:
-                    st.warning(
+                    st.markdown(
+                        '<div class="ep-payback-message">'
                         "Does not break even within "
                         "the selected period."
+                        "</div>",
+                        unsafe_allow_html=True,
                     )
+
 
     crossover_note = None
 
@@ -1022,20 +1036,29 @@ def render_simulator():
         a, b = calculated
         difference = a["net"] - b["net"]
 
-        if abs(difference) < 0.005:
-            st.info(
+        
+       if abs(difference) < 0.005:
+            comparison_message = (
                 "Both options have the same modeled net savings "
                 f"after {saved_years} years."
             )
         else:
             leader = a if difference > 0 else b
-            st.info(
+            comparison_message = (
                 f"{leader['label']} has "
                 f"${abs(difference):,.2f} higher modeled net savings "
                 f"at {saved_years} years. "
                 "This compares assumptions—not overall suitability "
                 "or guaranteed performance."
             )
+
+        st.markdown(
+            '<div class="ep-payback-message">'
+            f"{escape(comparison_message)}"
+            "</div>",
+            unsafe_allow_html=True,
+        )
+
 
         savings_difference = (
             a["monthly_savings"] - b["monthly_savings"]
