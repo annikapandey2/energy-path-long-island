@@ -55,23 +55,27 @@
     "requires_equipment_control": true
   },
 
-  {
-    "id": "equipment_permission_next_step",
-    "title": "Check who can approve equipment changes",
-    "description": "Write down which equipment is involved, what the problem is, and when it happens. If you need approval, share these notes with the owner or property manager. If you do not know who makes these decisions, ask before planning any work.",
-    "concerns": [
-      "Heating or cooling",
-      "Water use or water heating",
-      "Appliances or high electricity use"
-    ],
-    "change_levels": ["Bigger long-term updates"],
-    "requires_equipment_control": false,
-    "allowed_equipment_control": [
-      "Only with landlord or property-manager approval",
-      "No, I cannot authorize equipment changes",
-      "I am not sure"
-    ]
-  },
+ {
+  "id": "equipment_permission_next_step",
+  "title": "Check who can approve equipment changes",
+  "description": "Write down which equipment is involved, what the problem is, and when it happens. If you need approval, share these notes with the owner or property manager. If you do not know who makes these decisions, ask before planning any work.",
+  "concerns": [
+    "Heating or cooling",
+    "Water use or water heating",
+    "Appliances or high electricity use"
+  ],
+  "change_levels": [
+    "Bigger long-term updates"
+  ],
+  "requires_equipment_control": false,
+  "allowed_equipment_control": [
+    "Only with landlord or property-manager approval",
+    "No, I cannot authorize equipment changes",
+    "I am not sure"
+  ],
+  "reason": "You indicated that equipment changes need someone else's approval, cannot be authorized by you, or have unclear permissions. Identifying the decision-maker is a practical step before planning a replacement."
+},
+
     {
     "id": "draft_upgrade_planning",
     "title": "Plan an assessment before choosing comfort upgrades",
