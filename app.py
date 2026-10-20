@@ -655,8 +655,8 @@ def render_simulator():
     )
 
     "← Back to home",
-        key="payback_back_home",
-        type="secondary",
+    key="payback_back_home",
+    type="secondary",
     ):
         st.session_state.screen = "home"
         st.rerun()
