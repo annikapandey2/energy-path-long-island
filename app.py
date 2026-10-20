@@ -1208,7 +1208,7 @@ def render_questionnaire():
         )
 
 
-   if build_plan:
+    if build_plan:
         if main_concern is None:
             st.warning("Choose your main concern first.")
             st.stop()
