@@ -570,7 +570,7 @@ def render_home():
 def render_simulator():
     top_bar()
 
-    colors = ["#008F87", "#7950D6"]
+    colors = ["#008F87", "#1675C5"]
 
     st.markdown(
         """
