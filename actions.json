@@ -27,15 +27,15 @@
   {
     "id": "water_habits",
     "title": "Review water-use habits",
-    "description": "Review shower length, laundry settings, and whether you run full dishwasher or washing-machine loads. Separate changes to your habits from changes to installed equipment.",
+    "description": "Review shower length, laundry settings, and whether you run full dishwasher or washing-machine loads. Look at how long you shower, which laundry settings you use, and whether you run full dishwasher or wahing-machine loads. Take note of what you can chane yourslef and what would require permission.",
     "concerns": ["Water use or water heating"],
     "change_levels": ["Easy changes I can do now"],
     "requires_equipment_control": false
   },
   {
     "id": "appliance_review",
-    "title": "Identify the appliances behind your concern",
-    "description": "List the appliances you use most and their available energy-saving settings. Note which appliances belong to you and which belong to the property owner.",
+    "title": "Take a closer look at your appliances",
+    "description": "List the appliances you use most and check their energy-saving settings. Note which ones belong to you and which belong to the property owner.",
     "concerns": ["Appliances or high electricity use"],
     "change_levels": ["Easy changes I can do now"],
     "requires_equipment_control": false
@@ -57,8 +57,8 @@
 
   {
     "id": "equipment_permission_next_step",
-    "title": "Clarify equipment authority and prepare your concern summary",
-    "description": "Record the equipment involved, the problem you want to solve, and when it occurs. If changes require approval, use this summary to start a discussion with the property owner or manager. If you are unsure who can authorize changes, clarify that before planning equipment work.",
+    "title": "Check who can approve equipment changes",
+    "description": "Write down which equipment is involves, what the problem is, and when it happens. If you need approval, share these notes with the owner or property manager. If you do not know who makes these decisions, ask before planning any work."
     "concerns": [
       "Heating or cooling",
       "Water use or water heating",
@@ -99,11 +99,7 @@
   {
     "id": "program_search_preparation",
     "title": "Get ready to explore energy programs",
-    "description": "Have your location, utility provider, and rent/own status ready. Describe the issue you want to address. Before buying equipment or scheduling work, check the program's requirements and who needs to apply or approve changes.",
-    "concerns": [
-      "Drafts or rooms that feel too hot or cold",
-      "Heating or cooling",
-      "Lighting and electronics",
+    "description": "Have your location, utility provider, and whether you rent or own ready when you review programs. Be ready to explain the problem you want to address. Before buying equipment or scheduling work, check who needs to apply, what approval is needed, and the program's requirements."
       "Water use or water heating",
       "Appliances or high electricity use"
     ],
