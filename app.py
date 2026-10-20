@@ -1266,7 +1266,7 @@ def render_questionnaire():
         st.button("Start a New Plan", type="secondary", use_container_width=True, on_click=reset_energy_plan)
 
     # Load actions and match
-   try:
+    try:
         actions = load_json(ACTIONS_PATH)
     except Exception as error:
         st.error(
