@@ -898,6 +898,8 @@ def render_simulator():
         )
 
     if run:
+        with st.spinner("Preparing your payback graph...."):
+            time.sleep(2)
         st.session_state["payback_comparison_result"] = {
             "mode": mode,
             "projects": projects,
