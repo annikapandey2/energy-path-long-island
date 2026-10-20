@@ -532,26 +532,37 @@ def render_home():
         unsafe_allow_html=True,
     )
 
-    with st.container(key="home_about"):
+ 
+   with st.container(key="home_about"):
         with st.expander("About Energy Path"):
-            st.markdown("#### Built for a practical first step")
+            st.markdown("#### Why I created it")
             st.write(
-                "Energy Path is a student-built prototype for "
-                "renters and homeowners in Nassau and Suffolk "
-                "counties on Long Island."
+                "I created Energy Path to give Long Island renters "
+                "and homeowners a clearer place to start with "
+                "home-energy questions. I wanted to bring practical "
+                "next steps and official resources together, rather "
+                "than leave people with another list of links."
+            )
+
+            st.markdown("#### What I wanted to do differently")
+            st.write(
+                "Not everyone can replace equipment or approve "
+                "changes to their home. I wanted the guidance to "
+                "account for that—not assume that every user owns "
+                "their home or can make those decisions."
             )
             st.write(
-                "Answer a few questions to explore a starting "
-                "action and relevant official resources. Or use "
-                "the separate payback calculator to compare a "
-                "project cost with assumed savings."
+                "I also included a separate payback calculator "
+                "so you can explore how a project cost compares "
+                "with assumed savings over time."
             )
 
             st.markdown("#### What to keep in mind")
             st.write(
-                "Resource coverage is limited. Matches do not "
-                "confirm rebate eligibility, replace a home-energy "
-                "assessment, or guarantee energy or cost savings."
+                "Energy Path is a student-built prototype, and "
+                "its resource list is limited. It does not confirm "
+                "rebate eligibility, replace a home-energy "
+                "assessment, or guarantee savings."
             )
 
 
