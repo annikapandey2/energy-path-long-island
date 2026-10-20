@@ -565,132 +565,462 @@ def render_home():
 
 
 
+
 def render_simulator():
     top_bar()
-  
+
     st.title("Explore Upgrade Payback")
-    if st.button("←Back to home", key="payback_back_home"):
+
+    if st.button(
+        "← Back to home",
+        key="payback_back_home",
+        type="secondary",
+    ):
         st.session_state.screen = "home"
         st.rerun()
-    st.write("Explore how an upgrade's upfront cost compares with its assumed energy savings over time.")
-    st.caption("Start with a guided example, or enter savings from your own project estimate.")
+
+    st.write(
+        "Explore how upfront costs and assumed savings "
+        "compare over time."
+    )
+
+    benchmark_label = "Explore an air-sealing + insulation example"
+    source_url = (
+        "https://www.energystar.gov/"
+        "saveathome/seal_insulate/methodology"
+    )
 
     mode = st.radio(
         "Choose your starting point",
-        ["Explore an air-sealing + insulation example", "My own estimate"],
+        [benchmark_label, "My own estimate"],
         key="payback_mode",
     )
 
-    benchmark_mode = mode == "Explore an air-sealing + insulation example"
+    benchmark_mode = mode == benchmark_label
+    compare = False
 
     if benchmark_mode:
-        st.subheader("Air sealing + insulation")
-        st.info("This example uses ENERGY STAR's estimated national average savings of 11% on total home-energy costs from combined air sealing and insulation. Actual savings vary by home.")
-        st.markdown("[View the official ENERGY STAR methodology](https://www.energystar.gov/saveathome/seal_insulate/methodology)")
-
-    else:
-        st.info("Use a savings estimate from an assessment, contractor, or your own hypothetical scenario. Energy Path calculates payback from your inputs; it does not independently predict the savings.")
-
-    with st.form("payback_scenario_form"):
-        upfront_cost = st.number_input("Upfront project cost you would pay ($)", min_value=0.0, max_value=1000000.0, value=1500.0, step=50.0, format="%.2f", key="payback_project_cost", help=("Replace the example with your project estimate or quote. Do not subtract unconfirmed rebates or tax credits. In benchmark mode, the cost should cover the combined air-sealing and insulation work being explored."))
-
-        if benchmark_mode:
-            annual_energy_spending = st.number_input("Total annual home-energy spending ($/year)", min_value=0.0, max_value=1000000.0, value=3000.0, step=100.0, format="%.2f", key="payback_annual_energy_spending", help=("Add a full year of electricity and any natural gas, heating oil, propane, or other home-energy costs. Include each fuel once. Do not include water, internet, or vehicle fuel."))
-            st.caption("Calculation: annual home-energy spending × 11% ÷ 12 = assumed average monthly savings.")
-            monthly_savings = annual_energy_spending * 0.11 / 12
-        else:
-            monthly_savings = st.number_input("Assumed monthly savings ($)", min_value=0.0, max_value=100000.0, value=20.0, step=5.0, format="%.2f", key="payback_own_monthly_savings", help=("Enter your own estimate. This value is not supplied or verified by Energy Path."))
-
-        years = st.slider("Years to explore", min_value=1, max_value=30, value=5, key="payback_horizon")
-        submitted = st.form_submit_button("Run my scenario", type="primary")
-
-    if submitted:
-        st.session_state.payback_scenario = {"upfront_cost": float(upfront_cost), "monthly_savings": float(monthly_savings), "years": int(years), "mode": mode, "annual_energy_spending": float(annual_energy_spending) if benchmark_mode else None}
-
-    scenario = st.session_state.get("payback_scenario")
-    if scenario is None:
-        st.caption("Enter your estimates, then select 'Run my scenario' to see the results.")
-        return
-
-    cost = scenario["upfront_cost"]
-    savings = scenario["monthly_savings"]
-    horizon_years = scenario["years"]
-
-    total_months = horizon_years * 12
-    annual_savings = savings * 12
-    net_savings = savings * total_months - cost
-
-    st.subheader("Your scenario results")
-    result_mode = scenario.get("mode", "My own estimate")
-    st.write(f"Scenario basis: {result_mode}")
-
-    if result_mode == "Explore an air-sealing + insulation example":
-        annual_spending = scenario["annual_energy_spending"]
-        st.caption("Savings assumption: ENERGY STAR's 11% national modeled benchmark for combined air sealing and insulation, applied to " f"${annual_spending:,.2f} in annual home-energy spending.")
-        st.markdown("[Benchmark source: ENERGY STAR](https://www.energystar.gov/saveathome/seal_insulate/methodology)")
-    else:
-        st.caption("Savings assumption: the monthly amount you entered—not an official benchmark.")
-
-    st.caption("Results reflect your last submitted scenario: " f"${cost:,.2f} upfront, {savings:,.2f} saved per month, over {horizon_years} years. If you change the inputs, select 'Run my scenario' again.")
-
-    if cost == 0:
-        payback_months = 0.0
-        payback_label = "No upfront cost"
-    elif savings == 0:
-        payback_months = None
-        payback_label = "No payback"
-    else:
-        payback_months = cost / savings
-        payback_label = f"{payback_months / 12:,.1f} years" if payback_months >= 12 else f"{payback_months:,.1f} months"
-
-    metric1, metric2, metric3 = st.columns(3)
-    metric1.metric("Simple payback", payback_label)
-    metric2.metric("Assumed annual savings", f"${annual_savings:,.2f}")
-    metric3.metric(f"Net savings after {horizon_years} years", f"${net_savings:,.2f}")
-
-    if cost == 0:
-        st.info("You entered no upfront cost, so there is no initial investment to recover.")
-    elif savings == 0:
-        st.warning("With no monthly savings, this scenario does not recover its upfront cost.")
-    elif payback_months > total_months:
-        st.warning(
-            f"This scenario does not recover its upfront cost within the selected {horizon_years} years. At the same monthly savings, simple payback would take {payback_months:,.1f} months ({payback_months/12:,.1f} years)."
+        st.info(
+            "This guided example applies ENERGY STAR's "
+            "11% national modeled savings benchmark for combined "
+            "air sealing and insulation to your annual home-energy "
+            "spending. It is not a home-specific prediction."
+        )
+        st.markdown(
+            f"[View the ENERGY STAR methodology]({source_url})"
         )
     else:
-        st.success(f"Under these assumptions, savings recover the upfront cost after {payback_months:,.1f} months ({payback_months/12:,.1f} years).")
+        st.caption(
+            "Use estimates for the same home and a comparable scope "
+            "of work. Savings are your assumptions—not predictions "
+            "made by Energy Path."
+        )
+        compare = st.checkbox(
+            "Compare two project estimates",
+            key="payback_compare_enabled",
+        )
 
-    months = list(range(total_months + 1))
-    if payback_months is not None and 0 < payback_months <= total_months and payback_months not in months:
-        months = sorted(months + [payback_months])
+    def project_inputs(label, prefix, default_cost, default_savings):
+        st.subheader(label)
 
-    balances = [savings * month - cost for month in months]
+        cost = st.number_input(
+            "Upfront cost you would pay ($)",
+            min_value=0.0,
+            max_value=1000000.0,
+            value=default_cost,
+            step=50.0,
+            format="%.2f",
+            key=f"{prefix}_cost",
+            help=(
+                "Use a quote or hypothetical amount. "
+                "Do not subtract unconfirmed rebates or tax credits."
+            ),
+        )
+
+        savings = st.number_input(
+            "Assumed monthly savings ($)",
+            min_value=0.0,
+            max_value=100000.0,
+            value=default_savings,
+            step=5.0,
+            format="%.2f",
+            key=f"{prefix}_savings",
+            help=(
+                "Use a project estimate or a hypothetical scenario. "
+                "Energy Path does not verify this amount."
+            ),
+        )
+
+        return {
+            "label": label,
+            "cost": float(cost),
+            "monthly_savings": float(savings),
+        }
+
+    with st.form("payback_comparison_form"):
+        annual_spending = None
+
+        if benchmark_mode:
+            st.subheader("Air sealing + insulation")
+
+            cost = st.number_input(
+                "Upfront project cost you would pay ($)",
+                min_value=0.0,
+                max_value=1000000.0,
+                value=1500.0,
+                step=50.0,
+                format="%.2f",
+                key="payback_project_cost",
+                help=(
+                    "Use the combined cost of the air-sealing "
+                    "and insulation work. The starting amount "
+                    "is an example, not a researched typical cost."
+                ),
+            )
+
+            annual_spending = st.number_input(
+                "Total annual home-energy spending ($/year)",
+                min_value=0.0,
+                max_value=1000000.0,
+                value=3000.0,
+                step=100.0,
+                format="%.2f",
+                key="payback_annual_energy_spending",
+                help=(
+                    "Include a full year of electricity and other "
+                    "home-energy fuels, each counted once. "
+                    "Exclude water, internet, and vehicle fuel."
+                ),
+            )
+
+            projects = [{
+                "label": "Air sealing + insulation",
+                "cost": float(cost),
+                "monthly_savings": float(
+                    annual_spending * 0.11 / 12
+                ),
+            }]
+
+            st.caption(
+                "Assumed monthly savings = "
+                "annual home-energy spending × 11% ÷ 12."
+            )
+
+        elif compare:
+            col_a, col_b = st.columns(2)
+
+            with col_a:
+                option_a = project_inputs(
+                    "Option A", "payback_a", 1500.0, 25.0
+                )
+
+            with col_b:
+                option_b = project_inputs(
+                    "Option B", "payback_b", 3000.0, 45.0
+                )
+
+            projects = [option_a, option_b]
+
+            st.caption(
+                "Starting amounts are hypothetical examples, "
+                "not quotes or typical project costs."
+            )
+
+        else:
+            projects = [
+                project_inputs(
+                    "Your estimate",
+                    "payback_single",
+                    1500.0,
+                    20.0,
+                )
+            ]
+
+        years = st.slider(
+            "Years to explore",
+            min_value=1,
+            max_value=30,
+            value=5,
+            key="payback_horizon",
+        )
+
+        run = st.form_submit_button(
+            "Compare my scenarios" if compare else "Run my scenario",
+            type="primary",
+            use_container_width=True,
+        )
+
+    if run:
+        st.session_state["payback_comparison_result"] = {
+            "mode": mode,
+            "projects": projects,
+            "years": int(years),
+            "annual_spending": annual_spending,
+        }
+
+    result = st.session_state.get("payback_comparison_result")
+
+    if result is None:
+        st.caption(
+            "Enter your assumptions, then run the scenario "
+            "to see the results."
+        )
+        return
+
+    saved_projects = result["projects"]
+    saved_years = result["years"]
+    total_months = saved_years * 12
+
+    st.divider()
+    st.subheader(
+        "Your comparison"
+        if len(saved_projects) == 2
+        else "Your scenario results"
+    )
+
+    st.caption(
+        f"Last submitted: {result['mode']} · "
+        f"{saved_years}-year horizon. "
+        "After changing inputs or modes, submit again "
+        "to update these results."
+    )
+
+    if result["mode"] == benchmark_label:
+        st.caption(
+            "Savings basis: the 11% national modeled benchmark "
+            "applied to "
+            f"${result['annual_spending']:,.2f} "
+            "in annual home-energy spending."
+        )
+        st.markdown(
+            f"[Benchmark source: ENERGY STAR]({source_url})"
+        )
+    else:
+        st.caption(
+            "Savings basis: user-entered monthly estimates. "
+            "No savings amounts have been independently verified."
+        )
+
+    colors = ["#176B68", "#8B3F95"]
+    calculated = []
+
+    for project in saved_projects:
+        cost = project["cost"]
+        savings = project["monthly_savings"]
+
+        if cost == 0:
+            payback = 0.0
+            payback_label = "No upfront cost"
+        elif savings == 0:
+            payback = None
+            payback_label = "No payback"
+        else:
+            payback = cost / savings
+            payback_label = (
+                f"{payback / 12:,.1f} years"
+                if payback >= 12
+                else f"{payback:,.1f} months"
+            )
+
+        calculated.append({
+            **project,
+            "payback": payback,
+            "payback_label": payback_label,
+            "annual_savings": savings * 12,
+            "net": savings * total_months - cost,
+        })
+
+    result_columns = st.columns(len(calculated))
+
+    for column, project in zip(result_columns, calculated):
+        with column:
+            with st.container(border=True):
+                st.subheader(project["label"])
+                st.caption(
+                    f"${project['cost']:,.2f} upfront · "
+                    f"${project['monthly_savings']:,.2f}/month "
+                    "assumed savings"
+                )
+                st.metric(
+                    "Simple payback",
+                    project["payback_label"],
+                )
+                st.metric(
+                    "Assumed annual savings",
+                    f"${project['annual_savings']:,.2f}",
+                )
+                st.metric(
+                    f"Net savings after {saved_years} years",
+                    f"${project['net']:,.2f}",
+                )
+
+                if project["cost"] == 0:
+                    st.info("No initial cost to recover.")
+                elif project["payback"] is None:
+                    st.warning(
+                        "With zero savings, the upfront "
+                        "cost is not recovered."
+                    )
+                elif project["payback"] > total_months:
+                    st.warning(
+                        "Does not break even within "
+                        "the selected period."
+                    )
+                else:
+                    st.caption(
+                        "Break-even occurs within "
+                        "the selected period."
+                    )
+
+    if len(calculated) == 2:
+        a, b = calculated
+        difference = a["net"] - b["net"]
+
+        if abs(difference) < 0.005:
+            st.info(
+                f"Both options have the same modeled net savings "
+                f"after {saved_years} years."
+            )
+        else:
+            leader = a if difference > 0 else b
+            st.info(
+                f"At {saved_years} years, {leader['label']} has "
+                f"${abs(difference):,.2f} higher modeled net savings. "
+                "This compares entered assumptions—not overall "
+                "suitability or guaranteed performance."
+            )
+
+        savings_difference = (
+            a["monthly_savings"] - b["monthly_savings"]
+        )
+
+        if savings_difference != 0:
+            crossover = (
+                a["cost"] - b["cost"]
+            ) / savings_difference
+
+            if crossover > 0:
+                if crossover <= total_months:
+                    st.caption(
+                        "The options reach equal cumulative net "
+                        f"savings at {crossover:,.1f} months "
+                        f"({crossover / 12:,.1f} years). "
+                        "That is not necessarily either "
+                        "option's break-even point."
+                    )
+                else:
+                    st.caption(
+                        "The options would reach equal cumulative "
+                        f"net savings at {crossover / 12:,.1f} years, "
+                        "beyond the selected period, if the same "
+                        "assumptions continued."
+                    )
 
     fig = go.Figure()
-    fig.add_trace(go.Scatter(x=months, y=balances, mode="lines", name="Savings minus upfront cost", line={"color": "#176B68", "width": 4}, hovertemplate=("Month %{x:.1f}<br>Net savings: $%{y:,.2f}<extra></extra>"),))
-    fig.add_hline(y=0, line_dash="dash", line_color="#64748B", annotation_text="Break-even", annotation_position="top left")
 
-    if payback_months is not None and 0 < payback_months <= total_months:
-        fig.add_trace(go.Scatter(x=[payback_months], y=[0], mode="markers", name="Payback point", marker={"color": "#164B40", "size": 12}, hovertemplate=("Payback: %{x:.1f} months<extra></extra>")))
+    for index, project in enumerate(calculated):
+        months = list(range(total_months + 1))
+        payback = project["payback"]
 
-    fig.update_layout(title="How assumed savings compare with upfront cost", xaxis_title="Months after upgrade", yaxis_title="Cumulative savings minus upfront cost ($)", template="plotly_white", hovermode="x unified", showlegend=False, margin={"l": 20, "r": 20, "t": 70, "b": 30})
+        if payback is not None and 0 < payback <= total_months:
+            months = sorted(set(months + [payback]))
+
+        balances = [
+            project["monthly_savings"] * month - project["cost"]
+            for month in months
+        ]
+
+        fig.add_trace(
+            go.Scatter(
+                x=months,
+                y=balances,
+                mode="lines",
+                name=project["label"],
+                line={
+                    "color": colors[index],
+                    "width": 4,
+                    "dash": "solid" if index == 0 else "dash",
+                },
+                hovertemplate=(
+                    "Month %{x:.1f}<br>"
+                    "Net savings: $%{y:,.2f}"
+                    "<extra>%{fullData.name}</extra>"
+                ),
+            )
+        )
+
+        if payback is not None and 0 < payback <= total_months:
+            fig.add_trace(
+                go.Scatter(
+                    x=[payback],
+                    y=[0],
+                    mode="markers",
+                    name=f"{project['label']} break-even",
+                    marker={
+                        "color": colors[index],
+                        "size": 11,
+                    },
+                    showlegend=False,
+                    hovertemplate=(
+                        "Break-even: %{x:.1f} months"
+                        "<extra>%{fullData.name}</extra>"
+                    ),
+                )
+            )
+
+    fig.add_hline(
+        y=0,
+        line_dash="dot",
+        line_color="#64748B",
+        annotation_text="Zero net savings",
+        annotation_position="top left",
+    )
+
+    fig.update_layout(
+        title="Upfront cost versus accumulated assumed savings",
+        xaxis_title="Months after upgrade",
+        yaxis_title="Cumulative savings minus upfront cost ($)",
+        template="plotly_white",
+        hovermode="x unified",
+        showlegend=len(calculated) == 2,
+        legend={
+            "orientation": "h",
+            "yanchor": "bottom",
+            "y": 1.02,
+            "xanchor": "left",
+            "x": 0,
+        },
+        margin={"l": 20, "r": 20, "t": 100, "b": 30},
+    )
     fig.update_xaxes(range=[0, total_months])
     fig.update_yaxes(tickprefix="$", tickformat=",.0f")
 
-    st.plotly_chart(fig, use_container_width=True, config={"displaylogo": False})
+    st.plotly_chart(
+        fig,
+        use_container_width=True,
+        config={"displaylogo": False},
+    )
 
-    with st.expander("Sources, assumptions & calculation"):
-        st.markdown("#### Where the numbers come from")
-        if result_mode == "Explore an air-sealing + insulation example":
-            st.write("The savings percentage comes from ENERGY STAR's published national modeled benchmark for combined air sealing and insulation. The source link appears above these results. Applying that percentage to your entered spending is an illustration, not a home-specific prediction.")
-        else:
-            st.write("The monthly savings figure is the amount you entered. Energy Path does not verify or independently predict that amount.")
-        st.write("Project cost and the time period are your inputs. Starting dollar amounts are editable examples, not researched typical costs.")
-        st.markdown("#### Formulas and limitations")
-        st.write("Simple payback in months = upfront cost ÷ assumed monthly savings.")
-        st.write("Net savings = assumed monthly savings × number of months − upfront cost.")
-        st.write("The graph begins below zero when there is an upfront cost. It reaches break-even when cumulative savings equal that cost.")
-        st.write("This simplified scenario assumes constant monthly savings. It excludes financing, maintenance, replacements, changing energy prices, inflation, and the time value of money. It does not check equipment life, rebate eligibility, or whether an upgrade is appropriate for your home.")
+    st.caption(
+        "Below zero: savings have not recovered the upfront cost. "
+        "Above zero: assumed savings exceed the upfront cost."
+    )
 
+    with st.expander("Sources, assumptions & calculations"):
+        st.write(
+            "Simple payback in months = upfront cost ÷ "
+            "assumed monthly savings."
+        )
+        st.write(
+            "Cumulative net savings = assumed monthly savings × "
+            "months − upfront cost."
+        )
+        st.write(
+            "In comparison mode, the options are alternatives "
+            "considered separately—not combined projects."
+        )
+        st.write(
+            "The guided example
 
 def render_questionnaire():
     st.markdown(
