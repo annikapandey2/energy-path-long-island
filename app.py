@@ -1266,11 +1266,15 @@ def render_questionnaire():
         st.button("Start a New Plan", type="secondary", use_container_width=True, on_click=reset_energy_plan)
 
     # Load actions and match
-    try:
+   try:
         actions = load_json(ACTIONS_PATH)
-    except Exception:
-        st.error("The action catalog could not be loaded. Check that actions.json is beside app.py and contains valid JSON.")
+    except Exception as error:
+        st.error(
+            f"Action catalog error — "
+            f"{type(error).__name__}: {error}"
+        )
         return
+
 
     matches, excluded = match_actions(actions=actions, concern=main_concern, change_level=change_level, equipment_control=equipment_control)
 
