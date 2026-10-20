@@ -531,8 +531,6 @@ def render_home():
         """,
         unsafe_allow_html=True,
     )
-
- 
    with st.container(key="home_about"):
         with st.expander("About Energy Path"):
             st.markdown("#### Why I created it")
