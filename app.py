@@ -1499,7 +1499,7 @@ def render_questionnaire():
                         unsafe_allow_html=True,
                     )
 
-               if action["requires_equipment_control"]:
+                if action["requires_equipment_control"]:
                     st.caption(
                         "Explore your options first. This is not a "
                         "recommendation to buy or replace equipment."
