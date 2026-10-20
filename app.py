@@ -37,9 +37,9 @@ def reset_energy_plan():
     st.session_state.screen = "home"
 
 
-@st.cache_data
+
 def load_json(path: Path):
-    """Load JSON from path and cache the result."""
+    """Read the current json catalog from disk"""
     with open(path, "r", encoding="utf-8") as f:
         return json.load(f)
 
