@@ -1208,14 +1208,15 @@ def render_questionnaire():
         )
 
 
-    if build_plan:
-        if main_concern is None:
-            st.warning("Choose your main concern first.")
-            st.stop()
+if build_plan:
+    if main_concern is None:
+        st.warning("Choose your main concern first.")
+        st.stop()
 
-        if equipment_control is None:
-            st.warning("Choose an equipment-control answer. If you are unsure, select 'I am not sure'.")
-            st.stop()
+    if equipment_control is None:
+        st.warning("Choose an equipment-control answer. If you are unsure, select 'I am not sure'."
+                  )
+        st.stop()
     with st.spinner("Preparing your energy action plan.."):
         time.sleep(2)
         
