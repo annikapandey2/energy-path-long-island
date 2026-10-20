@@ -592,7 +592,7 @@ def render_simulator():
         .ep-payback-header h1 {
             color: #123D38;
             font-family: inherit;
-            font-size: clamp(1.9rem, 4vw, 2.8rem);
+            font-size: clamp(2.2rem, 4.5vw, 3.2rem);
             font-weight: 650;
             line-height: 1.2;
             margin: 0 0 0.65rem;
