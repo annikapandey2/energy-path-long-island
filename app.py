@@ -654,12 +654,14 @@ def render_simulator():
         unsafe_allow_html=True,
     )
 
-    "← Back to home",
-    key="payback_back_home",
-    type="secondary",
+    if st.button(
+         "← Back to home",
+        key="payback_back_home",
+        type="secondary",
     ):
         st.session_state.screen = "home"
         st.rerun()
+
 
     st.markdown(
         """
