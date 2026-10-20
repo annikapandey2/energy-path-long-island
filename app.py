@@ -737,6 +737,7 @@ def render_simulator():
         with cost_area:
             cost = st.number_input(
                 "Upfront cost you would pay ($)",
+            )
 
 
 def render_questionnaire():
