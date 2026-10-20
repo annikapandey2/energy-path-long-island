@@ -572,26 +572,29 @@ def render_simulator():
 
     colors = ["#008F87", "#7950D6"]
 
-    st.markdown(
+     st.markdown(
         """
         <style>
         .ep-payback-header {
             text-align: center;
             padding: 0.7rem 0 1.6rem;
+            font-family: inherit;
         }
 
         .ep-payback-eyebrow {
             color: #008F87;
             font-size: 0.8rem;
-            font-weight: 750;
-            letter-spacing: 0.12em;
+            font-weight: 600;
+            letter-spacing: 0.05em;
             margin-bottom: 0.5rem;
         }
 
         .ep-payback-header h1 {
             color: #123D38;
+            font-family: inherit;
             font-size: clamp(1.9rem, 4vw, 2.8rem);
-            line-height: 1.15;
+            font-weight: 650;
+            line-height: 1.2;
             margin: 0 0 0.65rem;
             padding: 0;
         }
@@ -603,32 +606,18 @@ def render_simulator():
             margin: 0;
         }
 
-        .ep-payback-section {
-            color: #123D38;
-            font-size: 1.3rem;
-            font-weight: 750;
-            margin: 0.2rem 0 0.8rem;
-        }
-
+        .ep-payback-section,
         .ep-payback-option {
-            border-left: 5px solid;
-            border-radius: 8px;
-            padding: 0.65rem 0.9rem;
-            margin-bottom: 0.9rem;
-            font-size: 1.05rem;
-            font-weight: 750;
-        }
-
-        .ep-payback-option-a {
-            color: #006B65;
-            background: #E4F8F3;
-            border-color: #008F87;
-        }
-
-        .ep-payback-option-b {
-            color: #59349E;
-            background: #F1EBFF;
-            border-color: #7950D6;
+            color: #123D38;
+            font-family: inherit;
+            font-size: 1.25rem;
+            font-weight: 600;
+            line-height: 1.4;
+            background: none;
+            border: none;
+            border-radius: 0;
+            padding: 0;
+            margin: 0.2rem 0 1rem;
         }
 
         .ep-payback-result-note {
@@ -650,15 +639,21 @@ def render_simulator():
         }
 
         .st-key-payback_results_1 {
-            border-top: 4px solid #7950D6 !important;
+            border-top: 4px solid #1675C5 !important;
             border-radius: 14px;
+        }
+
+        .st-key-payback_results_0 h3,
+        .st-key-payback_results_1 h3 {
+            font-family: inherit;
+            font-size: 1.25rem;
+            font-weight: 600;
         }
         </style>
         """,
         unsafe_allow_html=True,
     )
 
-    if st.button(
         "← Back to home",
         key="payback_back_home",
         type="secondary",
