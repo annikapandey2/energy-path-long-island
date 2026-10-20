@@ -153,18 +153,29 @@ def render_home():
     st.markdown(
         """
         <style>
+        /* Home background */
+        .stApp:has(.ep-hero) {
+            background: #103D3B;
+        }
+
+        .stApp:has(.ep-hero) [data-testid="stHeader"] {
+            background: #103D3B;
+        }
+
+        /* Main introduction */
         .ep-hero {
             text-align: center;
-            padding: 2.5rem 1.5rem;
-            margin-bottom: 1.4rem;
+            padding: 2.8rem 1.5rem;
+            margin-bottom: 1.8rem;
             background: #EAF6F1;
-            border: 2px solid #176B68;
-            border-radius: 20px;
+            border: 2px solid #83C6B2;
+            border-radius: 22px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
         }
 
         .ep-hero h1.ep-title {
             color: #083F36;
-            font-family: system-ui, sans-serif;
+            font-family: "Segoe UI", system-ui, sans-serif;
             font-size: clamp(2.6rem, 5vw, 4rem) !important;
             font-weight: 800;
             letter-spacing: -0.04em;
@@ -197,7 +208,8 @@ def render_home():
             text-align: center;
         }
 
-       .st-key-home_primary button,
+        /* Raised action tiles */
+        .st-key-home_primary button,
         .st-key-home_secondary button {
             width: 100%;
             min-height: 150px;
@@ -211,91 +223,89 @@ def render_home():
 
         .st-key-home_primary button p,
         .st-key-home_secondary button p {
-            font-family:
-                "Segoe UI", system-ui, -apple-system,
-                BlinkMacSystemFont, sans-serif;
+            font-family: "Segoe UI", system-ui, sans-serif;
             font-size: clamp(1.15rem, 2vw, 1.4rem);
             font-weight: 700;
             line-height: 1.35;
             letter-spacing: -0.02em;
             text-align: center;
+            color: inherit;
         }
 
         .st-key-home_primary button {
-            background: #176B68;
+            background: #247B72;
             color: #FFFFFF;
-            border: 1px solid #125854;
-            box-shadow: 0 6px 0 #104E4B,
-                        0 10px 20px rgba(23, 107, 104, 0.16);
+            border: 1px solid #79C2AF;
+            box-shadow:
+                0 6px 0 #082F2D,
+                0 12px 22px rgba(0, 0, 0, 0.20);
         }
 
         .st-key-home_secondary button {
             background: #EDF5FC;
             color: #164B40;
             border: 1px solid #BDD4E8;
-            box-shadow: 0 6px 0 #C2D4E2,
-                        0 10px 20px rgba(35, 75, 101, 0.10);
+            box-shadow:
+                0 6px 0 #8EAFC3,
+                0 12px 22px rgba(0, 0, 0, 0.17);
         }
 
         .st-key-home_primary button:hover {
-            background: #125E5B;
+            background: #1B695F;
             color: #FFFFFF;
-            border-color: #104E4B;
+            border-color: #A3D9C9;
             transform: translateY(-2px);
-            box-shadow: 0 8px 0 #104E4B,
-                        0 14px 24px rgba(23, 107, 104, 0.19);
+            box-shadow:
+                0 8px 0 #082F2D,
+                0 16px 26px rgba(0, 0, 0, 0.23);
         }
 
         .st-key-home_secondary button:hover {
-            background: #E3EFF9;
+            background: #DDECF7;
             color: #164B40;
             border-color: #9BBFD9;
             transform: translateY(-2px);
-            box-shadow: 0 8px 0 #C2D4E2,
-                        0 14px 24px rgba(35, 75, 101, 0.14);
+            box-shadow:
+                0 8px 0 #8EAFC3,
+                0 16px 26px rgba(0, 0, 0, 0.20);
         }
 
         .st-key-home_primary button:active,
         .st-key-home_secondary button:active {
             transform: translateY(2px);
-            box-shadow: 0 2px 0 rgba(16, 78, 75, 0.4);
+            box-shadow: 0 2px 0 #082F2D;
+        }
+
+        .st-key-home_primary button:focus-visible,
+        .st-key-home_secondary button:focus-visible {
+            outline: 3px solid #F2D58A;
+            outline-offset: 5px;
         }
 
         .ep-choice-caption {
-            color: #38524B;
+            color: #E1EFEB;
             text-align: center;
             font-size: 0.9rem;
             line-height: 1.5;
-            margin: 0.9rem 0 0;
-        }
-
-
-
-      
-
-        .ep-button-note {
-            color: #526B64;
-            text-align: center;
-            font-size: 0.88rem;
-            line-height: 1.5;
-            max-width: 600px;
-            margin: 0.8rem auto 0;
+            margin: 1rem 0 0;
         }
 
         .ep-section-label {
             text-align: center;
-            color: #176B68;
+            color: #B8E0D2;
             font-size: 0.8rem;
             font-weight: 700;
             letter-spacing: 0.14em;
-            margin: 2rem 0 1rem;
+            margin: 2.3rem 0 1.2rem;
         }
 
+        /* Supporting cards */
         .ep-feature {
             border: 1px solid #B8D6CC;
-            border-radius: 14px;
+            border-radius: 16px;
             padding: 1.4rem;
             min-height: 210px;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.10);
         }
 
         .ep-feature-number {
@@ -334,13 +344,14 @@ def render_home():
             border-color: #ACD3D3;
         }
 
+        /* Why Energy Path */
         .ep-about {
             background: #F3F8F6;
             border: 1px solid #C8DDD5;
-            border-left: 4px solid #176B68;
+            border-left: 5px solid #71BDA5;
             border-radius: 16px;
             padding: 1.5rem;
-            margin: 1.5rem 0 1rem;
+            margin: 1.6rem 0 1rem;
         }
 
         .ep-about .ep-about-kicker {
@@ -364,10 +375,12 @@ def render_home():
             max-width: 850px;
         }
 
+        /* About dropdown */
         .st-key-home_about details {
-            background: #FFFFFF;
-            border: 1px solid #C8DDD5;
-            border-radius: 12px;
+            background: #EAF3EF;
+            border: 1px solid #A8CFC0;
+            border-radius: 14px;
+            color: #164B40;
         }
 
         .st-key-home_about summary {
@@ -376,8 +389,14 @@ def render_home():
         }
 
         .st-key-home_about summary:hover {
-            background: #F3F8F6;
-            border-radius: 12px;
+            background: #DBECE4;
+            border-radius: 14px;
+        }
+
+        .st-key-home_about [data-testid="stMarkdownContainer"],
+        .st-key-home_about [data-testid="stMarkdownContainer"] p,
+        .st-key-home_about [data-testid="stMarkdownContainer"] h4 {
+            color: #164B40;
         }
 
         @media (max-width: 640px) {
@@ -394,11 +413,7 @@ def render_home():
             .st-key-home_primary button,
             .st-key-home_secondary button {
                 transition: none;
-            }
-
-            .st-key-home_primary button:hover,
-            .st-key-home_secondary button:hover {
-                transform: none;
+                transform: none !important;
             }
         }
         </style>
@@ -417,12 +432,6 @@ def render_home():
         """,
         unsafe_allow_html=True,
     )
-
-  
-
-
-
-
 
     left_space, button_area, right_space = st.columns([1, 2, 1])
 
@@ -463,10 +472,6 @@ def render_home():
                 '</p>',
                 unsafe_allow_html=True,
             )
-
-
-
-
 
     st.markdown(
         '<div class="ep-section-label">A PLACE TO BEGIN</div>',
