@@ -30,7 +30,10 @@
       {
         "id": "income_verification",
         "description": "Income-based rebate tiers require the program's income-verification process."
-      }
+      },
+      {
+        "id":"multifamily_preapproval",
+        "description": "For buildings with five or more units, program pre-approval is required before work begins."
     ],
     "eligibility_note": "This resource matches your topic. Your rebate eligibility has not been assessed.",
     "next_step": "Review the official requirements and discuss your project with a participating contractor."
