@@ -27,7 +27,7 @@
   {
     "id": "water_habits",
     "title": "Review water-use habits",
-    "description": "Review shower length, laundry settings, and whether you run full dishwasher or washing-machine loads. Note which habits you can change yourself and which equipment changes would require permission."
+    "description": "Review shower length, laundry settings, and whether you run full dishwasher or washing-machine loads. Note which habits you can change yourself and which equipment changes would require permission.",
     "concerns": ["Water use or water heating"],
     "change_levels": ["Easy changes I can do now"],
     "requires_equipment_control": false
