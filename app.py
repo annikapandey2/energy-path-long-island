@@ -1021,6 +1021,7 @@ def render_simulator():
         )
         st.write(
             "The guided example"
+        )
 
 def render_questionnaire():
     st.markdown(
