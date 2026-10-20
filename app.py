@@ -1208,25 +1208,28 @@ def render_questionnaire():
         )
 
 
-if build_plan:
-    if main_concern is None:
-        st.warning("Choose your main concern first.")
-        st.stop()
+   if build_plan:
+        if main_concern is None:
+            st.warning("Choose your main concern first.")
+            st.stop()
 
-    if equipment_control is None:
-        st.warning("Choose an equipment-control answer. If you are unsure, select 'I am not sure'."
-                  )
-        st.stop()
-    with st.spinner("Preparing your energy action plan.."):
-        time.sleep(2)
-        
-        st.session_state.submitted_plan = {
-            "main_concern": main_concern,
-            "change_level": change_level,
-            "home_status": home_status,
-            "dwelling_units": dwelling_units,
-            "equipment_control": equipment_control,
-        }
+        if equipment_control is None:
+            st.warning(
+                "Choose an equipment-control answer. "
+                "If you are unsure, select 'I am not sure'."
+            )
+            st.stop()
+
+        with st.spinner("Preparing your energy action plan…"):
+            time.sleep(2)
+
+            st.session_state.submitted_plan = {
+                "main_concern": main_concern,
+                "change_level": change_level,
+                "home_status": home_status,
+                "dwelling_units": dwelling_units,
+                "equipment_control": equipment_control,
+            }
 
     submitted_plan = st.session_state.get("submitted_plan")
     if submitted_plan is None:
