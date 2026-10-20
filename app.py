@@ -2255,11 +2255,11 @@ def render_questionnaire():
             "Other guidance, programs, or incentives may be available."
         )
 
-   st.divider()
-   st.subheader("Keep your action plan")
-   st.write(
-        "Save a printable copy of your steps and resources "
-        "to keep or share."
+st.divider()
+st.subheader("Keep your action plan")
+st.write(
+    "Save a printable copy of your steps and resources "
+    "to keep or share."
     )
 
     try:
