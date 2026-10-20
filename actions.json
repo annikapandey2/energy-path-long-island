@@ -58,7 +58,7 @@
   {
     "id": "equipment_permission_next_step",
     "title": "Check who can approve equipment changes",
-    "description": "Write down which equipment is involves, what the problem is, and when it happens. If you need approval, share these notes with the owner or property manager. If you do not know who makes these decisions, ask before planning any work."
+    "description": "Write down which equipment is involves, what the problem is, and when it happens. If you need approval, share these notes with the owner or property manager. If you do not know who makes these decisions, ask before planning any work.",
     "concerns": [
       "Heating or cooling",
       "Water use or water heating",
@@ -99,7 +99,8 @@
   {
     "id": "program_search_preparation",
     "title": "Get ready to explore energy programs",
-    "description": "Have your location, utility provider, and whether you rent or own ready when you review programs. Be ready to explain the problem you want to address. Before buying equipment or scheduling work, check who needs to apply, what approval is needed, and the program's requirements."
+    "description": "Have your location, utility provider, and whether you rent or own ready when you review programs. Be ready to explain the problem you want to address. Before buying equipment or scheduling work, check who needs to apply, what approval is needed, and the program's requirements.",
+    "concerns": [
       "Water use or water heating",
       "Appliances or high electricity use"
     ],
