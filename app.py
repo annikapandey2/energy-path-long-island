@@ -1,4 +1,5 @@
 import json
+import time
 from html import escape
 from pathlib import Path
 
@@ -1215,7 +1216,9 @@ def render_questionnaire():
         if equipment_control is None:
             st.warning("Choose an equipment-control answer. If you are unsure, select 'I am not sure'.")
             st.stop()
-
+    with st.spinner("Preparing your energy action plan.."):
+        time.sleep(2)
+        
         st.session_state.submitted_plan = {
             "main_concern": main_concern,
             "change_level": change_level,
