@@ -1020,7 +1020,7 @@ def render_simulator():
             "considered separately—not combined projects."
         )
         st.write(
-            "The guided example
+            "The guided example"
 
 def render_questionnaire():
     st.markdown(
