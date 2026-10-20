@@ -1509,14 +1509,14 @@ def render_questionnaire():
                     with st.expander("Why this step?"):
                         st.write(action["reason"])
 
-    else:
+   else:
         st.info(
             "No action matches your current selections yet. "
             "Try adjusting your concern or next-step preference."
         )
 
-   matching_programs = []
-   resources_load_failed = False
+    matching_programs = []
+    resources_load_failed = False
 
     try:
         programs = load_json(PROGRAMS_PATH)
@@ -1537,6 +1537,7 @@ def render_questionnaire():
     st.caption(
         "Resources match your current topic—not confirmed eligibility."
     )
+
 
     if matching_programs:
         for program in matching_programs:
