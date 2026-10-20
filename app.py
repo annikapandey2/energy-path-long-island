@@ -1515,7 +1515,8 @@ def render_questionnaire():
             "Try adjusting your concern or next-step preference."
         )
 
-    matching_programs = []
+   matching_programs = []
+   resources_load_failed = False
 
     try:
         programs = load_json(PROGRAMS_PATH)
@@ -1526,6 +1527,7 @@ def render_questionnaire():
             and change_level in program.get("change_levels", [])
         ]
     except Exception:
+        resources_load_failed = True
         st.warning(
             "Helpful resources could not be loaded. "
             "Your action recommendations are still available."
