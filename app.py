@@ -654,7 +654,7 @@ def render_simulator():
         unsafe_allow_html=True,
     )
 
-        "← Back to home",
+    "← Back to home",
         key="payback_back_home",
         type="secondary",
     ):
