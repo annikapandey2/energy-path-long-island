@@ -1653,11 +1653,12 @@ def render_questionnaire():
 
              
 
-    else:
+   elif not resources_load_failed:
         st.info(
             "No matching resource is listed in our current catalog. "
             "Other guidance, programs, or incentives may be available."
         )
+
 
     with st.expander("About this plan & source details"):
         st.markdown("#### How your plan is matched")
