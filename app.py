@@ -1037,7 +1037,7 @@ def render_simulator():
         difference = a["net"] - b["net"]
 
         
-       if abs(difference) < 0.005:
+        if abs(difference) < 0.005:
             comparison_message = (
                 "Both options have the same modeled net savings "
                 f"after {saved_years} years."
