@@ -309,7 +309,7 @@ def render_home():
         }
 
         .ep-feature-number {
-            color: #176B68;
+            color: #10594D;
             font-size: 0.8rem;
             font-weight: 700;
             margin-bottom: 0.7rem;
@@ -324,7 +324,7 @@ def render_home():
         }
 
         .ep-feature p {
-            color: #264D47;
+            color: #123D35;
             line-height: 1.6;
             margin: 0;
         }
@@ -355,7 +355,7 @@ def render_home():
         }
 
         .ep-about .ep-about-kicker {
-            color: #176B68;
+            color: #10594D;
             font-size: 0.75rem;
             font-weight: 700;
             letter-spacing: 0.12em;
@@ -369,7 +369,7 @@ def render_home():
         }
 
         .ep-about .ep-about-copy {
-            color: #38524B;
+            color: #123D35;
             line-height: 1.7;
             margin: 0;
             max-width: 850px;
