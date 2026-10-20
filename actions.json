@@ -27,8 +27,7 @@
   {
     "id": "water_habits",
     "title": "Review water-use habits",
-    "description": "Review shower length, laundry settings, and whether you run full dishwasher or washing-machine loads. Look at how long you shower, which laundry settings you use, and whether you run full dishwasher or wahing-machine loads. Take note of what you can chane yourslef and what would require permission.",
-    "concerns": ["Water use or water heating"],
+    "description": "Review shower length, laundry settings, and whether you run full dishwasher or washing-machine loads. Note which habots you can change yourself and which equipment changes would require permission."
     "change_levels": ["Easy changes I can do now"],
     "requires_equipment_control": false
   },
@@ -58,7 +57,7 @@
   {
     "id": "equipment_permission_next_step",
     "title": "Check who can approve equipment changes",
-    "description": "Write down which equipment is involves, what the problem is, and when it happens. If you need approval, share these notes with the owner or property manager. If you do not know who makes these decisions, ask before planning any work.",
+    "description": "Write down which equipment is involved, what the problem is, and when it happens. If you need approval, share these notes with the owner or property manager. If you do not know who makes these decisions, ask before planning any work.",
     "concerns": [
       "Heating or cooling",
       "Water use or water heating",
