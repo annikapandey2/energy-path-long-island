@@ -1254,6 +1254,363 @@ def render_simulator():
             "of money. It does not check equipment life, rebate "
             "eligibility, or whether an upgrade suits your home."
         )
+def build_action_plan_pdf(
+    plan,
+    actions,
+    programs,
+    resources_load_failed=False,
+):
+    from io import BytesIO
+    from datetime import date
+    from html import escape as pdf_escape
+    from reportlab.lib import colors
+    from reportlab.lib.enums import TA_CENTER
+    from reportlab.lib.pagesizes import letter
+    from reportlab.lib.styles import (
+        getSampleStyleSheet,
+        ParagraphStyle,
+    )
+    from reportlab.platypus import (
+        SimpleDocTemplate,
+        Paragraph,
+        Spacer,
+        HRFlowable,
+    )
+
+    buffer = BytesIO()
+
+    document = SimpleDocTemplate(
+        buffer,
+        pagesize=letter,
+        rightMargin=44,
+        leftMargin=44,
+        topMargin=42,
+        bottomMargin=44,
+        title="My Energy Action Plan",
+        author="Energy Path",
+    )
+
+    styles = getSampleStyleSheet()
+
+    styles.add(ParagraphStyle(
+        name="EPTitle",
+        fontName="Helvetica-Bold",
+        fontSize=23,
+        leading=28,
+        textColor=colors.HexColor("#123D38"),
+        alignment=TA_CENTER,
+        spaceAfter=8,
+    ))
+
+    styles.add(ParagraphStyle(
+        name="EPSubtitle",
+        fontName="Helvetica",
+        fontSize=10,
+        leading=15,
+        textColor=colors.HexColor("#425C58"),
+        alignment=TA_CENTER,
+        spaceAfter=16,
+    ))
+
+    styles.add(ParagraphStyle(
+        name="EPSection",
+        fontName="Helvetica-Bold",
+        fontSize=14,
+        leading=19,
+        textColor=colors.HexColor("#007D76"),
+        spaceBefore=15,
+        spaceAfter=8,
+        keepWithNext=True,
+    ))
+
+    styles.add(ParagraphStyle(
+        name="EPHeading",
+        fontName="Helvetica-Bold",
+        fontSize=11,
+        leading=16,
+        textColor=colors.HexColor("#123D38"),
+        spaceBefore=8,
+        spaceAfter=5,
+        keepWithNext=True,
+    ))
+
+    styles.add(ParagraphStyle(
+        name="EPBody",
+        fontName="Helvetica",
+        fontSize=10,
+        leading=15,
+        textColor=colors.HexColor("#263E38"),
+        spaceAfter=7,
+        splitLongWords=True,
+    ))
+
+    styles.add(ParagraphStyle(
+        name="EPSmall",
+        parent=styles["EPBody"],
+        fontSize=9,
+        leading=13,
+        textColor=colors.HexColor("#425C58"),
+    ))
+
+    story = []
+
+    def safe_text(value):
+        text = str(value)
+        replacements = {
+            "\u2013": "-",
+            "\u2014": "-",
+            "\u2018": "'",
+            "\u2019": "'",
+            "\u201c": '"',
+            "\u201d": '"',
+            "\u2026": "...",
+            "\u2197": "",
+            "\u00a0": " ",
+        }
+        for original, replacement in replacements.items():
+            text = text.replace(original, replacement)
+
+        return pdf_escape(
+            text.encode("ascii", "replace").decode("ascii"),
+            quote=True,
+        )
+
+    def add_text(value, style="EPBody"):
+        story.append(Paragraph(safe_text(value), styles[style]))
+
+    def add_labeled(label, value):
+        story.append(Paragraph(
+            f"<b>{safe_text(label)}:</b> {safe_text(value)}",
+            styles["EPBody"],
+        ))
+
+    def action_content(action):
+        title = action["title"]
+        description = action["description"]
+
+        if action["id"] == "equipment_permission_next_step":
+            permission = plan["equipment_control"]
+
+            if permission == (
+                "Only with landlord or property-manager approval"
+            ):
+                title = "Talk to your landlord or property manager"
+            elif permission == (
+                "No, I cannot authorize equipment changes"
+            ):
+                title = "Find the person who can approve changes"
+            else:
+                title = "Check who can approve changes"
+
+        elif (
+            action["id"] == "draft_check"
+            and plan["change_level"] == "Easy changes I can do now"
+        ):
+            title = "Find your comfort trouble spots"
+            description = (
+                "Note which rooms feel too hot or cold, when it "
+                "happens, and any noticeable drafts around windows "
+                "or doors. Record what you find before deciding "
+                "on property changes."
+            )
+
+        return title, description
+
+    add_text("ENERGY PATH | LONG ISLAND", "EPSubtitle")
+    add_text("My Energy Action Plan", "EPTitle")
+    add_text(
+        f"Prepared {date.today().strftime('%B %d, %Y')} | "
+        "Keep, print, or share your next steps.",
+        "EPSubtitle",
+    )
+
+    story.append(HRFlowable(
+        width="100%",
+        thickness=2,
+        color=colors.HexColor("#008F87"),
+    ))
+
+    add_text("Your starting point", "EPSection")
+
+    profile_fields = [
+        ("Main concern", "main_concern"),
+        ("Preferred next step", "change_level"),
+        ("Rent or own", "home_status"),
+        ("Homes or apartments in building", "dwelling_units"),
+        ("Equipment permission", "equipment_control"),
+    ]
+
+    for label, key in profile_fields:
+        value = plan.get(key)
+        add_labeled(label, value or "Not provided")
+
+    add_text("Your recommended steps", "EPSection")
+
+    if actions:
+        for number, action in enumerate(actions, start=1):
+            title, description = action_content(action)
+
+            add_text(f"{number}. {title}", "EPHeading")
+            add_text(description)
+
+            reason = action.get("reason")
+            if reason:
+                add_labeled("Why this fits", reason)
+
+            if action.get("requires_equipment_control"):
+                add_text(
+                    "Explore options first. This is not a "
+                    "recommendation to buy or replace equipment.",
+                    "EPSmall",
+                )
+    else:
+        add_text(
+            "No action matched this submitted plan. "
+            "This does not mean that no options are available."
+        )
+
+    add_text("Resources to explore", "EPSection")
+
+    if resources_load_failed:
+        add_text(
+            "The resource catalog could not be loaded when this "
+            "PDF was prepared. Your recommended actions are "
+            "included above. Return to Energy Path and try again "
+            "for resource information."
+        )
+
+    elif programs:
+        for program in programs:
+            add_text(program.get("name", "Resource"), "EPHeading")
+            add_labeled("Provider", program.get("provider", ""))
+            add_text(program.get("summary", ""))
+            add_labeled("Next step", program.get("next_step", ""))
+
+            if program.get("id") == (
+                "pseg_li_home_comfort_heat_pumps"
+            ):
+                building = plan.get("dwelling_units")
+
+                if building == "1–4":
+                    category_note = (
+                        "Your answer places your building in the "
+                        "1-4-unit category."
+                    )
+                elif building == "5 or more":
+                    category_note = (
+                        "Your answer places your building in the "
+                        "separate multifamily category. The 1-4-unit "
+                        "screening path does not apply."
+                    )
+                else:
+                    category_note = (
+                        "Confirm the number of homes or apartments "
+                        "to identify the building category to review."
+                    )
+
+                add_text(category_note)
+                add_labeled(
+                    "Reported equipment permission",
+                    plan["equipment_control"],
+                )
+                add_text(
+                    "Building category and equipment permission "
+                    "are separate checks. Neither establishes "
+                    "rebate eligibility.",
+                    "EPSmall",
+                )
+
+            note = program.get("eligibility_note")
+            if note:
+                add_text(note, "EPSmall")
+
+            requirements = program.get(
+                "verified_requirements", []
+            )
+            if requirements:
+                add_text(
+                    "Selected requirements to review "
+                    "(not a complete eligibility checklist):",
+                    "EPSmall",
+                )
+                for requirement in requirements:
+                    description = requirement.get("description")
+                    if description:
+                        add_text(f"- {description}", "EPSmall")
+
+            url = str(program.get("source_url") or "")
+            if url.startswith(("https://", "http://")):
+                story.append(Paragraph(
+                    f'<link href="{safe_text(url)}" '
+                    'color="#006B65">'
+                    "Open official resource"
+                    "</link>",
+                    styles["EPBody"],
+                ))
+                add_text(url, "EPSmall")
+
+            checked = program.get("source_checked_on")
+            if checked:
+                add_text(
+                    f"Catalog source-check date: {checked}",
+                    "EPSmall",
+                )
+
+            story.append(Spacer(1, 6))
+    else:
+        add_text(
+            "No matching resource is listed in the current "
+            "catalog. Other guidance or programs may be available."
+        )
+
+    add_text("My follow-through checklist", "EPSection")
+
+    for item in [
+        "Review my recommended action.",
+        "Confirm who can approve any property or equipment changes.",
+        "Read the relevant official resource requirements.",
+        "Write down questions or contact the appropriate person.",
+        "Record the next step I completed.",
+    ]:
+        add_text(f"[  ] {item}")
+
+    add_text("Notes / person to contact:", "EPHeading")
+    add_text("_" * 70)
+    add_text("_" * 70)
+
+    add_text("Important limits", "EPSection")
+    add_text(
+        "This plan reflects your last submitted answers. "
+        "Resources are topic matches, not confirmed eligibility "
+        "or recommendations to purchase equipment. Programs and "
+        "requirements can change; confirm current details with "
+        "the official provider. Get any required approval before "
+        "property or equipment changes.",
+        "EPSmall",
+    )
+
+    def page_footer(canvas, doc):
+        canvas.saveState()
+        canvas.setFont("Helvetica", 8)
+        canvas.setFillColor(colors.HexColor("#425C58"))
+        canvas.drawString(44, 25, "Energy Path | My Energy Action Plan")
+        canvas.drawRightString(
+            letter[0] - 44,
+            25,
+            f"Page {doc.page}",
+        )
+        canvas.restoreState()
+
+    document.build(
+        story,
+        onFirstPage=page_footer,
+        onLaterPages=page_footer,
+    )
+
+    return buffer.getvalue()
+
+
+
 
 
 def render_questionnaire():
@@ -1897,6 +2254,42 @@ def render_questionnaire():
             "No matching resource is listed in our current catalog. "
             "Other guidance, programs, or incentives may be available."
         )
+
+   st.divider()
+   st.subheader("Keep your action plan")
+   st.write(
+        "Save a printable copy of your steps and resources "
+        "to keep or share."
+    )
+
+    try:
+        plan_pdf = build_action_plan_pdf(
+            plan=submitted_plan,
+            actions=matches,
+            programs=matching_programs,
+            resources_load_failed=resources_load_failed,
+        )
+    except Exception as error:
+        st.warning(
+            "Your plan is still available above, but its PDF "
+            "could not be prepared."
+        )
+        with st.expander("PDF error details"):
+            st.code(f"{type(error).__name__}: {error}")
+    else:
+        st.download_button(
+            label="Download My Action Plan (PDF)",
+            data=plan_pdf,
+            file_name="Energy-Path-My-Action-Plan.pdf",
+            mime="application/pdf",
+            key="download_energy_action_plan",
+        )
+
+
+
+
+
+
 
 
     with st.expander("About this plan & source details"):
