@@ -572,7 +572,7 @@ def render_simulator():
 
     colors = ["#008F87", "#7950D6"]
 
-     st.markdown(
+    st.markdown(
         """
         <style>
         .ep-payback-header {
