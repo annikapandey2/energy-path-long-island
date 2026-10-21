@@ -2329,7 +2329,7 @@ def render_questionnaire():
             ):
                 st.session_state.screen = "simulator"
                 st.rerun()
-   details_col, _ = st.columns([2, 1])
+    details_col, _ = st.columns([2, 1])
 
     with details_col.expander("How this plan works & sources"):
         st.markdown("#### How your plan is matched")
