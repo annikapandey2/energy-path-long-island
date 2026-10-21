@@ -2249,7 +2249,7 @@ def render_questionnaire():
 
              
 
-   elif not resources_load_failed:
+    elif not resources_load_failed:
         st.info(
             "No matching resource is listed in our current catalog. "
             "Other guidance, programs, or incentives may be available."
