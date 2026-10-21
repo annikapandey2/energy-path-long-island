@@ -2377,14 +2377,7 @@ def render_questionnaire():
 
 
 
-    st.divider()
-
-    st.subheader("Explore a potential upgrade")
-    st.write("Have a project cost and savings estimate? See how they compare over time.")
-    if st.button("Explore Upgrade Payback", key="results_open_payback", type="primary"):
-        st.session_state.screen = "simulator"
-        st.rerun()
-
+ 
 
 # --- App routing -----------------------------------------------------------
 screen = st.session_state.get("screen", "home")
