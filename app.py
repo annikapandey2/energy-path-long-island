@@ -2269,14 +2269,14 @@ try:
             programs=matching_programs,
             resources_load_failed=resources_load_failed,
         )
-    except Exception as error:
+except Exception as error:
         st.warning(
             "Your plan is still available above, but its PDF "
             "could not be prepared."
         )
         with st.expander("PDF error details"):
             st.code(f"{type(error).__name__}: {error}")
-    else:
+else:
         st.download_button(
             label="Download My Action Plan (PDF)",
             data=plan_pdf,
