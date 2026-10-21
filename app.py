@@ -2329,10 +2329,9 @@ def render_questionnaire():
             ):
                 st.session_state.screen = "simulator"
                 st.rerun()
-        details_col, _ = st.columns([2, 1])
+   details_col, _ = st.columns([2, 1])
 
-        with details_col.expander("How this plan works & sources"):
-
+    with details_col.expander("How this plan works & sources"):
         st.markdown("#### How your plan is matched")
         st.write(
             "Actions match your concern, preferred next step, and "
@@ -2364,6 +2363,7 @@ def render_questionnaire():
             requirements = program.get("verified_requirements", [])
             if requirements:
                 st.write("Selected requirements to review:")
+
                 for requirement in requirements:
                     description = requirement.get("description", "")
                     if description:
@@ -2373,10 +2373,6 @@ def render_questionnaire():
                     "These are selected requirements, not a complete "
                     "eligibility checklist. Review the official page."
                 )
-
-
-
-
 
 
 
