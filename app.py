@@ -2249,34 +2249,34 @@ def render_questionnaire():
 
              
 
-    elif not resources_load_failed:
+   elif not resources_load_failed:
         st.info(
             "No matching resource is listed in our current catalog. "
             "Other guidance, programs, or incentives may be available."
         )
 
-st.divider()
-st.subheader("Keep your action plan")
-st.write(
-    "Save a printable copy of your steps and resources "
-    "to keep or share."
+    st.divider()
+    st.subheader("Keep your action plan")
+    st.write(
+        "Save a printable copy of your steps and resources "
+        "to keep or share."
     )
 
-try:
+    try:
         plan_pdf = build_action_plan_pdf(
             plan=submitted_plan,
             actions=matches,
             programs=matching_programs,
             resources_load_failed=resources_load_failed,
         )
-except Exception as error:
+    except Exception as error:
         st.warning(
             "Your plan is still available above, but its PDF "
             "could not be prepared."
         )
         with st.expander("PDF error details"):
             st.code(f"{type(error).__name__}: {error}")
-else:
+    else:
         st.download_button(
             label="Download My Action Plan (PDF)",
             data=plan_pdf,
@@ -2284,9 +2284,6 @@ else:
             mime="application/pdf",
             key="download_energy_action_plan",
         )
-
-
-
 
 
 
