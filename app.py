@@ -2255,7 +2255,7 @@ def render_questionnaire():
             "Other guidance, programs, or incentives may be available."
         )
 
-       st.divider()
+    st.divider()
 
     st.markdown(
         """
