@@ -2255,12 +2255,40 @@ def render_questionnaire():
             "Other guidance, programs, or incentives may be available."
         )
 
-    st.divider()
-    st.subheader("Keep your action plan")
-    st.write(
-        "Save a printable copy of your steps and resources "
-        "to keep or share."
+       st.divider()
+
+    st.markdown(
+        """
+        <style>
+        .st-key-plan_action_buttons button {
+            min-height: 3rem;
+            border-radius: 12px;
+            font-weight: 600;
+            transition:
+                transform 0.15s ease,
+                box-shadow 0.15s ease;
+        }
+
+        .st-key-plan_action_buttons button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(18, 61, 56, 0.12);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .st-key-plan_action_buttons button {
+                transition: none;
+            }
+
+            .st-key-plan_action_buttons button:hover {
+                transform: none;
+            }
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
     )
+
+    plan_pdf = None
 
     try:
         plan_pdf = build_action_plan_pdf(
@@ -2276,20 +2304,35 @@ def render_questionnaire():
         )
         with st.expander("PDF error details"):
             st.code(f"{type(error).__name__}: {error}")
-    else:
-        st.download_button(
-            label="Download My Action Plan (PDF)",
-            data=plan_pdf,
-            file_name="Energy-Path-My-Action-Plan.pdf",
-            mime="application/pdf",
-            key="download_energy_action_plan",
-        )
 
+    with st.container(key="plan_action_buttons"):
+        download_col, calculator_col = st.columns(2)
 
+        with download_col:
+            st.download_button(
+                label="Download My Plan · PDF",
+                data=plan_pdf if plan_pdf is not None else b"",
+                file_name="Energy-Path-My-Action-Plan.pdf",
+                mime="application/pdf",
+                key="download_energy_action_plan",
+                type="secondary",
+                use_container_width=True,
+                disabled=plan_pdf is None,
+            )
 
+        with calculator_col:
+            if st.button(
+                "Explore Upgrade Payback →",
+                key="results_open_payback",
+                type="primary",
+                use_container_width=True,
+            ):
+                st.session_state.screen = "simulator"
+                st.rerun()
+        details_col, _ = st.columns([2, 1])
 
+        with details_col.expander("How this plan works & sources"):
 
-    with st.expander("About this plan & source details"):
         st.markdown("#### How your plan is matched")
         st.write(
             "Actions match your concern, preferred next step, and "
