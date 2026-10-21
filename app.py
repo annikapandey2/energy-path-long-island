@@ -2262,7 +2262,7 @@ st.write(
     "to keep or share."
     )
 
-    try:
+try:
         plan_pdf = build_action_plan_pdf(
             plan=submitted_plan,
             actions=matches,
